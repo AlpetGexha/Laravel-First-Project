@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use Livewire\Component;
 
-class CreateNewUser implements CreatesNewUsers
+class CreateNewUser extends Component implements CreatesNewUsers
 {
     use PasswordValidationRules;
 
@@ -24,6 +25,7 @@ class CreateNewUser implements CreatesNewUsers
             'emri' => ['required', 'string', 'max:255'],
             'mbiemri' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
