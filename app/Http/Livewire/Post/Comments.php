@@ -60,9 +60,9 @@ class Comments extends Component
     {
         return view('livewire.post.comments', [
             'comments' => Comment::where('post_id', $this->post->id)
-                
-            ->get(),
-                // 'replies' => CommentReply::where('comment_id',)->get(),
+                ->orderBy('id', 'desc')
+                ->get(),
+            // 'replies' => CommentReply::where('comment_id',)->get(),
         ]);
     }
 
