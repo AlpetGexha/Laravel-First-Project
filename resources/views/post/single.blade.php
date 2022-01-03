@@ -25,6 +25,10 @@
         views : {{ $post->views }},<br>
         U krijoa me : {{ $post->created_at->diffForHumans() }},<br>
     </div>
+    {{-- {{ $comments->id }} --}}
+    <h1>Commnet</h1>
+
+    @livewire('post.comments',['id' => $post->id])
 
     @livewireScripts
 </body>
