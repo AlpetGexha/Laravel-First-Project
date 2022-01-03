@@ -19,6 +19,8 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('title', 255);
             $table->text('body');
+            // $table->binary('photo');
+            $table->string('photo');
             $table->string('tags')->nullable();
             $table->integer('likes')->default(0);
             $table->integer('saves')->default(0);
@@ -29,8 +31,7 @@ class CreatePostsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             // $table->foreign('category_id')->references('id')->on('categories');
             $table->index('category_id');
-            
-         });
+        });
     }
 
     /**

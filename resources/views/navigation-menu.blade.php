@@ -14,6 +14,12 @@
                 <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-jet-nav-link>
+
+                <x-jet-nav-link href="{{ route('create.post') }}" :active="request()->routeIs('create.post')">
+                    {{ __('Krijo Postime') }}
+                </x-jet-nav-link>
+
+                
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -13,6 +13,7 @@ class Post extends Model
         'title',
         'body',
         'tags',
+        'photo',
         'likes',
         'saves',
         'commnets',
@@ -25,8 +26,8 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function category()
+    public function categorys()
     {
-        $this->belongsTo(Category::class);
+        return  $this->belongsTo(Category::class);
     }
 }

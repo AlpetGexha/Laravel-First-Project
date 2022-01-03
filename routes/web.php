@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Post;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
+Route::group(['prefix' => 'post' , 'as' => 'post.'], function () {
+    Route::get('/{post:id}', [postController::class, 'show'])->name('single');
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/post', function () {
+        return view('auth.post');
+    })->name('create.post');
+});

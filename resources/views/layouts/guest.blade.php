@@ -15,8 +15,12 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        @stack('style')
     </head>
+    
     <body class="bg-light font-sans antialiased">
         {{ $slot }}
+        @stack('Script')
     </body>
+
 </html>
