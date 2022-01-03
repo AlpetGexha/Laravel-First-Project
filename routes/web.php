@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => 'post' , 'as' => 'post.'], function () {
-    Route::get('/{post:id}', [postController::class, 'show'])->name('single');
+    Route::get('/{post:title}', [postController::class, 'show'])->name('single');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
