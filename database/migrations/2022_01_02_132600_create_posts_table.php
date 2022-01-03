@@ -22,9 +22,9 @@ class CreatePostsTable extends Migration
             // $table->binary('photo');
             $table->string('photo');
             $table->string('tags')->nullable();
-            $table->integer('likes')->default(0);
-            $table->integer('saves')->default(0);
-            $table->integer('commnets')->default(0);
+            // $table->integer('likes')->default(0);
+            // $table->integer('saves')->default(0);
+            // $table->integer('commnets')->default(0);
             $table->integer('views')->default(0);
             $table->timestamps();
 
