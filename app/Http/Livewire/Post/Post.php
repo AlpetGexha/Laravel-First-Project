@@ -7,13 +7,14 @@ use Livewire\Component;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\WithFileUploads;
+use phpDocumentor\Reflection\Types\This;
 
 class Post extends Component
 {
     use AuthorizesRequests;
     use WithFileUploads;
 
-    public $Titulli, $Teksti, $Foto;
+    public $Titulli, $Teksti, $Foto, $ViewCount;
 
     protected $rules = [
         'Titulli' => 'required|min:3|max:255',
@@ -27,6 +28,7 @@ class Post extends Component
         $this->Teksti = '';
         $this->Foto = '';
     }
+
 
     public function store()
     {

@@ -23,7 +23,6 @@
         saves : {{ $post->saves }},<br>
         commnets : {{ $post->commnets }},<br>
         views : {{ $post->views }},<br>
-        views : {{ $post->views }},<br>
         U krijoa me : {{ $post->created_at->diffForHumans() }},<br>
     </div>
     {{-- {{ $comments->id }} --}}

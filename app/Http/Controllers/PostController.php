@@ -9,6 +9,7 @@ class PostController extends Controller
 {
     public function show(Post $post)
     {
+        $post->update(['views' => $post->views + 1]);
         return view('post.single', compact('post'));
     }
 }

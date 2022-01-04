@@ -8,8 +8,7 @@
     Photo : {{ $post->photo }},<br>
     likes : {{ $post->likes }},<br>
     saves : {{ $post->saves }},<br>
-    commnets : {{ $post->commnets }},<br>
-    views : {{ $post->views }},<br>
+    commnets : {{ $post->comments()->count() }},<br>
     views : {{ $post->views }},<br>
     U krijoa me : {{ $post->created_at->diffForHumans() }},<br>
     <a href="{{ route('post.single', $post) }}">Lexo me shume</a>
