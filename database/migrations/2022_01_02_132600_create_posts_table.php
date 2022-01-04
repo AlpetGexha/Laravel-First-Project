@@ -28,7 +28,7 @@ class CreatePostsTable extends Migration
             $table->integer('views')->default(0);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             // $table->foreign('category_id')->references('id')->on('categories');
             $table->index('category_id');
         });

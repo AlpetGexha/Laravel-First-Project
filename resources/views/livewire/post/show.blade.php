@@ -7,7 +7,7 @@
     Category : {{ $post->category_id }},<br>
     Photo : {{ $post->photo }},<br>
     Likes : {{ $post->likes()->count() }},<br>
-    saves : {{ $post->saves }},<br>
+    saves : {{ $post->saves()->count()}},<br>
     commnets : {{ $post->comments()->count() }},<br>
     views : {{ $post->views }},<br>
     U krijoa me : {{ $post->created_at->diffForHumans() }},<br>

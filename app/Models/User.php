@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne(UserProfile::class);
+        return $this->hasMany(UserProfile::class);
     }
 
     public function role()
@@ -79,5 +79,10 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->hasMany(PostLikes::class);
+    }
+
+    public function saves()
+    {
+        return $this->hasMany(PostSaves::class);
     }
 }

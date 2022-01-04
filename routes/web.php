@@ -21,16 +21,25 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix' => 'post' , 'as' => 'post.'], function () {
+Route::get('/{user:username}', [postController::class, 'showUser'])->name('user.show');
+
+Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
     Route::get('/{post:title}', [postController::class, 'show'])->name('single');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 
-    Route::get('/post', function () {
-        return view('auth.post');
-    })->name('create.post');
+Route::group(['prefix' => 'admin'], function () {
+    Route::middleware(['auth:sanctum', 'verified',])->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+
+        Route::get('/post', function () {
+            return view('auth.post');
+        })->name('create.post');
+
+        Route::get('/saves', function () {
+            return view('auth.post.saves');
+        })->name('saves.post');
+    });
 });
