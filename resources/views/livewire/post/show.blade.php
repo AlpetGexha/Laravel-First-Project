@@ -6,7 +6,7 @@
     {{-- Category : {{ $post->categorys->category }},<br> --}}
     Category : {{ $post->category_id }},<br>
     Photo : {{ $post->photo }},<br>
-    likes : {{ $post->likes }},<br>
+    Likes : {{ $post->likes()->count() }},<br>
     saves : {{ $post->saves }},<br>
     commnets : {{ $post->comments()->count() }},<br>
     views : {{ $post->views }},<br>
