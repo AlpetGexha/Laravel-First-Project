@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use PhpParser\Node\Expr\FuncCall;
 
 class User extends Authenticatable
 {
@@ -84,5 +85,10 @@ class User extends Authenticatable
     public function saves()
     {
         return $this->hasMany(PostSaves::class);
+    }
+
+    public function followers()
+    {
+        return $this->hasMany(Follow::class);
     }
 }

@@ -22,4 +22,5 @@
     @else
     <button wire:click="unSave({{$post->id}})" type="submit"><i class="fas fa-thumbs-up pr-3"></i>UnSave</button>
     @endif
+    
 </div>
