@@ -18,6 +18,7 @@ class Post extends Model
         'saves',
         'commnets',
         'views',
+        'category',
         'user_id',
         'category_id',
     ];
@@ -45,5 +46,10 @@ class Post extends Model
     public function saves()
     {
         return $this->hasMany(PostSaves::class);
+    }
+
+    public function category()
+    {
+        return $this->hasMany(PostCategory::class);
     }
 }

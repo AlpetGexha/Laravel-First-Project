@@ -8,25 +8,26 @@ use Livewire\Component;
 class Create extends Component
 {
 
-    public $Kateogira;
+    public $category;
 
     protected $rules = [
-        'Kateogira' => 'required|min:3|max:255',
+        'category' => 'required|min:3|max:255|unique:categories',
     ];
     public function blankFild()
     {
-        $this->Kateogira = '';
+        $this->category = '';
     }
 
     public function store()
     {
-        Category::create([
-            'category' => $this->Kateogira,
-        ]);
-        session()->flash('success', 'Kateogira u krijua me Sukses');
         $this->validate();
-        $this->blankFild();
-        $this->emit('addCategory');
+        if (Category::create([
+            'category' => $this->category,
+        ])) {
+            session()->flash('success', 'Kateogira u krijua me Sukses');
+            $this->blankFild();
+            $this->emit('refreshAll');
+        }
     }
 
 

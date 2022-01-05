@@ -1,4 +1,6 @@
 <div class="card-body">
+    <title>Laravel Livewire Select2 Multiple Example</title>
+
     <form method="POST" action="{{ route('login') }}">
         <x-alert />
         {{-- Title --}}
@@ -19,25 +21,35 @@
             <x-jet-input-error for="Teksti"></x-jet-input-error>
         </div>
 
+        {{-- Kategoria --}}
 
-        {{-- category --}}
-        <div class="mb-3">
-            <x-jet-label value="{{ __('Kategoria') }}" />
-
-            <x-jet-input class="{{ $errors->has('username') ? 'is-invalid' : '' }}" type="text" wire:model='Kategoria'
-                name="username" required />
-            <x-jet-input-error for="username"></x-jet-input-error>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Category</label>
+                <div wire:ignore>
+                    <select id="category-dropdown" class="form-control" name multiple wire:model="category">
+                        @foreach ($categories as $categorie)
+                            <option value="{{ $categorie->category }}">{{ $categorie->category }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @error('category')
+                    {{ $message }}
+                @enderror
+            </div>
         </div>
+
 
         {{-- tags --}}
         <div class="mb-3">
             <x-jet-label value="{{ __('Tagat') }}" />
 
-            <x-jet-input class="{{ $errors->has('username') ? 'is-invalid' : '' }}" type="text" wire:model='Tags'
-                name="username" required />
-            <x-jet-input-error for="username"></x-jet-input-error>
-
+            <x-jet-input class="{{ $errors->has('Tags') ? 'is-invalid' : '' }}" type="text" wire:model=' Tags'
+                name="Tags" required />
+            <x-jet-input-error for="Tags"></x-jet-input-error>
         </div>
+
+
 
         {{-- Photo --}}
         <div class="mb-3">
@@ -57,3 +69,16 @@
         </div>
     </form>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#category-dropdown').select2();
+        $('#category-dropdown').on('change', function(e) {
+            let data = $(this).val();
+            @this.set('category', data);
+        });
+        window.livewire.on('addPosts', () => {
+            $('#category-dropdown').select2();
+        });
+    });
+</script>
