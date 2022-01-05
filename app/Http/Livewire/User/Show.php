@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class Show extends Component
 {
-    public $user, $follow = false;
+    public $user;
 
     public function mount($username, User $user)
     {
@@ -18,23 +18,24 @@ class Show extends Component
 
     public function follow(int $id)
     {
-        Follow::create([
-            //duhet mi ndru
-            'user_id' => $id,
-            'following' => auth()->user()->id,
-        ]);
-
-        session()->flash('success', 'Follow');
-        $this->follow = true;
+        //chekc if user has already followed
+        //make followers systeam
+        $follow = Follow::where('user_id', auth()->user()->id)->where('following', $id)->first();
+        if (!$follow) {
+            Follow::create([
+                'user_id' => auth()->user()->id,
+                'following' => $id
+            ]);
+            session()->flash('success', 'Follow');
+        }
     }
 
     public function unFollow(int $id)
     {
-        $unFollow = Follow::where('following', auth()->user()->id)->where('user_id', $id);
+        $unFollow = Follow::where('user_id', auth()->user()->id)->where('following', $id);
 
         $unFollow->delete();
         session()->flash('success', 'UnFollow');
-        $this->follow = false;
     }
     public function render()
     {

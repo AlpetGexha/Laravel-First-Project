@@ -9,12 +9,14 @@ use Livewire\Component;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\WithFileUploads;
+use User;
 
 class Post extends Component
 {
     use AuthorizesRequests;
     use WithFileUploads;
 
+    public Post $post;
     public $Titulli;
     public $Teksti;
     public $Foto;
@@ -29,7 +31,7 @@ class Post extends Component
         'category' => 'required',
     ];
 
-    
+
     public function mount()
     {
         $this->Kategoria = Category::all();
@@ -51,9 +53,16 @@ class Post extends Component
             'title' => $this->Titulli,
             'body' => $this->Teksti,
             'photo' => $this->Foto->storeAs('img/posts', $this->Foto->hashName()),
-            'category' => json_encode($this->category),
+            // 'category' => json_encode($this->category),
             'user_id' => auth()->user()->id,
         ]);
+        // Per Kateqorinat
+        foreach ($this->category as $category) {
+            PostCategory::create([
+                'post_id' => Posts::latest()->first()->id,
+                'category_id' => $category,
+            ]);
+        }
 
         // PostCategory::create([
         //     'post_id' => Posts::latest()->first()->id,
@@ -69,6 +78,8 @@ class Post extends Component
     {
         $this->validateOnly($field);
     }
+
+   
 
 
     public function render()

@@ -29,7 +29,7 @@
                 <div wire:ignore>
                     <select id="category-dropdown" class="form-control" name multiple wire:model="category">
                         @foreach ($categories as $categorie)
-                            <option value="{{ $categorie->category }}">{{ $categorie->category }}</option>
+                            <option value="{{ $categorie->id }}">{{ $categorie->category }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -3,7 +3,7 @@
         required>
         @foreach ($categories as $categorie)
             {{ $categorie->category }}
-        @endforeach
+        @endforeachfg
     </select> --}}
 
 

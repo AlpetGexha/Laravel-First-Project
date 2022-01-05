@@ -6,10 +6,11 @@ use Livewire\Component;
 use App\Models\Post;
 use App\Models\PostLikes;
 use App\Models\PostSaves;
+use User;
 
 class Single extends Component
 {
-    public  $post, $post_like = false, $post_save = false;
+    public  $post;
 
 
     public function mount(int $id)
@@ -17,21 +18,19 @@ class Single extends Component
         $this->post = Post::where('id', $id)->first();
     }
 
-    public function increment()
-    {
-        // dd('increment');
-
-    }
     public function like(int $id)
     {
         // dd(PostLikes::class);
-        PostLikes::create([
-            'user_id' => auth()->user()->id,
-            'post_id' => $id
-        ]);
 
+        //check if user has already liked the post
+        $like = PostLikes::where('user_id', auth()->user()->id)->where('post_id', $id)->first();
+        if (!$like) {
+            PostLikes::create([
+                'user_id' => auth()->user()->id,
+                'post_id' => $id
+            ]);
+        }
         session()->flash('success', 'Ju e pelqyet');
-        $this->post_like = true;
     }
 
     public function unLike(int $id)
@@ -45,10 +44,14 @@ class Single extends Component
 
     public function save(int $id)
     {
-        PostSaves::create([
-            'user_id' => auth()->user()->id,
-            'post_id' => $id
-        ]);
+        //check if user has already saved the post
+        $save = PostSaves::where('user_id', auth()->user()->id)->where('post_id', $id)->first();
+        if (!$save) {
+            PostSaves::create([
+                'user_id' => auth()->user()->id,
+                'post_id' => $id
+            ]);
+        }
 
         session()->flash('success', 'Ju e ruajt');
         $this->post_save = true;
