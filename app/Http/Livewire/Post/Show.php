@@ -8,8 +8,9 @@ use Livewire\WithPagination;
 
 class Show extends Component
 {
-
     use WithPagination;
+    public $category;
+
     public function render()
     {
         // $post = ; 

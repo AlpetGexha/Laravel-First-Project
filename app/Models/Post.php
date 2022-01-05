@@ -18,7 +18,6 @@ class Post extends Model
         'saves',
         'commnets',
         'views',
-        'category',
         'user_id',
         'category_id',
     ];
@@ -58,7 +57,6 @@ class Post extends Model
     {
         return (bool) $this->saves->where('user_id', $user->id)->count();
     }
-
 
     public function category()
     {

@@ -2,7 +2,8 @@
     <h1>Titulli : {{ $post->title }}</h1>
     User : {{ $post->user->username }},<br>
     Pershkrimi : {{ $post->body }},<br>
-    Category : {{ $post->category_id }},<br>
+    Categorys : <livewire:category.postcategory :id="$post->id">,<br>
+ 
     Photo : <img src="{{ url('storage/app/' . $post->photo) }}" alt="" /> ,<br>
     saves : {{ $post->saves()->count() }},<br>
     Likes : {{ $post->likes()->count() }},<br>

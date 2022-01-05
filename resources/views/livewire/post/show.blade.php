@@ -3,8 +3,7 @@
     Titulli : {{ $post->title }},<br>
     User : {{ $post->user->username }},<br>
     Pershkrimi : {{ Str::limit(($post->body),200, '...') }},<br>
-    {{-- Category : {{ $post->categorys->category }},<br> --}}
-    Category : {{ $post->category_id }},<br>
+    Categorys  <livewire:category.postcategory :id="$post->id">
     Photo : {{ $post->photo }},<br>
     Likes : {{ $post->likes()->count() }},<br>
     saves : {{ $post->saves()->count()}},<br>

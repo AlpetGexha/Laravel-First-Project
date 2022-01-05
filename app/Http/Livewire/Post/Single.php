@@ -6,11 +6,10 @@ use Livewire\Component;
 use App\Models\Post;
 use App\Models\PostLikes;
 use App\Models\PostSaves;
-use User;
 
 class Single extends Component
 {
-    public  $post;
+    public  $post, $category;
 
 
     public function mount(int $id)
