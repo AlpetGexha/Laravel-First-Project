@@ -5,9 +5,9 @@
         <div class="mb-3">
             <x-jet-label value="{{ __('Kateogira') }}" />
 
-            <x-jet-input class="{{ $errors->has('Kateogira') ? 'is-invalid' : '' }}" type="text" wire:model='Kateogira'
-                name="Kateogira" required />
-            <x-jet-input-error for="Kateogira"></x-jet-input-error>
+            <x-jet-input class="{{ $errors->has('category') ? 'is-invalid' : '' }}" type="text" wire:model='category'
+                name="category" required />
+            <x-jet-input-error for="category"></x-jet-input-error>
         </div>
 
         <div class="mb-0">
