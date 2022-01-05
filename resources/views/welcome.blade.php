@@ -19,6 +19,7 @@
             font-family: 'Nunito';
             background: #f7fafc;
         }
+
     </style>
     @livewireStyles
 </head>
@@ -28,25 +29,38 @@
         <div class="col-12">
             <div class="d-flex justify-content-end">
                 @if (Route::has('login'))
-                <div class="">
-                    @auth
-                    <a href="{{ route('dashboard') }}" class="text-muted">Dashboard</a>
-                    @else
-                    <a href="{{ route('login') }}" class="text-muted">Log in</a>
+                    <div class="">
+                        @auth
+                            <a href="{{ route('dashboard') }}" class="text-muted">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="text-muted">Log in</a>
 
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="ms-4 text-muted">Register</a>
-                    @endif
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="ms-4 text-muted">Register</a>
+                            @endif
                     @endif
                 </div>
                 @endif
             </div>
         </div>
-        @livewire('post.show')
-    </div>
+        </div>
+
+        <div class="container fixed-top p-4">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <livewire:post.show>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Kategorit</h3>
+                        <livewire:category.showall>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-    @livewireScripts
-</body>
+        @livewireScripts
+    </body>
 
-</html>
+    </html>

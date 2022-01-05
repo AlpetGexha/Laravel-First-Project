@@ -9,7 +9,6 @@ use Livewire\Component;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\WithFileUploads;
-use User;
 
 class Post extends Component
 {

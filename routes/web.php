@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Post;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +22,15 @@ Route::get('/', function () {
 
 Route::get('/{user:username}', [postController::class, 'showUser'])->name('user.show');
 
+// Postimet
 Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
     Route::get('/{post:title}', [postController::class, 'show'])->name('single');
 });
 
+// Kategorit
+Route::group(['prefix' => 'kategoria', 'as' => 'category.'], function () {
+    Route::get('/{category:category}', [postController::class, 'showCategory'])->name('single');
+});
 
 Route::group(['prefix' => 'admin'], function () {
     Route::middleware(['auth:sanctum', 'verified',])->group(function () {
