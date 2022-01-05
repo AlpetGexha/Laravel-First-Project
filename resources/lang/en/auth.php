@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
+    'failed' => 'Këto të dhëna nuk përputhen me të dhënat tona.',
+    'password' => 'Fjalëkalimi i dhënë është i pasaktë.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

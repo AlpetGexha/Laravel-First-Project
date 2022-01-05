@@ -1,8 +1,8 @@
 <div>
     <h1>Titulli : {{ $post->title }}</h1>
-    User : {{ $post->user->username }},<br>
+    User : <a href="{{ route('user.show', $post->user->username) }}">{{ $post->user->username }}</a>,<br>
     Pershkrimi : {{ $post->body }},<br>
-    Categorys : <livewire:category.postcategory  :id="$post->id">,<br>
+    Categorys : <livewire:category.postcategory :id="$post->id">,<br>
 
         Photo : <img src="{{ url('storage/app/' . $post->photo) }}" alt="" /> ,<br>
         saves : {{ $post->saves()->count() }},<br>
