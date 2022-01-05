@@ -4,26 +4,26 @@
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Add additional security to your account using two factor authentication.') }}
+        {{ __('Shtoni siguri shtesë në llogarinë tuaj duke përdorur two factor authentication.') }}
     </x-slot>
 
     <x-slot name="content">
         <h3 class="h5 font-weight-bold">
             @if ($this->enabled)
-                {{ __('You have enabled two factor authentication.') }}
+                {{ __('Ju keni aktivizuar two factor authentication.') }}
             @else
-                {{ __('You have not enabled two factor authentication.') }}
+                {{ __('Ju nuk keni aktivizuar two factor authentication.') }}
             @endif
         </h3>
 
         <p class="mt-3">
-            {{ __('When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone\'s Google Authenticator application.') }}
+            {{ __('Kur aktivizohet two factor authentication, do t\'ju kërkohet një token i sigurt dhe i restesishëm(random) gjatë vërtetimit. Mund ta rikuperoni këtë token nga aplikacioni Google Authenticator i telefonit tuaj..') }}
         </p>
 
         @if ($this->enabled)
             @if ($showingQrCode)
                 <p class="mt-3">
-                    {{ __('Two factor authentication is now enabled. Scan the following QR code using your phone\'s authenticator application.') }}
+                    {{ __('Two factor authentication tani është aktivizuar. Skanoni kodin QR të mëposhtëm duke përdorur aplikacionin e authenticator të telefonit tuaj..') }}
                 </p>
 
                 <div class="mt-3">
@@ -33,7 +33,7 @@
 
             @if ($showingRecoveryCodes)
                 <p class="mt-3">
-                    {{ __('Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.') }}
+                    {{ __('Ruani këto kode rikuperimi në një menaxher të sigurt fjalëkalimesh. Ato mund të përdoren për të rikuperuar aksesin në llogarinë tuaj nëse pajisja juaj two factor authentication humbet.') }}
                 </p>
 
                 <div class="bg-light rounded p-3">
@@ -45,42 +45,45 @@
         @endif
 
         <div class="mt-3">
-            @if (! $this->enabled)
+            @if (!$this->enabled)
                 <x-jet-confirms-password wire:then="enableTwoFactorAuthentication">
                     <x-jet-button type="button" wire:loading.attr="disabled">
-                        {{ __('Enable') }}
+                        {{ __('Aktivizo') }}
                     </x-jet-button>
                 </x-jet-confirms-password>
             @else
                 @if ($showingRecoveryCodes)
                     <x-jet-confirms-password wire:then="regenerateRecoveryCodes">
                         <x-jet-secondary-button class="me-3">
-                            <div wire:loading wire:target="regenerateRecoveryCodes" class="spinner-border spinner-border-sm" role="status">
+                            <div wire:loading wire:target="regenerateRecoveryCodes"
+                                class="spinner-border spinner-border-sm" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
 
-                            {{ __('Regenerate Recovery Codes') }}
+                            {{ __('Rigjeneroni Kodet e Rikuperimit') }}
                         </x-jet-secondary-button>
                     </x-jet-confirms-password>
                 @else
                     <x-jet-confirms-password wire:then="showRecoveryCodes">
                         <x-jet-secondary-button class="me-3">
-                            <div wire:loading wire:target="showRecoveryCodes" class="spinner-border spinner-border-sm" role="status">
+                            <div wire:loading wire:target="showRecoveryCodes" class="spinner-border spinner-border-sm"
+                                role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
 
-                            {{ __('Show Recovery Codes') }}
+                            {{ __('Shfaq Kodet e Rikuperimit') }}
                         </x-jet-secondary-button>
                     </x-jet-confirms-password>
                 @endif
 
                 <x-jet-confirms-password wire:then="disableTwoFactorAuthentication">
                     <x-jet-danger-button wire:loading.attr="disabled">
-                        <div wire:loading wire:target="disableTwoFactorAuthentication" class="spinner-border spinner-border-sm" role="status">
+                        <div wire:loading wire:target="disableTwoFactorAuthentication"
+                            class="spinner-border spinner-border-sm" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
 
-                        {{ __('Disable') }}
+                        {{ __('Çaktivizo') }}
                     </x-jet-danger-button>
                 </x-jet-confirms-password>
             @endif

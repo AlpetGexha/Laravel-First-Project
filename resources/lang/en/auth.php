@@ -15,6 +15,6 @@ return [
 
     'failed' => 'Këto të dhëna nuk përputhen me të dhënat tona.',
     'password' => 'Fjalëkalimi i dhënë është i pasaktë.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'throttle' => 'Shumë përpjekje për hyrje. Ju lutemi provoni përsëri brenda :seconds sekonda.',
 
 ];

@@ -1,16 +1,16 @@
 <x-jet-form-section submit="updateProfileInformation">
     <x-slot name="title">
-        {{ __('Profile Information') }}
+        {{ __('Informacioni i Profilit') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
+        {{ __('Përditësoni informacionin e profilit të llogarisë suaj.') }}
     </x-slot>
 
     <x-slot name="form">
 
         <x-jet-action-message on="saved">
-            {{ __('Saved.') }}
+            {{ __('Ruaj.') }}
         </x-jet-action-message>
 
         <!-- Profile Photo -->
@@ -18,7 +18,7 @@
             <div class="mb-3" x-data="{photoName: null, photoPreview: null}">
                 <!-- Profile Photo File Input -->
                 <input type="file" hidden wire:model="photo" x-ref="photo" x-on:change="
-                                    photoName = $refs.photo.files[0].emri;
+                                    photoName = $refs.photo.files[0].name;
                                     const reader = new FileReader();
                                     reader.onload = (e) => {
                                         photoPreview = e.target.result;
@@ -26,7 +26,7 @@
                                     reader.readAsDataURL($refs.photo.files[0]);
                             " />
 
-                <x-jet-label for="photo" value="{{ __('Photo') }}" />
+                <x-jet-label for="photo" value="{{ __('Foto') }}" />
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
@@ -39,7 +39,7 @@
                 </div>
 
                 <x-jet-secondary-button class="mt-2 me-2" type="button" x-on:click.prevent="$refs.photo.click()">
-                    {{ __('Select A New Photo') }}
+                    {{ __('Zgjidh një foto të re') }}
                 </x-jet-secondary-button>
 
                 @if ($this->user->profile_photo_path)
@@ -49,7 +49,7 @@
                             <span class="visually-hidden">Loading...</span>
                         </div>
 
-                        {{ __('Remove Photo') }}
+                        {{ __('Hiq Foton') }}
                     </x-jet-secondary-button>
                 @endif
 
@@ -79,9 +79,6 @@
                     </div>
                 </div>
             </div>
-
-
-
 
             <!-- Email -->
             <div class="mb-3">
