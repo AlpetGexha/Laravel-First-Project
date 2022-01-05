@@ -10,7 +10,7 @@
             commnets : {{ $post->comments()->count() }},<br>
             views : {{ $post->views }},<br>
             U krijoa me : {{ $post->created_at->diffForHumans() }},<br>
-            <a href="{{ route('post.single', $post) }}">Lexo me shume</a>
+            <a href="{{ route('post.single', $post->slug) }}">Lexo me shume</a>
 
         @empty
             <div class="alert alert-info">

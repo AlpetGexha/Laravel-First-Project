@@ -8,6 +8,7 @@ use App\Models\PostCategory;
 use Livewire\Component;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 
 class Post extends Component
@@ -54,6 +55,7 @@ class Post extends Component
             'photo' => $this->Foto->storeAs('img/posts', $this->Foto->hashName()),
             // 'category' => json_encode($this->category),
             'user_id' => auth()->user()->id,
+            'slug' => Str::slug($this->Titulli, '-'),
         ]);
         // Per Kateqorinat
         foreach ($this->category as $category) {
@@ -78,7 +80,7 @@ class Post extends Component
         $this->validateOnly($field);
     }
 
-   
+
 
 
     public function render()

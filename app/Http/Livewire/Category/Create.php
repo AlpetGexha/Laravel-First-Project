@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Category;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Create extends Component
@@ -23,6 +24,7 @@ class Create extends Component
         $this->validate();
         if (Category::create([
             'category' => $this->category,
+            'slug' => Str::slug($this->category, '-'),
         ])) {
             session()->flash('success', 'Kateogira u krijua me Sukses');
             $this->blankFild();

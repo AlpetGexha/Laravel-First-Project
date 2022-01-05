@@ -24,12 +24,12 @@ Route::get('/{user:username}', [postController::class, 'showUser'])->name('user.
 
 // Postimet
 Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
-    Route::get('/{post:title}', [postController::class, 'show'])->name('single');
+    Route::get('/{post:slug}', [postController::class, 'show'])->name('single');
 });
 
 // Kategorit
 Route::group(['prefix' => 'kategoria', 'as' => 'category.'], function () {
-    Route::get('/{category:category}', [postController::class, 'showCategory'])->name('single');
+    Route::get('/{category:slug}', [postController::class, 'showCategory'])->name('single');
 });
 
 Route::group(['prefix' => 'admin'], function () {

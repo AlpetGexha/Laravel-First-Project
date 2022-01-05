@@ -13,6 +13,7 @@ class Post extends Model
         'title',
         'body',
         'tags',
+        'slug',
         'photo',
         'likes',
         'saves',
