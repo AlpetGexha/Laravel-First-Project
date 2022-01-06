@@ -62,7 +62,7 @@
 
         <div class="mb-0">
             <div class="d-flex justify-content-end align-items-baseline">
-                <x-jet-button wire:click.prevent='store()'>
+                <x-jet-button wire:click.prevent='store()' wire:loading.attr='disabled'>
                     {{ __('Posto') }}
                 </x-jet-button>
             </div>

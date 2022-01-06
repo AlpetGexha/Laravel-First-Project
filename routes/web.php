@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('ballina');
 
 
 Route::get('/{user:username}', [postController::class, 'showUser'])->name('user.show');
@@ -38,9 +38,14 @@ Route::group(['prefix' => 'admin'], function () {
             return view('dashboard');
         })->name('dashboard');
 
-        Route::get('/post', function () {
+        Route::get('/createpost', function () {
             return view('auth.post');
         })->name('create.post');
+
+        Route::get('/post', function () {
+            return view('auth.post.show');
+        })->name('show.post');
+
 
         Route::get('/saves', function () {
             return view('auth.post.saves');
