@@ -15,9 +15,9 @@
                         <div class="mb-3">
                             <x-jet-label value="{{ __('Emri') }}" />
 
-                            <x-jet-input class="{{ $errors->has('emri') ? 'is-invalid' : '' }}" type="text" name="emri"
-                                :value="old('emri')" required autofocus autocomplete="emri" />
-                            <x-jet-input-error for="emri"></x-jet-input-error>
+                            <x-jet-input class="{{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
+                                :value="old('name')" required autofocus autocomplete="name" />
+                            <x-jet-input-error for="name"></x-jet-input-error>
                         </div>
                     </div>
                     <div class="col-md-6">

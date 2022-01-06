@@ -44,6 +44,19 @@ class Comments extends Component
         $this->blankFild();
     }
 
+    public function deleteCommnet($id)
+    {
+        if (auth()->user()->id == $this->post->user_id) {
+            $this->post->comments()->where('id', $id)->delete();
+        }
+    }
+    public  function editComment($id)
+    {
+        if (auth()->user()->id == $this->post->user_id) {
+            $this->post->comments()->where('id', $id)->update(['body' => $this->Komenti]);
+            $this->blankFild();
+        }
+    }
     /*
     public function addReply($ids)
     {

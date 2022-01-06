@@ -1,4 +1,5 @@
 <div class="mt-3 card bg-light">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <h1> {{ $comments->count() }} {{ $comments->count() == 1 ? 'Koment' : 'Komente' }}</h1>
     <form action="">
         {{-- Title --}}
@@ -32,7 +33,27 @@
 
         <div class="card bg-light mb-1">
             <div class="card-body">
-                <!-- Single comment-->
+                {{-- <button>Edit</button> --}}
+
+                {{-- check this user post --}}
+
+
+
+                @if ($comment->post->user_id == Auth::user()->id || $comment->user_id == Auth::user()->id)
+                @if ($comment->user_id == Auth::user()->id)
+                        <button wire:click.prevent='deleteCommnet({{ $comment->id }})'>Delete</button>
+                    @endif
+                    <button wire:click.prevent='editComment({{ $comment->id }})'>Edit</button>
+                @endif
+
+                {{-- <div x-data="{ open: false }">
+                    <button @click="open = ! open">Edit</button>
+
+                    <div x-show="open" @click.outside="open = false"><input type="text"></div>
+                </div> --}}
+
+
+                {{-- Single comment --}}
                 <div class="d-flex">
                     <div class="flex-shrink-0">
                         <img class="rounded-circle" src="{{ $comment->user->profile_photo_url }}"

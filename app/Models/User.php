@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'emri',
+        'name',
         'mbiemri',
         'username',
         'email',

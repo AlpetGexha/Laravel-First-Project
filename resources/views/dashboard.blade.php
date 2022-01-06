@@ -5,5 +5,5 @@
         </h2>
     </x-slot>
 
-    <x-jet-welcome />
+   test
 </x-app-layout>

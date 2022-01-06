@@ -23,7 +23,7 @@ class CreateNewUser extends Component implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'emri' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'mbiemri' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
@@ -32,7 +32,7 @@ class CreateNewUser extends Component implements CreatesNewUsers
         ])->validate();
 
         return User::create([
-            'emri' => $input['emri'],
+            'name' => $input['name'],
             'mbiemri' => $input['mbiemri'],
             'username' => $input['username'],
             'email' => $input['email'],
