@@ -7,7 +7,8 @@
                 <div class="row g-0 bg-light container-layout">
                     <h1 class="mt-0">{{ $post->title }}</h1>
                     <div class="col-md-6 mb-md-0 p-md-4">
-                        <img src="{{ $post->photo }}" class="w-100 " alt="{{ $post->title }}">
+                        {{-- <img src="{{ $post->photo }}" class="w-100 " alt="{{ $post->title }}"> --}}
+                        <img src="https://picsum.photos/200/150/?random" class="w-100 " alt="{{ $post->title }}">
                     </div>
 
                     <div class="col-md-6 p-4 ps-md-0 ">

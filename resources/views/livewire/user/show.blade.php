@@ -11,6 +11,7 @@
     <img src="{{ $user->profile_photo_url }}" class="rounded-circle" height="80px" width="80px">
 
 
+
     <br>
     {{-- @if (auth()->user()->id == $user->id)
     Edit
