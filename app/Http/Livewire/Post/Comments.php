@@ -12,27 +12,25 @@ class Comments extends Component
     public $post,
         $Komenti = [],
         $user_id,
-        $Repley = [],
-        $comment_id,
-        $commnet_count,
+        // $Repley = [],
+        // $comment_id,
         $per_page = 7;
 
     protected $rules = [
-        'Komenti' => 'required|min:3',
-        'Repley' => 'required|min:3',
+        'Komenti' => 'required|min:3|max:1000',
+        // 'Repley' => 'required|min:3',
     ];
 
     public function blankFild()
     {
         $this->Komenti = '';
-        $this->Repley = '';
+        // $this->Repley = '';
     }
 
     public function mount($id)
     {
         $this->post = Post::find($id);
         $this->user_id = auth()->user()->id;
-        $this->commnet_count = Comment::where('post_id', $this->post->id)->count();
     }
 
     public function addCommnet()
@@ -46,6 +44,7 @@ class Comments extends Component
         $this->blankFild();
     }
 
+    /*
     public function addReply($ids)
     {
         $this->validate();
@@ -56,6 +55,7 @@ class Comments extends Component
         ]);
         $this->blankFild();
     }
+*/
 
     public function loadMore()
     {

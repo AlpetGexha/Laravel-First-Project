@@ -1,10 +1,9 @@
-<div>
-    <h1> {{ $commnet_count }} {{ $commnet_count == 1 ? 'Koment' : 'Komente' }}</h1>
+<div class="mt-3 card bg-light">
+    <h1> {{ $comments->count() }} {{ $comments->count() == 1 ? 'Koment' : 'Komente' }}</h1>
     <form action="">
         {{-- Title --}}
         <div class="mb-3">
             <x-jet-label value="{{ __('Comment') }}" />
-
             <x-jet-input class="{{ $errors->has('Komenti') ? 'is-invalid' : '' }}" type="text" wire:model='Komenti'
                 name="Komenti" required />
             <x-jet-input-error for="Komenti"></x-jet-input-error>
@@ -35,17 +34,21 @@
             <div class="card-body">
                 <!-- Single comment-->
                 <div class="d-flex">
-                    <div class="flex-shrink-0"><img class="rounded-circle"
-                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                    <div class="flex-shrink-0">
+                        <img class="rounded-circle" src="{{ $comment->user->profile_photo_url }}"
+                            style="width: 50px; height:50px;" alt="{{ $comment->user->username }}">
+                    </div>
                     <div class="ms-3">
                         <div class="fw-bold">{{ $comment->user->username }}</div>
                         <p>{{ $comment->body }}</p>
                     </div>
-                    <div class="d-flex justify-content-end">
-                        <span class="text-muted text-sm">{{ $comment->created_at->diffForHumans() }}</span>
-                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    {{-- <span class="ms-3">*</span> --}}
+                    <span class="text-muted text-sm ms-3"> {{ $comment->created_at->diffForHumans() }}</span>
                 </div>
             </div>
+
         </div>
 
     @empty

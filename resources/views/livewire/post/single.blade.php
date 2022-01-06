@@ -18,14 +18,14 @@
             @endif
 
         @endif
-        <div class="single_post  card shadow-sm bg-light">
+        <div class="single_post p-2 card shadow-sm bg-light">
             <div class="single_post_info">
                 <img src="https://picsum.photos/200/150/?random" class="img-fluid" alt="image not available"
                     style="width:900px;height:380px" loading="lazy">
                 <div class="single_post_info_show">
                     <ul>
                         <li>
-                            <a href="user.php?id=17 ">
+                            <a href="">
                                 <i class="far fa-eye fa-x2"></i>{{ $post->views }}
                                 <i class="far fa-thumbs-up"></i>{{ $post->likes()->count() }}
                                 <i class="far fa-bookmark"></i>{{ $post->saves()->count() }}
@@ -39,6 +39,6 @@
             </div>
             <h1>{{ $post->title }}</h1>
 
-            <p class="p-2"> {{ $post->body }} </p>
+            <p class="p-1"> {{ $post->body }} </p>
         </div>
 </div>
