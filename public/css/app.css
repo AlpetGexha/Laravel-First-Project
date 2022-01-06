@@ -12348,6 +12348,7 @@ fieldset:disabled .btn {
     font-size: 0.875rem !important;
 }
 
+/************* Sitebar*************/
 .widget-sticky {
     position: -webkit-sticky;
     position: sticky;
@@ -12366,7 +12367,8 @@ fieldset:disabled .btn {
 
 }
 
-/** Blog Post **/
+/************* Main Blog Post*************/
+
 .body-cart-text {
 
     line-height: 1.5;
@@ -12424,4 +12426,140 @@ fieldset:disabled .btn {
     text-align: center;
     padding: 14px;
     font-size: 60px;
+}
+
+/************* Single Post *************/
+.single_post {
+    border-bottom: 2px solid #ddd;
+    border-radius: 3px;
+    padding-bottom: 3em;
+    padding: 2px;
+}
+
+.single_post h1 {
+    font-size: 29.2px;
+    margin: 19.2px 0 16px 0;
+    font-weight: 700;
+    text-align: center;
+}
+
+.single_post p {
+    font-family: 'Open Sans', Arial, sans-serif;
+    margin-bottom: 16px;
+    line-height: 2.3;
+    letter-spacing: 2px;
+
+}
+
+
+.single_post_info {
+    position: relative;
+    overflow: hidden;
+}
+
+.single_post_info_show {
+    width: 100%;
+    background: rgba(14, 15, 16, 0.65);
+    padding: 18px;
+    position: absolute;
+    bottom: 0;
+}
+
+.single_post_info_show ul {
+    list-style-type: none;
+}
+
+
+.single_post_info_show ul li a {
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-right: 99px;
+}
+
+.single_post_info_show ul li i {
+    margin-right: 5px;
+}
+
+.single_post_info_show ul li a:hover {
+    color: #01cd74;
+    opacity: 0.9;
+    text-decoration: none;
+}
+
+
+@media(max-width:640px) {
+
+    .single_post h1 {
+        font-size: 19.6px;
+    }
+
+    h3.tittle {
+        font-size: 34px;
+    }
+
+    .single_post_info_show ul li a {
+        font-size: 0.8em;
+        letter-spacing: 1px;
+    }
+
+}
+
+@media(max-width:430px) {
+    .single_post img {
+        max-height: 300px;
+    }
+
+}
+
+@media(max-width:384px) {
+
+    h3.tittle {
+        font-size: 28.8px;
+    }
+
+    .navbar .nav-item,
+    .navbar .dropdown-menu a {
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media(max-width:330px) {
+    .single_post img {
+        max-height: 250px;
+    }
+
+    h3.tittle {
+        font-size: 25.6px;
+    }
+
+}
+
+
+body a {
+    text-decoration: none;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #777777;
+    line-height: 2em;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
+/* ikonat */
+.far {
+    color: #01cd74;
 }

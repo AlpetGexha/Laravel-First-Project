@@ -14,7 +14,8 @@ class Comments extends Component
         $user_id,
         $Repley = [],
         $comment_id,
-        $commnet_count;
+        $commnet_count,
+        $per_page = 7;
 
     protected $rules = [
         'Komenti' => 'required|min:3',
@@ -56,12 +57,22 @@ class Comments extends Component
         $this->blankFild();
     }
 
+    public function loadMore()
+    {
+        $this->per_page += 5;
+    }
+
+    public function loadLess()
+    {
+        $this->per_page -= 5;
+    }
+
     public function render()
     {
         return view('livewire.post.comments', [
             'comments' => Comment::where('post_id', $this->post->id)
                 ->orderBy('id', 'desc')
-                ->get(),
+                ->paginate($this->per_page),
             // 'replies' => CommentReply::where('comment_id',)->get(),
         ]);
     }

@@ -1,15 +1,4 @@
 <div>
-    <h1>Titulli : {{ $post->title }}</h1>
-    User : <a href="{{ route('user.show', $post->user->username) }}">{{ $post->user->username }}</a>,<br>
-    Pershkrimi : {{ $post->body }},<br>
-    Categorys : <livewire:category.postcategory :id="$post->id">,<br>
-        Photo : <img src="{{ url('storage/app/' . $post->photo) }}" alt="" /> ,<br>
-        saves : {{ $post->saves()->count() }},<br>
-        Likes : {{ $post->likes()->count() }},<br>
-        comments : {{ $post->comments()->count() }},<br>
-        views : {{ $post->views }},<br>
-        U krijoa me : {{ $post->created_at->diffForHumans() }},<br>
-
         @if (auth()->check())
 
             @if (!$post->isLikedByUser(Auth::user()))
@@ -29,4 +18,27 @@
             @endif
 
         @endif
+        <div class="single_post  card shadow-sm bg-light">
+            <div class="single_post_info">
+                <img src="https://picsum.photos/200/150/?random" class="img-fluid" alt="image not available"
+                    style="width:900px;height:380px" loading="lazy">
+                <div class="single_post_info_show">
+                    <ul>
+                        <li>
+                            <a href="user.php?id=17 ">
+                                <i class="far fa-eye fa-x2"></i>{{ $post->views }}
+                                <i class="far fa-thumbs-up"></i>{{ $post->likes()->count() }}
+                                <i class="far fa-bookmark"></i>{{ $post->saves()->count() }}
+                                <i class="far fa-user fa-x2"></i>AlpetG2
+                                <i class="far fa-calendar-alt"></i> {{ $post->created_at->diffForHumans() }}
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <h1>{{ $post->title }}</h1>
+
+            <p class="p-2"> {{ $post->body }} </p>
+        </div>
 </div>

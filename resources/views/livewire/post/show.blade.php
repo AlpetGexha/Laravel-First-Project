@@ -33,15 +33,15 @@
                         <p class="body-cart-text">{{ Str::limit($post->body, 200, '...') }}.</p>
 
                         <div class="d-flex bd-highlight mb-3">
-                            <div class="p-2 bd-highlight"><i class="far fa-eye"></i>{{ $post->views }}</div>
-                            <div class="p-2 bd-highlight"><i
-                                    class="far fa-comment">{{ $post->comments()->count() }}</i>
+                            <div class="p-2 bd-highlight"><i class="far fa-eye">{{ $post->views }}</i></div>
+                            <div class="p-2 bd-highlight">
+                                <i class="far fa-comment">{{ $post->comments()->count() }}</i>
                             </div>
                             <div class="p-2 bd-highlight"><i
-                                    class="far fa-thumbs-up"></i>{{ $post->likes()->count() }}
+                                    class="far fa-thumbs-up">{{ $post->likes()->count() }}</i>
                             </div>
                             <div class="p-2 bd-highlight"><i
-                                    class="far fa-bookmark"></i>{{ $post->saves()->count() }}
+                                    class="far fa-bookmark">{{ $post->saves()->count() }}</i>
                             </div>
                             <div class="ms-auto p-2 bd-highlight"><a class="btn btn-outline-success"
                                     href="{{ route('post.single', $post->slug) }}">Lexo me shume</a>
