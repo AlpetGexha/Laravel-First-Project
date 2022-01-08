@@ -50,7 +50,7 @@ class Post extends Component
     {
         $this->validate();
         Posts::create([
-            'title' => $this->Titulli,
+            'title' => Str::title($this->Titulli),
             'body' => $this->Teksti,
             'photo' => $this->Foto->storeAs('img/posts', $this->Foto->hashName()),
             // 'category' => json_encode($this->category),
