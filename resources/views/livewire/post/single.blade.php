@@ -11,10 +11,10 @@
         @endif
 
         @if (!$post->isSavedByUser(Auth::user()))
-            <button class="btn btn-outline-dark" wire:click="save({{ $post->id }})" type="submit"><i
+            <button class="btn btn-outline-dark" wire:click.prevent="save({{ $post->id }})" type="submit"><i
                     class="far fa-bookmark"></i>&nbsp; Save</button>
         @else
-            <button class="btn btn-outline-dark" wire:click="unSave({{ $post->id }})" type="submit"><i
+            <button class="btn btn-outline-dark" wire:click.prevent="unSave({{ $post->id }})" type="submit"><i
                     class="fas fa-bookmark"></i>&nbsp; UnSave</button>
         @endif
 

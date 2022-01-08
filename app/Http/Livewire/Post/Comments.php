@@ -32,7 +32,6 @@ class Comments extends Component
     public function mount($id)
     {
         $this->post = Post::find($id);
-        $this->user_id = auth()->user()->id;
     }
 
     public function addCommnet()
@@ -40,7 +39,7 @@ class Comments extends Component
         $this->validate();
         Comment::create([
             'body' => $this->Komenti,
-            'user_id' => $this->user_id,
+            'user_id' => auth()->user()->id,
             'post_id' =>   $this->post->id,
         ]);
         $this->blankFild();
