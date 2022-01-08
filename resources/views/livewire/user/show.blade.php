@@ -5,7 +5,6 @@
 
     <br>
 
-
     <div class="user-profile">
 
         <div class="container m-auto mt-5 d-flex justify-content-center">

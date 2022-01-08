@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 use Livewire\Component;
@@ -32,9 +33,9 @@ class CreateNewUser extends Component implements CreatesNewUsers
         ])->validate();
 
         return User::create([
-            'name' => $input['name'],
-            'mbiemri' => $input['mbiemri'],
-            'username' => $input['username'],
+            'name' => Str::replace(' ', '', Str::ucfirst($input['name'])),
+            'mbiemri' => Str::replace(' ', '', Str::ucfirst($input['mbiemri'])),
+            'username' => Str::replace(' ', '',  Str::lower($input['username'])),
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
