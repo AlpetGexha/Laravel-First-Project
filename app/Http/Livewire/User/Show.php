@@ -13,18 +13,17 @@ class Show extends Component
     public function mount($username, User $user)
     {
         $this->user = User::where('username', $username)->first();
-        $this->status = Follow::where('following', $user->id)->first();
     }
 
     public function follow(int $id)
     {
-        //chekc if user has already followed
-        //make followers systeam
-        $follow = Follow::where('user_id', auth()->user()->id)->where('following', $id)->first();
+        //check if user is already following
+        $follow = Follow::where('following', auth()->id())->where('user_id', $id)->first();
+
         if (!$follow) {
             Follow::create([
-                'user_id' => auth()->user()->id,
-                'following' => $id
+                'following' => auth()->user()->id,
+                'user_id' => $id
             ]);
             session()->flash('success', 'Follow');
         }
@@ -32,7 +31,7 @@ class Show extends Component
 
     public function unFollow(int $id)
     {
-        $unFollow = Follow::where('user_id', auth()->user()->id)->where('following', $id);
+        $unFollow = Follow::where('following', auth()->user()->id)->where('user_id', $id);
 
         $unFollow->delete();
         session()->flash('success', 'UnFollow');

@@ -5,4 +5,6 @@
 
     <livewire:user.show :username="$user->username" />
 
+    {{-- <livewire:post.show :userid="$user->id"> --}}
+
 </x-app-layout>

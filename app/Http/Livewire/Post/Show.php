@@ -9,22 +9,28 @@ use Livewire\WithPagination;
 class Show extends Component
 {
     use WithPagination;
-    public $category;
-public $search;
+    public $post;
+    public $search;
     protected $paginationTheme = 'bootstrap';
     public $queryString = [
         'page' => ['except' => 1],
         'search' => ['except' => '', 'as' => 'q'],
-
     ];
 
+    // public function mount(int $userid = null)
+    // {
+    //     if (!is_null($userid)) {
+    //         $this->post =  Post::where('user_id', $userid)->get();
+    //     } else {
+    //         //
+    //         $this->post  =  Post::where('title', 'like', '%' . $this->search . '%')->paginate(2);
+    //     }
+    // }
 
     public function render()
     {
-        // $post = ; 
-        return view('livewire.post.show', [
-            'posts'  => Post::where('title', 'like', '%' . $this->search . '%')
-                ->paginate(10),
+        return view('livewire.post.show', [ 
+            'posts' =>  Post::where('title', 'like', '%' . $this->search . '%')->orderBy('id', 'desc')->paginate(2),
         ]);
     }
 }

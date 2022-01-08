@@ -8,7 +8,7 @@
     <div class="user-profile">
 
         <div class="container m-auto mt-5 d-flex justify-content-center">
-            <div class="card p-3 ">
+            <div class="card shadow bg-light p-3 ">
                 <div class="media d-flex align-items-center">
                     {{-- <img src="assets/img/user/AlpetGBlogUser.60c38af32e7f04.43411620.jpg " class="rounded-circle" width="155"> --}}
                     <img src="{{ $user->profile_photo_url }}" class="rounded-circle" height="155" width="155">
@@ -18,10 +18,20 @@
                             <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
                                 <div class="d-flex flex-column"> <span class="articles">Postime</span> <span class="number">{{ $user->post()->count() }}</span> </div>
                                 <div class="d-flex flex-column"> <span class="articles">Ndjek</span> <span class="number">#</span> </div>
-                                <div class="d-flex flex-column"> <span class="articles">Ndjekës</span> <span class="number">#</span> </div>
+                                <div class="d-flex flex-column"> <span class="articles">Ndjekës</span> <span class="number">{{ $user->followers()->count() }}</span> </div>
                             </div>
                 
-                            <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button> <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button> </div> 
+                            <div class="button mt-2 d-flex flex-row align-items-center"> 
+                                @if (auth()->user()->id == $user->id)
+                                <a class="btn btn-sm btn-outline-success w-100 ml-2" href="{{ url('/user/profile') }}">Edit</a>
+                                @elseif ($user->isFollow(auth()->user()))
+                                    <button class="btn btn-sm btn-outline-success w-100 ml-2" wire:loading.attr='disabled' wire:click="unFollow({{$user->id}})" type="submit">UnFollow</button>
+                                @else
+                                    <button class="btn btn-sm btn-success w-100 ml-2" wire:loading.attr='disabled' wire:click="follow({{$user->id}})" type="submit">Follow</button>
+                                @endif 
+                                &nbsp;  <button class="btn btn-sm btn-outline-success w-100">Chat</button> 
+
+                             </div> 
                         </div>
                     </div>
                 </div>
@@ -38,19 +48,17 @@
     @endif --}}
 
     {{-- {{ $user->followers()->user_id }} --}}
-    @if (auth()->check() && auth()->user()->id != $user->id)
-        @if (!$user->isFollowing(Auth::user()))
-            <button wire:click.prevent="follow({{ $user->id }})" type="submit"><i
-                    class="far fa-thumbs-up pr-3"></i>Follow</button>
-        @else
-            <button wire:click.prevent="unFollow({{ $user->id }})" type="submit"><i
-                    class="fas fa-thumbs-up pr-3"></i>UnFollow</button>
-        @endif
-    @endif
+    
+{{-- chek if user have follow this user --}}
+{{-- {{ dd($user->followers()) }} --}}
 
+
+
+{{-- Ceck if user have follow this user --}}
+{{-- 
     @if (auth()->check() && auth()->user()->id == $user->id)
         Edit
-    @endif
+    @endif --}}
 
 
     <h1>Post</h1>
