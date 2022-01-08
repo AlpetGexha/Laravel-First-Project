@@ -2215,6 +2215,7 @@ progress {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
+
 }
 
 @media (max-width: 767.98px) {
@@ -12247,10 +12248,6 @@ fieldset:disabled .btn {
     font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-/*
- * Dropdown Menu Animation for Bootstrap Navbar
- * https://startbootstrap.com/snippets/animated-navbar-dropdown
- */
 @media (min-width: 992px) {
     .animate {
         animation-duration: 0.3s;
@@ -12566,4 +12563,54 @@ p {
 
 .fas {
     color: #01cd74;
+}
+
+/************* Profile *************/
+.user-profile .card {
+    width: 500px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff
+}
+
+.user-profile .stats {
+    background: #f2f5f8 !important;
+    color: #000 !important
+}
+
+.user-profile .articles {
+    font-size: 10px;
+    color: #a1aab9
+}
+
+.user-profile .number {
+    font-weight: 500
+}
+
+.user-profile .card .span_username {
+    color: #777777;
+}
+
+@media(max-width:575.98px) {
+    .col-cart-body .card {
+        width: 16rem;
+        padding-right: 0.10rem;
+        padding-left: 0.10rem;
+    }
+
+    .user-profile .card img {
+        width: 110px;
+        margin: auto;
+    }
+
+    .user-profile .card {
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    .user-profile .media {
+        flex-wrap: wrap;
+        margin: auto;
+    }
 }

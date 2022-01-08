@@ -1,18 +1,35 @@
 <div>
     id: {{ $user->id }} <br>
-    Postime {{ $user->post()->count() }} <br>
-    Ndjekje {{ $user->followers()->count() }} <br>
-    Ndjekës <br>
-    Emri : {{ $user->emri }} <br>
-    mbiemri : {{ $user->mbiemri }}<br>
-    username : {{ $user->username }}<br>
-    email : {{ $user->email }}<br>
     created_at : {{ strftime('%e %B, %Y', strtotime($user->created_at)) }}<br>
-    <img src="{{ $user->profile_photo_url }}" class="rounded-circle" height="80px" width="80px">
-
-
+   
 
     <br>
+
+
+    <div class="user-profile">
+
+        <div class="container m-auto mt-5 d-flex justify-content-center">
+            <div class="card p-3 ">
+                <div class="media d-flex align-items-center">
+                    {{-- <img src="assets/img/user/AlpetGBlogUser.60c38af32e7f04.43411620.jpg " class="rounded-circle" width="155"> --}}
+                    <img src="{{ $user->profile_photo_url }}" class="rounded-circle" height="155" width="155">
+                        <div class="ml-3 w-100">
+                            <h4 class="mb-1 mt-1"> {{ $user->name }} {{ $user->mbiemri }} </h4> <span class="span_username">@</span><span class="span_username">{{ $user->username }}</span>
+
+                            <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                                <div class="d-flex flex-column"> <span class="articles">Postime</span> <span class="number">{{ $user->post()->count() }}</span> </div>
+                                <div class="d-flex flex-column"> <span class="articles">Ndjek</span> <span class="number">#</span> </div>
+                                <div class="d-flex flex-column"> <span class="articles">Ndjekës</span> <span class="number">#</span> </div>
+                            </div>
+                
+                            <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button> <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button> </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     {{-- @if (auth()->user()->id == $user->id)
     Edit
     @elseif ($user->is_follow())

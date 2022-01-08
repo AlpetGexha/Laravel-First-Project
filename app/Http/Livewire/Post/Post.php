@@ -34,11 +34,7 @@ class Post extends Component
 
     public function mount($category_id = null)
     {
-        if (is_null($category_id)) {
-            $this->Kategoria = Category::where('id', $category_id)->get();
-        } else {
-            $this->Kategoria = Category::all();
-        }
+        $this->Kategoria = Category::all();
     }
     public function blankFild()
     {
