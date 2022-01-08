@@ -6,11 +6,13 @@ use Livewire\Component;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\CommentReply;
+use phpDocumentor\Reflection\Types\This;
 
 class Comments extends Component
 {
     public $post,
         $Komenti = [],
+        $editKommeti = [],
         $user_id,
         // $Repley = [],
         // $comment_id,
@@ -44,9 +46,13 @@ class Comments extends Component
         $this->blankFild();
     }
 
+
     public function deleteCommnet($id)
     {
-        if (auth()->user()->id == $this->post->user_id) {
+
+
+        //check if the user is the owner of the comment
+        if (($this->post->user_id == auth()->user()->id) || (auth()->user()->id == $this->post->comments->where('id', $id)->first()->user_id)) {
             $this->post->comments()->where('id', $id)->delete();
         }
     }
@@ -56,6 +62,12 @@ class Comments extends Component
             $this->post->comments()->where('id', $id)->update(['body' => $this->Komenti]);
             $this->blankFild();
         }
+    }
+
+    public function updateCommnet($id)
+    {
+        $commnet = $this->post->comments()->where('id', $id)->first();
+        $this->Komenti = $commnet->body;
     }
     /*
     public function addReply($ids)
@@ -87,6 +99,7 @@ class Comments extends Component
                 ->orderBy('id', 'desc')
                 ->paginate($this->per_page),
             // 'replies' => CommentReply::where('comment_id',)->get(),
+            ''
         ]);
     }
 

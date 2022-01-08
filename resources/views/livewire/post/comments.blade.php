@@ -37,20 +37,26 @@
 
                 {{-- check this user post --}}
 
-
-
                 @if ($comment->post->user_id == Auth::user()->id || $comment->user_id == Auth::user()->id)
-                @if ($comment->user_id == Auth::user()->id)
-                        <button wire:click.prevent='deleteCommnet({{ $comment->id }})'>Delete</button>
+
+                    <button wire:click.prevent='deleteCommnet({{ $comment->id }})'>Delete</button>
+
+                    @if ($comment->user_id == Auth::user()->id)
+                        <div x-data="{ open: false }">
+                            <button @click="open = ! open">Edit</button>
+
+                            <div x-show="open" @click.outside="open = false">
+                                <input type="text">
+                                <button>Edit</button>
+                                {{-- <input wire:model='Komenti' type="text">
+                            <button wire:click.prevent='editComment({{ $comment->id }})'>Edit</button> --}}
+                            </div>
+                        </div>
                     @endif
-                    <button wire:click.prevent='editComment({{ $comment->id }})'>Edit</button>
+
                 @endif
 
-                {{-- <div x-data="{ open: false }">
-                    <button @click="open = ! open">Edit</button>
 
-                    <div x-show="open" @click.outside="open = false"><input type="text"></div>
-                </div> --}}
 
 
                 {{-- Single comment --}}
@@ -83,7 +89,7 @@
                 </button>
             @endif
 
-            @if ($comments->count() >= 12)
+            @if ($comments->count() >= 8)
                 <button class="btn btn-outline-success  btn-sm" wire:click.prevent='loadLess()'>
                     Shiko më pak Komente
                 </button>
