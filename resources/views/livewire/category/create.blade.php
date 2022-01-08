@@ -1,4 +1,4 @@
-<div class="card-body">
+<div class="card-body" >
     <form method="POST" action="{{ route('login') }}">
         <x-alert />
         {{-- Title --}}
@@ -6,7 +6,7 @@
             <x-jet-label value="{{ __('Kateogira') }}" />
 
             <x-jet-input class="{{ $errors->has('category') ? 'is-invalid' : '' }}" type="text" wire:model='category'
-                name="category" required />
+                name="category"  wire:loading.attr='disabled' required />
             <x-jet-input-error for="category"></x-jet-input-error>
         </div>
 

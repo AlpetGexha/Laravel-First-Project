@@ -17,20 +17,17 @@ class Show extends Component
         'search' => ['except' => '', 'as' => 'q'],
     ];
 
-    // public function mount(int $userid = null)
-    // {
-    //     if (!is_null($userid)) {
-    //         $this->post =  Post::where('user_id', $userid)->get();
-    //     } else {
-    //         //
-    //         $this->post  =  Post::where('title', 'like', '%' . $this->search . '%')->paginate(2);
-    //     }
-    // }
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
-        return view('livewire.post.show', [ 
-            'posts' =>  Post::where('title', 'like', '%' . $this->search . '%')->orderBy('id', 'desc')->paginate(2),
+        return view('livewire.post.show', [
+            'posts' =>  Post::where('title', 'like', '%' . $this->search . '%')
+                ->orderBy('id', 'desc')
+                ->paginate(2),
         ]);
     }
 }

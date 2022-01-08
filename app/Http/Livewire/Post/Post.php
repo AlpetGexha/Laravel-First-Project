@@ -32,7 +32,7 @@ class Post extends Component
     ];
 
 
-    public function mount($category_id = null)
+    public function mount()
     {
         $this->Kategoria = Category::all();
     }
