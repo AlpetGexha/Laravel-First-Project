@@ -5,9 +5,7 @@ namespace App\Http\Livewire\Post;
 use Livewire\Component;
 use App\Models\Post;
 use App\Models\Comment;
-use App\Models\CommentReply;
 use Illuminate\Support\Facades\RateLimiter;
-use phpDocumentor\Reflection\Types\This;
 
 class Comments extends Component
 {

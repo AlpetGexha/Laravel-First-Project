@@ -7,18 +7,23 @@ use Livewire\Component;
 
 class Showall extends Component
 {
+public  $per_page = 10;
 
-    public $categories;
+public function loadMore()
+{
+    $this->per_page += 10;
+}
 
-    public function mount()
-    {
-        $this->categories = Category::all();
-    }
+public function loadLess()
+{
+    $this->per_page -= 10;
+}
+
 
     public function render()
     {
         return view('livewire.category.showall', [
-            'categories' => $this->categories
+            'categories' => Category::paginate($this->per_page),
         ]);
     }
 }
