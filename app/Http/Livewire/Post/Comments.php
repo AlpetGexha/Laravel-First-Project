@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Post;
 use Livewire\Component;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\CommentReply;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -15,8 +16,9 @@ class Comments extends Component
         $Komenti = [],
         $editKommeti = [],
         $user_id,
-        // $Repley = [],
-        // $comment_id,
+        $Repley = [],
+        $comment_id,
+        $reply,
         $per_page = 7;
 
     protected $rules = [
@@ -27,12 +29,17 @@ class Comments extends Component
     public function blankFild()
     {
         $this->Komenti = '';
-        // $this->Repley = '';
+        $this->Repley = '';
+    }
+    public function blankFildRepley()
+    {
+        $this->Repley = '';
     }
 
     public function mount($id)
     {
         $this->post = Post::find($id);
+
     }
 
     public function addCommnet()
@@ -77,18 +84,35 @@ class Comments extends Component
         $commnet = $this->post->comments()->where('id', $id)->first();
         $this->Komenti = $commnet->body;
     }
-    /*
+
     public function addReply($ids)
     {
-        $this->validate();
-        CommentReply::create([
-            'comment_id' => $ids,
-            'user_id' => $this->user_id,
-            'body' => $this->Repley,
-        ]);
-        $this->blankFild();
+        $this->comment_id = $ids;
+        $executed = RateLimiter::attempt(
+            'make-reply:' . auth()->user()->id,
+            $perMinute = 2,
+            function () {
+                $this->validate(['Repley' => 'required|min:3|max:1000']);
+                CommentReply::create([
+                    'comment_id' => $this->comment_id,
+                    'user_id' => auth()->user()->id,
+                    'body' => $this->Repley,
+                ]);
+                $this->blankFild();
+            }
+        );
+        if (!$executed) {
+            $seconds = RateLimiter::availableIn('make-reply:' . auth()->user()->id);
+            session()->flash('success', 'U lutem prisni ' . $seconds . ' sekonda para se ta ktheni komentin');
+        }
     }
-*/
+
+    public function deleteReply($id)
+    {
+        if (($this->post->user_id == auth()->user()->id) || (auth()->user()->id == $this->post->comments->where('id', $id)->first()->user_id)) {
+            CommentReply::destroy($id);
+        }
+    }
 
     public function loadMore()
     {
@@ -106,7 +130,6 @@ class Comments extends Component
             'comments' => Comment::where('post_id', $this->post->id)
                 ->orderBy('id', 'desc')
                 ->paginate($this->per_page),
-            // 'replies' => CommentReply::where('comment_id',)->get(),
         ]);
     }
 

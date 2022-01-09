@@ -13,13 +13,13 @@
             <div>
                 @if ($categories->total() > 0 && $categories->count() < $categories->total())
                     <button class="btn btn-outline-success btn-sm" wire:click.prevent='loadMore()'>
-                        Shiko më shumë Komente
+                        Shiko më shumë Kategori
                     </button>
                 @endif
 
                 @if ($categories->count() >= 11)
                     <button class="btn btn-outline-success  btn-sm" wire:click.prevent='loadLess()'>
-                        Shiko më pak Komente
+                        Shiko më pak Kategori
                     </button>
                 @endif
             </div>

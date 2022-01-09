@@ -15,12 +15,13 @@ class CreateCommentRepliesTable extends Migration
     {
         Schema::create('comment_replies', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('comment_id')->unsigned()->index();
-            $table->integer('user_id')->unsigned();
-            $table->text('body', 2000);
+            $table->unsignedBigInteger('comment_id');
+            $table->unsignedBigInteger('user_id');
+            $table->text('body');
             $table->timestamps();
-            
+
             $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

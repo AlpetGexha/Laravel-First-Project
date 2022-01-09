@@ -1,4 +1,4 @@
-<div class="mt-3 card bg-light">
+<div class="mt-3 card shadow p-2 bg-light">
 
     {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
 
@@ -15,7 +15,6 @@
 
         <div class="mb-0">
             <div class="d-flex justify-content-end align-items-baseline">
-
                 @auth
                     <x-jet-button wire:click.prevent='addCommnet()'>
                         {{ __('Komento') }}
@@ -32,30 +31,18 @@
         </div>
     </form>
 
-
+    {{-- comment --}}
     @forelse ($comments as $comment)
-
-        {{-- <form action="">
-        Reaply <input type="text" wire:model='Repley'>
-        <button wire:click.prevent='addReply({{ $comment->id }})'> Reply</button>
-    </form>
-    <h5>Replay</h5>
-    @foreach ($replies as $replie)
-    {{$replie->body}} <br>
-    @endforeach --}}
-
         <div class="card bg-light mb-1">
             <div class="card-body">
-                {{-- <button>Edit</button> --}}
-
                 {{-- check this user post --}}
+                {{-- Delete edit button --}}
                 @auth
                     @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
                         <button wire:click.prevent='deleteCommnet({{ $comment->id }})'>Delete</button>
                         @if ($comment->user_id == auth()->user()->id)
                             <div x-data="{ open: false }">
                                 <button @click="open = ! open">Edit</button>
-
                                 <div x-show="open" @click.outside="open = false">
                                     <input type="text">
                                     <button>Edit</button>
@@ -66,8 +53,6 @@
                         @endif
                     @endif
                 @endauth
-
-                {{-- Single comment --}}
                 <div class="d-flex">
                     <div class="flex-shrink-0">
                         <img class="rounded-circle" src="{{ $comment->user->profile_photo_url }}"
@@ -77,15 +62,57 @@
                         <div class="fw-bold">{{ $comment->user->username }}</div>
                         <p>{{ $comment->body }}</p>
                     </div>
+
                 </div>
-                <div class="d-flex justify-content-end">
-                    {{-- <span class="ms-3">*</span> --}}
+                {{-- Reply button --}}
+                @auth
+                    <div x-data="{ open: false }">
+                        <button wire:click='blankFildRepley()' @click="open = ! open">Reply</button>
+                        <div wire:click.prevent='blankFildRepley()' x-show="open" @click.outside="open = false">
+                            <form action="">
+                                <input type="text" wire:model='Repley'>
+                                <button type='submit' wire:click.prevent="addReply({{ $comment->id }})">Reply</button>
+                            </form>
+                        </div>
+                    </div>
+
+                @endauth
+
+                {{-- Reply --}}
+                @foreach ($comment->replies as $reply)
+                    <div class="d-flex mt-4 ms-5">
+                        <div class="flex-shrink-0">
+                            <img class="rounded-circle" style="width: 50px; height:50px;"
+                                src="{{ $reply->user->profile_photo_url }}" alt="{{ $reply->user->username }}">
+                        </div>
+                        @auth
+                            @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
+                                <button wire:click.prevent='deleteReply({{ $reply->id }})'>Delete</button>
+                                @if ($comment->user_id == auth()->user()->id)
+                                    <div x-data="{ open: false }">
+                                        <button @click="open = ! open">Edit</button>
+                                        <div x-show="open" @click.outside="open = false">
+                                            <input type="text">
+                                            <button>Edit</button>
+                                            {{-- <input wire:model='Komenti' type="text">
+                                <button wire:click.prevent='editComment({{ $comment->id }})'>Edit</button> --}}
+                                        </div>
+                                    </div>
+                                @endif
+                            @endif
+                        @endauth
+                        <div class="ms-3">
+                            <div class="fw-bold">{{ $reply->user->username }}</div>
+                            <p>{{ $reply->body }}</p>
+                        </div>
+                    </div>
+                @endforeach
+                {{-- <div class="d-flex justify-content-end">
+                    <span class="ms-3">*</span>
                     <span class="text-muted text-sm ms-3"> {{ $comment->created_at->diffForHumans() }}</span>
-                </div>
+                </div> --}}
             </div>
-
         </div>
-
     @empty
         <span class="text-center"> Nuk ka komente! Behu komentuesi i parë </span>
     @endforelse
