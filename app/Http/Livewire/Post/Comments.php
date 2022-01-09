@@ -13,35 +13,42 @@ class Comments extends Component
 {
     use AuthorizesRequests;
     public $post,
-        $Komenti = [],
-        $editKommeti = [],
-        $user_id,
+        //Komenti
+        $Komenti = [], $editKommeti = [], $comment_id,
+        // Reply
         $Repley = [],
-        $comment_id,
-        $reply,
         $per_page = 7;
 
     protected $rules = [
         'Komenti' => 'required|min:3|max:1000',
         // 'Repley' => 'required|min:3',
     ];
+/**
+ * @param  post_id $id
+ */
+    public function mount(int $id)
+    {
+        $this->post = Post::find($id);
+    }
 
+    /** 
+     * i heq te thenat e inputit
+     */
     public function blankFild()
     {
         $this->Komenti = '';
         $this->Repley = '';
     }
+
     public function blankFildRepley()
     {
         $this->Repley = '';
     }
 
-    public function mount($id)
-    {
-        $this->post = Post::find($id);
-
-    }
-
+    /****************** Komenti ******************/
+    /**
+     * Store comment
+     */
     public function addCommnet()
     {
         $executed = RateLimiter::attempt(
@@ -63,15 +70,25 @@ class Comments extends Component
         }
     }
 
+    /**
+     * E Fshin komentin
+     *
+     * @param  int  $id
+     */
 
-    public function deleteCommnet($id)
+    public function deleteCommnet(int $id)
     {
         //check if the user is the owner of the comment
         if (($this->post->user_id == auth()->user()->id) || (auth()->user()->id == $this->post->comments->where('id', $id)->first()->user_id)) {
             $this->post->comments()->where('id', $id)->delete();
         }
     }
-    public  function editComment($id)
+    /**
+     * E tregon se kush eshte  komenti
+     *
+     * @param  int  $id
+     */
+    public  function editComment(int $id)
     {
         if (auth()->user()->id == $this->post->user_id) {
             $this->post->comments()->where('id', $id)->update(['body' => $this->Komenti]);
@@ -79,13 +96,24 @@ class Comments extends Component
         }
     }
 
-    public function updateCommnet($id)
+    /**
+     * E editon komentin
+     *
+     * @param  int  $id
+     */
+    public function updateCommnet(int $id)
     {
         $commnet = $this->post->comments()->where('id', $id)->first();
         $this->Komenti = $commnet->body;
     }
 
-    public function addReply($ids)
+    /****************** Reply ******************/
+    /**
+     * E Shton Reply
+     *
+     * @param  int  $ids
+     */
+    public function addReply(int $ids)
     {
         $this->comment_id = $ids;
         $executed = RateLimiter::attempt(
@@ -107,7 +135,12 @@ class Comments extends Component
         }
     }
 
-    public function deleteReply($id)
+    /**
+     * E Fshin reply
+     *
+     * @param  int  $id
+     */
+    public function deleteReply(int $id)
     {
         if (($this->post->user_id == auth()->user()->id) || (auth()->user()->id == $this->post->comments->where('id', $id)->first()->user_id)) {
             CommentReply::destroy($id);
@@ -119,9 +152,20 @@ class Comments extends Component
         $this->per_page += 5;
     }
 
+    /**
+     * E lejon perdoruesin te shikoj me pak komente
+     */
     public function loadLess()
     {
         $this->per_page -= 5;
+    }
+
+    /**
+     * Live Time Validation
+     */
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function render()
@@ -131,10 +175,5 @@ class Comments extends Component
                 ->orderBy('id', 'desc')
                 ->paginate($this->per_page),
         ]);
-    }
-
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
     }
 }

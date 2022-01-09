@@ -9,7 +9,7 @@ class Postcategory extends Component
 {
     public $category;
 
-    public function mount($id)
+    public function mount(int $id)
     {
         $this->category = PC::where('post_id', $id)
             ->get();

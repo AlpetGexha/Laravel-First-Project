@@ -3,8 +3,6 @@
 namespace App\Http\Livewire\Category;
 
 use App\Models\Category;
-use Illuminate\Cache\RateLimiting\Limit;
-
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Illuminate\Support\Facades\RateLimiter;
@@ -21,7 +19,9 @@ class Create extends Component
     {
         $this->category = '';
     }
-
+    /**
+     * E ruan Kategorin
+     *  */
     public function store()
     {
         $executed = RateLimiter::attempt(
@@ -44,6 +44,7 @@ class Create extends Component
         }
     }
 
+    /** RealTime Validate */
     public function Updated($field)
     {
         $this->validateOnly($field);

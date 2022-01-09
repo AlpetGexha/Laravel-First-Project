@@ -18,13 +18,10 @@ class Post extends Component
     use WithFileUploads;
 
     public Post $post;
-    public $Titulli;
-    public $Teksti;
-    public $Foto;
-    public $ViewCount;
-    public $category = [];
-    public $Kategoria = [];
+    public $Titulli,  $Teksti, $Foto,  $Kategoria = [], //Kategoria e Postit
+        $category = []; //Selektimi i kategorive
 
+    /** Validate */
     protected $rules = [
         'Titulli' => 'required|min:3|max:255',
         'Teksti' => 'required|min:3',
@@ -32,11 +29,12 @@ class Post extends Component
         'category' => 'required',
     ];
 
-
     public function mount()
     {
         $this->Kategoria = Category::all();
     }
+
+    /** I  fshin te dhenat ne input */
     public function blankFild()
     {
         $this->Titulli = '';
@@ -46,6 +44,10 @@ class Post extends Component
         $this->Tags = '';
         $this->category = [];
     }
+
+    /**
+     * E Shton postimin
+     */
 
     public function store()
     {
@@ -69,14 +71,8 @@ class Post extends Component
                         'category_id' => $category,
                     ]);
                 }
-
-                // PostCategory::create([
-                //     'post_id' => Posts::latest()->first()->id,
-                //     'category_id' => $this->Kategoria,
-                // ]);
                 session()->flash('success', 'Postimi u krijua me Sukses');
                 $this->blankFild();
-                // $this->emit('addPost');
                 $this->emit('addPosts');
             }
         );
@@ -86,6 +82,7 @@ class Post extends Component
         }
     }
 
+    /** LiveTime Validate  */
     public function Updated($field)
     {
         $this->validateOnly($field);

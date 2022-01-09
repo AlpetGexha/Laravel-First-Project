@@ -10,7 +10,7 @@ class Show extends Component
 
     public $category;
 
-    protected $rules = ['category' => 'required'];
+    // protected $rules = ['category' => 'required'];
 
     public function mount()
     {

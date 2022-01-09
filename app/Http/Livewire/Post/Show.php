@@ -9,14 +9,15 @@ use Livewire\WithPagination;
 class Show extends Component
 {
     use WithPagination;
-    public $post;
-    public $search;
+    public $post, $search;
     protected $paginationTheme = 'bootstrap';
+
     public $queryString = [
         'page' => ['except' => 1],
         'search' => ['except' => '', 'as' => 'q'],
     ];
 
+    /** Restarto faqen pasi ben search */
     public function updatedSearch()
     {
         $this->resetPage();

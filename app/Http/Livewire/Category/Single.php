@@ -10,12 +10,14 @@ use App\Models\PostCategory;
 class Single extends Component
 {
 
-    public $category,$post;
-
-    public function mount($id)
+    public $category, $post;
+    /**
+     * @param  post_id $id
+     */
+    public function mount(int $id)
     {
         $this->category = Category::find($id);
-        $this->post = PostCategory::where('category_id',$id)->get();
+        $this->post = PostCategory::where('category_id', $id)->get();
     }
 
     public function render()
