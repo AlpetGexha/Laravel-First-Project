@@ -38,10 +38,7 @@ Route::group(['prefix' => 'admin'], function () {
             return view('dashboard');
         })->name('dashboard');
 
-        Route::get('/createpost', function () {
-            return view('auth.post');
-        })->name('create.post');
-
+        Route::get('/createpost', [postController::class, 'showCreatePost'])->name('create.post');   
         Route::get('/post', function () {
             return view('auth.post.show');
         })->name('show.post');

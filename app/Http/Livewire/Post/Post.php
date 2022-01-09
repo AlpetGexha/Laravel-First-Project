@@ -8,6 +8,7 @@ use App\Models\PostCategory;
 use Livewire\Component;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 
@@ -48,31 +49,41 @@ class Post extends Component
 
     public function store()
     {
-        $this->validate();
-        Posts::create([
-            'title' => Str::title($this->Titulli),
-            'body' => $this->Teksti,
-            'photo' => $this->Foto->storeAs('img/posts', $this->Foto->hashName()),
-            // 'category' => json_encode($this->category),
-            'user_id' => auth()->user()->id,
-            'slug' => Str::slug($this->Titulli, '-'),
-        ]);
-        // Per Kateqorinat
-        foreach ($this->category as $category) {
-            PostCategory::create([
-                'post_id' => Posts::latest()->first()->id,
-                'category_id' => $category,
-            ]);
-        }
+        $posting = RateLimiter::attempt(
+            'make-post:' . auth()->user()->id,
+            $perMinute = 2,
+            function () {
+                $this->validate();
+                Posts::create([
+                    'title' => Str::title($this->Titulli),
+                    'body' => $this->Teksti,
+                    'photo' => $this->Foto->storeAs('img/posts', $this->Foto->hashName()),
+                    // 'category' => json_encode($this->category),
+                    'user_id' => auth()->user()->id,
+                    'slug' => Str::slug($this->Titulli, '-'),
+                ]);
+                // Per Kateqorinat
+                foreach ($this->category as $category) {
+                    PostCategory::create([
+                        'post_id' => Posts::latest()->first()->id,
+                        'category_id' => $category,
+                    ]);
+                }
 
-        // PostCategory::create([
-        //     'post_id' => Posts::latest()->first()->id,
-        //     'category_id' => $this->Kategoria,
-        // ]);
-        session()->flash('success', 'Postimi u krijua me Sukses');
-        $this->blankFild();
-        // $this->emit('addPost');
-        $this->emit('addPosts');
+                // PostCategory::create([
+                //     'post_id' => Posts::latest()->first()->id,
+                //     'category_id' => $this->Kategoria,
+                // ]);
+                session()->flash('success', 'Postimi u krijua me Sukses');
+                $this->blankFild();
+                // $this->emit('addPost');
+                $this->emit('addPosts');
+            }
+        );
+        if (!$posting) {
+            $seconds = RateLimiter::availableIn('make-post:' . auth()->user()->id);
+            session()->flash('success', 'U lutem prisni ' . $seconds . ' sekonda para se krijoni postim të ri');
+        }
     }
 
     public function Updated($field)

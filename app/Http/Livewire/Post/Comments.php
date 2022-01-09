@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\CommentReply;
+use Illuminate\Support\Facades\RateLimiter;
 use phpDocumentor\Reflection\Types\This;
 
 class Comments extends Component
@@ -36,20 +37,28 @@ class Comments extends Component
 
     public function addCommnet()
     {
-        $this->validate();
-        Comment::create([
-            'body' => $this->Komenti,
-            'user_id' => auth()->user()->id,
-            'post_id' =>   $this->post->id,
-        ]);
-        $this->blankFild();
+        $executed = RateLimiter::attempt(
+            'make-comment:' . auth()->user()->id,
+            $perMinute = 2,
+            function () {
+                $this->validate();
+                Comment::create([
+                    'body' => $this->Komenti,
+                    'user_id' => auth()->user()->id,
+                    'post_id' =>   $this->post->id,
+                ]);
+                $this->blankFild();
+            }
+        );
+        if (!$executed) {
+            $seconds = RateLimiter::availableIn('make-comment:' . auth()->user()->id);
+            session()->flash('success', 'U lutem prisni ' . $seconds . ' sekonda para se komentoni perseris');
+        }
     }
 
 
     public function deleteCommnet($id)
     {
-
-
         //check if the user is the owner of the comment
         if (($this->post->user_id == auth()->user()->id) || (auth()->user()->id == $this->post->comments->where('id', $id)->first()->user_id)) {
             $this->post->comments()->where('id', $id)->delete();

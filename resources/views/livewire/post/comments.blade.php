@@ -1,6 +1,8 @@
 <div class="mt-3 card bg-light">
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
+
     <h1> {{ $comments->count() }} {{ $comments->count() == 1 ? 'Koment' : 'Komente' }}</h1>
+    <x-alert />
     <form action="">
         {{-- Title --}}
         <div class="mb-3">

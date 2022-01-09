@@ -24,4 +24,15 @@ class PostController extends Controller
         $category->update(['views' => $category->views + 1]);
         return view('category.single', compact('category'));
     }
+
+    public  function showCreatePost()
+    {
+        // $key = 'login.' . request()->ip();
+        return view('auth.post',
+//         [
+// 'key' => $key,
+// 'restries' => RateLimiter::retries($key,5),
+//         ]
+    );
+    }
 }
