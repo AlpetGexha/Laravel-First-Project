@@ -61,6 +61,6 @@
 
     @endforelse
     <div class="body-footer d-flex justify-content-end">
-        {{ $posts->links() }}
+        {{-- {{ $posts->links() }} --}}
     </div>
 </div>

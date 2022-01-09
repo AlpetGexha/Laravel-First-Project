@@ -39,10 +39,10 @@
                                 <span class="number">{{ $user->post()->count() }}</span>
                             </div>
                             <a href="" data-bs-toggle="modal" data-bs-target="#showUserFollowing">
-                            <div class="d-flex flex-column">
-                                <span class="articles">Ndjek</span>
-                                <span class="number">{{ $follows->count() }}</span>
-                            </div>
+                                <div class="d-flex flex-column">
+                                    <span class="articles">Ndjek</span>
+                                    <span class="number">{{ $follows->count() }}</span>
+                                </div>
                             </a>
                             <a href="" data-bs-toggle="modal" data-bs-target="#showUserFollowers">
                                 <div class="d-flex flex-column">
@@ -102,31 +102,27 @@
     @endif --}}
 
 
-    <h1>Post</h1>
-    @forelse ($user->post as $post)
+    <h1>Postimet</h1>
+    <div class="row">
+        @forelse ($user->post as $post)
+            <div class="col">
+                <x-blog-post>
+                    <x-slot name="title">{{ $post->title }}</x-slot>
+                    <x-slot name="username"></x-slot>
+                    <x-slot name="created_at">{{ $post->created_at->diffForHumans() }}</x-slot>
+                    <x-slot name="body"> {{ $post->body }},</x-slot>
+                    <x-slot name="category">
+                        <livewire:category.postcategory :id="$post->id">
+                    </x-slot>
+                    <x-slot name="views">{{ $post->views }}</x-slot>
+                    <x-slot name="likes">{{ $post->likes()->count() }}</x-slot>
+                    <x-slot name="shares">{{ $post->saves()->count() }}</x-slot>
+                    <x-slot name="comments">{{ $post->comments()->count() }}</x-slot>
+                    <x-slot name="post_slug">{{ $post->slug }}</x-slot>
+                </x-blog-post>
+            </div>
 
-        <h1>Titulli : {{ $post->title }}</h1>
-        User : <a href="{{ route('user.show', $post->user->username) }}">{{ $post->user->username }}</a>,<br>
-        Pershkrimi : {{ $post->body }},<br>
-        Categorys : <livewire:category.postcategory :id="$post->id">,<br>
-
-            Photo : <img src="{{ url('storage/app/' . $post->photo) }}" alt="" /> ,<br>
-            saves : {{ $post->saves()->count() }},<br>
-            Likes : {{ $post->likes()->count() }},<br>
-            comments : {{ $post->comments()->count() }},<br>
-            views : {{ $post->views }},<br>
-            U krijoa me : {{ $post->created_at->diffForHumans() }},<br>
-
-            @if (auth()->check())
-
-                @if (!$post->isLikedByUser(Auth::user()))
-                    <button wire:click.prevent="like({{ $post->id }})" type="button"><i
-                            class="far fa-thumbs-up pr-3"></i>Like</button>
-                @else
-                    <button wire:click.prevent="unLike({{ $post->id }})" type="button"><i
-                            class="fas fa-thumbs-up pr-3"></i>UnLike</button>
-                @endif
-
+            {{-- @if (auth()->check())
                 @if (!$post->isSavedByUser(Auth::user()))
                     <button wire:click="save({{ $post->id }})" type="submit"><i
                             class="far fa-thumbs-up pr-3"></i>Save</button>
@@ -138,10 +134,9 @@
                 @if (auth()->check() && auth()->user()->id == $user->id)
                     <button>Ndrysho</button> <button>Fshije</button>
                 @endif
-
-            @endif
-
-        @empty
-            Nuk ka postime
+            @endif --}}
+    </div>
+@empty
+    <span class="text-center" style="color: red">Nuk ka postime</span>
     @endforelse
 </div>
