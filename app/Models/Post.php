@@ -45,7 +45,7 @@ class Post extends Model
 
     public function isLikedByUser(User $user)
     {
-        return (bool) $this->likes->where('user_id', $user->id)->count();
+        return (bool) $this->likes()->where('user_id', $user->id)->exists();
     }
 
 
@@ -56,7 +56,7 @@ class Post extends Model
 
     public function isSavedByUser(User $user)
     {
-        return (bool) $this->saves->where('user_id', $user->id)->count();
+        return (bool) $this->saves()->where('user_id', $user->id)->exists();
     }
 
     public function category()
