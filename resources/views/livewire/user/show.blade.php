@@ -2,7 +2,6 @@
     id: {{ $user->id }} <br>
     created_at : {{ strftime('%e %B, %Y', strtotime($user->created_at)) }}<br>
    
-
     <br>
 
     <div class="user-profile">
@@ -21,17 +20,25 @@
                                 <div class="d-flex flex-column"> <span class="articles">Ndjekës</span> <span class="number">{{ $user->followers()->count() }}</span> </div>
                             </div>
                 
-                            <div class="button mt-2 d-flex flex-row align-items-center"> 
-                                @if (auth()->user()->id == $user->id)
-                                <a class="btn btn-sm btn-outline-success w-100 ml-2" href="{{ url('/user/profile') }}">Edit</a>
-                                @elseif ($user->isFollow(auth()->user()))
-                                    <button class="btn btn-sm btn-outline-success w-100 ml-2" wire:loading.attr='disabled' wire:click="unFollow({{$user->id}})" type="submit">UnFollow</button>
-                                @else
-                                    <button class="btn btn-sm btn-success w-100 ml-2" wire:loading.attr='disabled' wire:click="follow({{$user->id}})" type="submit">Follow</button>
-                                @endif 
-                                &nbsp;  <button class="btn btn-sm btn-outline-success w-100">Chat</button> 
-
-                             </div> 
+                            <form class="button mt-2 d-flex flex-row align-items-center">    
+                                @csrf
+                                @if(auth()->check())                      
+                                    @if (auth()->user()->id == $user->id)
+                                         <a class="btn btn-sm btn-outline-success w-100 ml-2" href="{{ url('/user/profile') }}">Edit</a>
+                                    @elseif ($user->isFollow(auth()->user()))
+                                        <button class="btn btn-sm btn-outline-success w-100 ml-2" wire:loading.attr='disabled' wire:click="unFollow({{$user->id}})" type="submit">UnFollow</button>
+                                    @else
+                                        <button class="btn btn-sm btn-success w-100 ml-2" wire:loading.attr='disabled' wire:click="follow({{$user->id}})" type="submit">Follow</button>
+                                    @endif 
+                                      &nbsp;  <button class="btn btn-sm btn-outline-success w-100">Chat</button>        
+                                @endif                 
+                            </form> 
+                            <form method="" action="{{ route('login') }}" >
+                            @if (auth()->guest())
+                               {{-- @csrf --}}
+                                  <button class="btn btn-sm btn-success w-100 ml-2" type="submit">Follow</button>                                   
+                            @endif        
+                            </form>      
                         </div>
                     </div>
                 </div>

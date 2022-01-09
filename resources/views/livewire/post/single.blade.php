@@ -2,11 +2,11 @@
     @if (auth()->check())
 
         @if (!$post->isLikedByUser(auth()->user()))
-            <button class="btn btn-outline-dark" wire:click.prevent="like({{ $post->id }})" type="button">
+            <button class="btn btn-outline-dark" wire:click.prevent="like({{ $post->id }})" type="submit">
                 <i class="far fa-thumbs-up"></i>&nbsp; Like
             </button>
         @else
-            <button class="btn btn-outline-dark" wire:click.prevent="unLike({{ $post->id }})" type="button"><i
+            <button class="btn btn-outline-dark" wire:click.prevent="unLike({{ $post->id }})" type="submit"><i
                     class="fas fa-thumbs-up"></i>&nbsp; UnLike</button>
         @endif
 
@@ -18,7 +18,15 @@
                     class="fas fa-bookmark"></i>&nbsp; UnSave</button>
         @endif
 
+    @endif
 
+    @if (auth()->guest())
+        <form action="{{ route('login') }}">
+            <button class="btn btn-outline-dark" type="submit">
+                <i class="far fa-thumbs-up"></i>&nbsp; Like </button>
+            <button class="btn btn-outline-dark" type="submit">
+                <i class="far fa-bookmark"></i>&nbsp; Save</button>
+        </form>
     @endif
     <div class="single_post p-2 card shadow-sm bg-light">
         <div class="single_post_info">

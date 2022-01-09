@@ -6,3 +6,4 @@
     <livewire:post.show>
 
 </x-base>
+    

@@ -5,10 +5,12 @@ namespace App\Http\Livewire\Post;
 use Livewire\Component;
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\RateLimiter;
 
 class Comments extends Component
 {
+    use AuthorizesRequests;
     public $post,
         $Komenti = [],
         $editKommeti = [],
@@ -105,7 +107,6 @@ class Comments extends Component
                 ->orderBy('id', 'desc')
                 ->paginate($this->per_page),
             // 'replies' => CommentReply::where('comment_id',)->get(),
-            ''
         ]);
     }
 

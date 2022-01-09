@@ -1,12 +1,13 @@
 <div class="card-body" >
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST">
+        @csrf
         <x-alert />
         {{-- Title --}}
         <div class="mb-3">
             <x-jet-label value="{{ __('Kateogira') }}" />
 
             <x-jet-input class="{{ $errors->has('category') ? 'is-invalid' : '' }}" type="text" wire:model='category'
-                name="category"  wire:loading.attr='disabled' required />
+                name="category" required />
             <x-jet-input-error for="category"></x-jet-input-error>
         </div>
 

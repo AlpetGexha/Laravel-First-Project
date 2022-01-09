@@ -1,3 +1,4 @@
+<x-wire-loading />
 <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
     <div class="container">
         <!-- Logo -->
@@ -26,10 +27,6 @@
 
                 <x-jet-nav-link href="{{ route('saves.post') }}" :active="request()->routeIs('saves.post')">
                     {{ __('Postimet e Ruajtura') }}
-                </x-jet-nav-link>
-
-                <x-jet-nav-link href="{{ route('show.post') }}" :active="request()->routeIs('show.post')">
-                    {{ __('Postimet') }}
                 </x-jet-nav-link>
 
 
@@ -65,8 +62,12 @@
                                         {{ __('Manage Account') }}
                                     </h6>
 
-                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                    <x-jet-dropdown-link href="{{ route('user.show', ['user' => Auth::user()->username]) }}">
                                         {{ __('Profile') }}
+                                    </x-jet-dropdown-link>
+
+                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                        {{ __('Setting') }}
                                     </x-jet-dropdown-link>
 
                                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -80,7 +81,7 @@
                                     <!-- Authentication -->
                                     <x-jet-dropdown-link href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                 document.getElementById('logout-form').submit();">
+                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Log out') }}
                                     </x-jet-dropdown-link>
                                     <form method="POST" id="logout-form" action="{{ route('logout') }}">
@@ -101,3 +102,4 @@
         </div>
     </div>
 </nav>
+

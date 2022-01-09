@@ -1,9 +1,11 @@
 <div class="mt-3 card bg-light">
+
     {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
 
     <h1> {{ $comments->count() }} {{ $comments->count() == 1 ? 'Koment' : 'Komente' }}</h1>
     <x-alert />
-    <form action="">
+    <form action="{{ route('login') }}">
+        @csrf
         {{-- Title --}}
         <div class="mb-3">
             <x-jet-label value="{{ __('Comment') }}" />
@@ -14,9 +16,19 @@
 
         <div class="mb-0">
             <div class="d-flex justify-content-end align-items-baseline">
-                <x-jet-button  wire:click.prevent='addCommnet()'>
-                    {{ __('Komento') }}
-                </x-jet-button>
+
+                @auth
+                    <x-jet-button wire:click.prevent='addCommnet()'>
+                        {{ __('Komento') }}
+                    </x-jet-button>
+                @endauth
+                @guest
+                    <form action="{{ route('login') }}">
+                        <x-jet-button>
+                            {{ __('Komento') }}
+                        </x-jet-button>
+                    </form>
+                @endguest
             </div>
         </div>
     </form>
@@ -38,28 +50,23 @@
                 {{-- <button>Edit</button> --}}
 
                 {{-- check this user post --}}
+                @auth
+                    @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
+                        <button wire:click.prevent='deleteCommnet({{ $comment->id }})'>Delete</button>
+                        @if ($comment->user_id == auth()->user()->id)
+                            <div x-data="{ open: false }">
+                                <button @click="open = ! open">Edit</button>
 
-                @if ($comment->post->user_id == Auth::user()->id || $comment->user_id == Auth::user()->id)
-
-                    <button wire:click.prevent='deleteCommnet({{ $comment->id }})'>Delete</button>
-
-                    @if ($comment->user_id == Auth::user()->id)
-                        <div x-data="{ open: false }">
-                            <button @click="open = ! open">Edit</button>
-
-                            <div x-show="open" @click.outside="open = false">
-                                <input type="text">
-                                <button>Edit</button>
-                                {{-- <input wire:model='Komenti' type="text">
+                                <div x-show="open" @click.outside="open = false">
+                                    <input type="text">
+                                    <button>Edit</button>
+                                    {{-- <input wire:model='Komenti' type="text">
                             <button wire:click.prevent='editComment({{ $comment->id }})'>Edit</button> --}}
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endif
-
-                @endif
-
-
-
+                @endauth
 
                 {{-- Single comment --}}
                 <div class="d-flex">
