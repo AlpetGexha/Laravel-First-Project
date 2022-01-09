@@ -1,7 +1,12 @@
 <div>
     id: {{ $user->id }} <br>
     created_at : {{ strftime('%e %B, %Y', strtotime($user->created_at)) }}<br>
-   
+    @forelse ($follows as $follow)
+        {{ $follow->user->username }}
+    @empty
+        
+    @endforelse
+
     <br>
 
     <div class="user-profile">
@@ -16,12 +21,11 @@
 
                             <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
                                 <div class="d-flex flex-column"> <span class="articles">Postime</span> <span class="number">{{ $user->post()->count() }}</span> </div>
-                                <div class="d-flex flex-column"> <span class="articles">Ndjek</span> <span class="number">#</span> </div>
+                                <div class="d-flex flex-column"> <span class="articles">Ndjek</span> <span class="number">{{$follows->count()}}</span> </div>
                                 <div class="d-flex flex-column"> <span class="articles">Ndjekës</span> <span class="number">{{ $user->followers()->count() }}</span> </div>
                             </div>
-                
-                            <form class="button mt-2 d-flex flex-row align-items-center">    
-                                @csrf
+                            
+                            <div class="button mt-2 d-flex flex-row align-items-center">    
                                 @if(auth()->check())                      
                                     @if (auth()->user()->id == $user->id)
                                          <a class="btn btn-sm btn-outline-success w-100 ml-2" href="{{ url('/user/profile') }}">Edit</a>
@@ -32,13 +36,13 @@
                                     @endif 
                                       &nbsp;  <button class="btn btn-sm btn-outline-success w-100">Chat</button>        
                                 @endif                 
-                            </form> 
-                            <form method="" action="{{ route('login') }}" >
+                            </div> 
                             @if (auth()->guest())
+                            <form method="" action="{{ route('login') }}" >
                                {{-- @csrf --}}
                                   <button class="btn btn-sm btn-success w-100 ml-2" type="submit">Follow</button>                                   
+                                </form>      
                             @endif        
-                            </form>      
                         </div>
                     </div>
                 </div>

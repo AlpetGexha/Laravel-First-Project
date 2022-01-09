@@ -5,7 +5,6 @@
     <h1> {{ $comments->count() }} {{ $comments->count() == 1 ? 'Koment' : 'Komente' }}</h1>
     <x-alert />
     <form action="{{ route('login') }}">
-        @csrf
         {{-- Title --}}
         <div class="mb-3">
             <x-jet-label value="{{ __('Comment') }}" />

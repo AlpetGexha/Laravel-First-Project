@@ -2,7 +2,6 @@
     <title>Laravel Livewire Select2 Multiple Example</title>
 
     <form method="POST">
-        @csrf
         <x-alert />
         {{-- Title --}}
         <div class="mb-3">

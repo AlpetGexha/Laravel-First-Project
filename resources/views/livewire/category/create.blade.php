@@ -1,6 +1,5 @@
 <div class="card-body" >
     <form method="POST">
-        @csrf
         <x-alert />
         {{-- Title --}}
         <div class="mb-3">

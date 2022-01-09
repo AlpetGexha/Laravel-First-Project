@@ -13,13 +13,12 @@ class Show extends Component
     public function mount($username, User $user)
     {
         $this->user = User::where('username', $username)->first();
+        $this->status = Follow::where('following', $user->id)->first();
     }
 
     public function follow(int $id)
     {
-        //check if user is already following
-        $follow = Follow::where('following', auth()->id())->where('user_id', $id)->first();
-
+        $follow = Follow::where('following', auth()->user()->id)->where('user_id', $id)->first();
         if (!$follow) {
             Follow::create([
                 'following' => auth()->user()->id,
@@ -28,6 +27,10 @@ class Show extends Component
             session()->flash('success', 'Follow');
         }
     }
+
+    //show followoing for this user
+
+
 
     public function unFollow(int $id)
     {
@@ -40,6 +43,8 @@ class Show extends Component
     {
         return view('livewire.user.show', [
             'user' => $this->user,
+            'follows' => Follow::where('following', $this->user->id)
+            ->get(),
         ]);
     }
 }
