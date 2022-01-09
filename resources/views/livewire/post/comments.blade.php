@@ -14,7 +14,7 @@
 
         <div class="mb-0">
             <div class="d-flex justify-content-end align-items-baseline">
-                <x-jet-button wire:loading.attr='disabled' wire:click.prevent='addCommnet()'>
+                <x-jet-button  wire:click.prevent='addCommnet()'>
                     {{ __('Komento') }}
                 </x-jet-button>
             </div>
