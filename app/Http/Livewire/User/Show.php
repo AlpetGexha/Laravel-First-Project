@@ -43,8 +43,8 @@ class Show extends Component
     {
         return view('livewire.user.show', [
             'user' => $this->user,
-            'follows' => Follow::where('following', $this->user->id)
-            ->get(),
+            'follows' => Follow::where('following', $this->user->id)->get(),
+            'followings' => Follow::where('user_id', $this->user->id )->get(),
         ]);
     }
 }

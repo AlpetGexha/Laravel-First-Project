@@ -16,10 +16,12 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @stack('styles')
 
+
     <livewire:styles>
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js" integrity="sha512-/DXTXr6nQodMUiq+IUJYCt2PPOUjrHJ9wFrqpJ3XkgPNOZVfMok7cRw6CSxyCQxXn6ozlESsSh1/sMCTF1rL/g=="  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body class="font-sans antialiased bg-light">
