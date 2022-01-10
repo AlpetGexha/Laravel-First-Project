@@ -49,3 +49,7 @@ Route::group(['prefix' => 'admin'], function () {
         })->name('saves.post');
     });
 });
+
+Route::get('/test/t', function () {
+    return view('admin.category.table');
+});
