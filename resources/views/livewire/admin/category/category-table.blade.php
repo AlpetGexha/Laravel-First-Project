@@ -14,14 +14,14 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 mt-2">
+                    <div class="col-md-3 mt-2"> 
                         <input type="search" placeholder="kerko" class="form-control" wire:model='search'>
                     </div>
                 </div>
             </div>
             <table class="table table-hover table-striped table-responsive table-bordered shadow-sm">
                 <thead>
-                    <tr>
+                    <tr> 
                         <th width='8%' scope="col">#
                             <span wire:click='sortBy("id")' class="text-sm" style="cursor: pointer">
                                 <i
