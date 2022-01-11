@@ -38,7 +38,7 @@ Route::group(['prefix' => 'admin'], function () {
             return view('dashboard');
         })->name('dashboard');
 
-        Route::get('/createpost', [postController::class, 'showCreatePost'])->name('create.post');   
+        Route::get('/createpost', [postController::class, 'showCreatePost'])->name('create.post');
         Route::get('/post', function () {
             return view('auth.post.show');
         })->name('show.post');
@@ -52,4 +52,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('/test/t', function () {
     return view('admin.category.table');
+});
+
+Route::get('/user/chat', function () {
+    return view('user.chat');
 });

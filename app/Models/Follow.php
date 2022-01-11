@@ -14,8 +14,20 @@ class Follow extends Model
         'following',
     ];
 
+    // Chat
+    public function messages()
+    {
+        return $this->hasMany(Messages::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    public function follow()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
