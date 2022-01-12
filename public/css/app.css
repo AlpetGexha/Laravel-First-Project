@@ -12564,6 +12564,12 @@ p {
     color: #01cd74;
 }
 
+.fa-arrow-up,
+.fa-arrow-down {
+    font-weight: 100;
+    font-size: 10px;
+}
+
 /************* Profile *************/
 .user-profile .card {
     width: 500px;

@@ -50,9 +50,14 @@ Route::group(['prefix' => 'admin'], function () {
     });
 });
 
-Route::get('/test/t', function () {
+Route::get('/test/a', function () {
     return view('admin.category.table');
 });
+
+Route::get('/test/b', function () {
+    return view('admin.post.table');
+});
+
 
 Route::get('/user/chat', function () {
     return view('user.chat');

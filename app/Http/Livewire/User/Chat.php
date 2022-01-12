@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\User;
 
-use App\Models\Conversation;
 use App\Models\Follow;
 use App\Models\Messages;
 use Livewire\Component;
@@ -11,8 +10,10 @@ class Chat extends Component
 {
 
     public $mesazhi;
-
     public $selectedConversation;
+    public $search;
+
+
     public $rules = ['mesazhi' => 'required'];
 
     public function mount()
