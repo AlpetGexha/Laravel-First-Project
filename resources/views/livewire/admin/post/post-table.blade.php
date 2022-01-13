@@ -18,10 +18,10 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive" >
+            <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered shadow-sm text-center">
                     <thead wire:loading.class='text-muted'>
-                        <tr >
+                        <tr>
                             <th width='3%' scope="col"># </th>
                             <th width='5%' scope="col">#
                                 {{-- <x-sort :by='id' /> --}}
@@ -93,10 +93,12 @@
                                     <textarea readonly class="form-control" placeholder="Leave a comment here"
                                         id="floatingTextarea" style="height: 20px">{{ $post->body }}</textarea>
                                 </td>
-                                <td><a href="{{route('user.show',$post->user->username)}}">{{ $post->user->username }}</a></td>
+                                <td><a
+                                        href="{{ route('user.show', $post->user->username) }}">{{ $post->user->username }}</a>
+                                </td>
                                 <td>kategorit</td>
                                 <td>{{ $post->views }}</td>
-                                <td>{{ $post->comments()->count() }} / {{$post->reply()->count()}}
+                                <td>{{ $post->comments()->count() }} /{{ $replyCount }}
                                 <td>{{ $post->likes()->count() }}</td>
                                 <td>{{ $post->saves()->count() }}</td>
 

@@ -9,7 +9,7 @@
 
 
     <select class="form-select {{ $errors->has('category') ? 'is-invalid' : '' }}" wire:model='category'
-        name="category" required ' aria-label="Default select example" multiple>
+        name="category" required  aria-label="Default select example" multiple>
         @foreach ($categories as $categorie)
             <option value="{{ $categorie->category }}">{{ $categorie->category }}</option>
         @endforeach

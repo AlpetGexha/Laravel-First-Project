@@ -14,8 +14,7 @@ use Livewire\WithFileUploads;
 
 class Post extends Component
 {
-    use AuthorizesRequests;
-    use WithFileUploads;
+    use AuthorizesRequests, WithFileUploads;
 
     public Post $post;
     public $Titulli,  $Teksti, $Foto,  $Kategoria = [], //Kategoria e Postit

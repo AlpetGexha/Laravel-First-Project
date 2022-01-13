@@ -27,10 +27,10 @@ class PostTable extends Component
     public function render()
     {
         return view('livewire.admin.post.post-table', [
-            'posts' => Post::where('title', 'like', '%' . $this->search . '%')
+            'posts' => Post::select('id', 'title', 'slug', 'created_at')
+                ->where('title', 'like', '%' . $this->search . '%')
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate($this->paginate_page),
-                //count all reply for post
         ]);
     }
 }

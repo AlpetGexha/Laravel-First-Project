@@ -171,7 +171,8 @@ class Comments extends Component
     public function render()
     {
         return view('livewire.post.comments', [
-            'comments' => Comment::where('post_id', $this->post->id)
+            'comments' => Comment::select('id','post_id',  'user_id',  'body',)
+            ->where('post_id', $this->post->id)
                 ->orderBy('id', 'desc')
                 ->paginate($this->per_page),
         ]);

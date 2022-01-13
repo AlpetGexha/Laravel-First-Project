@@ -28,9 +28,7 @@
                 <label>Category</label>
                 <div wire:ignore>
                     <select id="category-dropdown" class="form-control" name multiple wire:model="category">
-                        @foreach ($categories as $categorie)
-                            <option value="{{ $categorie->id }}">{{ $categorie->category }}</option>
-                        @endforeach
+                        <livewire:category.post-create />
                     </select>
                 </div>
                 @error('category')
@@ -62,7 +60,7 @@
 
         <div class="mb-0">
             <div class="d-flex justify-content-end align-items-baseline">
-                <x-jet-button wire:click.prevent='store()'>
+                <x-jet-button wire:click.prevent="store()">
                     {{ __('Posto') }}
                 </x-jet-button>
             </div>

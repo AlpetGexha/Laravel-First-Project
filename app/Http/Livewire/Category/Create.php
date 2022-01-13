@@ -35,6 +35,7 @@ class Create extends Component
                 ])) {
                     session()->flash('success', 'Kateogira u krijua me Sukses');
                     $this->blankFild();
+                    $this->emitUp('addCategorysss');
                 }
             }
         );
