@@ -11,9 +11,13 @@
             <x-jet-section-border />
         @endif
 
+        @if (Laravel\Fortify\Features::canUpdateProfileInformation())
+            @livewire('user.profile')
+            <x-jet-section-border />
+        @endif
+
         @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
             @livewire('profile.update-password-form')
-
             <x-jet-section-border />
         @endif
 

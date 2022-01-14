@@ -96,4 +96,9 @@ class User extends Authenticatable
     {
         return (bool) $this->followers()->where('following', $user->id)->exists();
     }
+
+    public function hasProfile()
+    {
+        return (bool) $this->profile()->exists();
+    }
 }

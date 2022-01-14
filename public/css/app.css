@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
-@charset "UTF-8";
 
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
@@ -12572,7 +12571,7 @@ p {
 
 /************* Profile *************/
 .user-profile .card {
-    width: 500px;
+    width: 800px;
     border: none;
     border-radius: 10px;
     background-color: #fff
