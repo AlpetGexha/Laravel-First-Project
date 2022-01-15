@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Facades\RateLimiter;
 
-class PostController extends Controller
+
+class MainController extends Controller
 {
+
+    public function showBallina(){
+        return view('ballina');
+    }
+
     public function show(Post $post)
     {
         $post->update(['views' => $post->views + 1]);
@@ -26,14 +31,33 @@ class PostController extends Controller
         return view('category.single', compact('category'));
     }
 
+    public function showChatId(User $user)
+    {
+        return view('user.chat', compact('user'));
+    }
+
+    public function showChat()
+    {
+        return view('user.chat');
+    }
+
     public  function showCreatePost()
     {
-        // $key = 'login.' . request()->ip();
-        return view('auth.post',
-//         [
-// 'key' => $key,
-// 'restries' => RateLimiter::retries($key,5),
-//         ]
-    );
+        return view('auth.post');
+    }
+
+    public function showAdminDashboard()
+    {
+        return view('dashboard');
+    }
+
+    public function showAdminCategory()
+    {
+        return view('admin.category.table');
+    }
+
+    public function showAdminPost()
+    {
+        return view('admin.post.table');
     }
 }

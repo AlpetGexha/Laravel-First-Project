@@ -25,11 +25,6 @@
                     {{ __('Krijo Postime') }}
                 </x-jet-nav-link>
 
-                <x-jet-nav-link href="{{ route('saves.post') }}" :active="request()->routeIs('saves.post')">
-                    {{ __('Postimet e Ruajtura') }}
-                </x-jet-nav-link>
-
-
             </ul>
 
             <!-- Right Side Of Navbar -->
