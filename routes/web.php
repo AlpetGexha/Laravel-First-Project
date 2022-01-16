@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,50 +15,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('ballina');
+Route::get('/', [MainController::class, 'showBallina'])->name('ballina');
+Route::get('/{user:username}', [MainController::class, 'showUser'])->name('user.show');
+Route::get('/post/{post:slug}', [MainController::class, 'show'])->name('post.single');
+Route::get('/kategoria/{category:slug}', [MainController::class, 'showCategory'])->name('category.single');
 
-
-Route::get('/{user:username}', [postController::class, 'showUser'])->name('user.show');
-
-// Postimet
-Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
-    Route::get('/{post:slug}', [postController::class, 'show'])->name('single');
-});
-
-// Kategorit
-Route::group(['prefix' => 'kategoria', 'as' => 'category.'], function () {
-    Route::get('/{category:slug}', [postController::class, 'showCategory'])->name('single');
-});
 
 Route::group(['prefix' => 'admin'], function () {
     Route::middleware(['auth:sanctum', 'verified',])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
-
-        Route::get('/createpost', [postController::class, 'showCreatePost'])->name('create.post');
-        Route::get('/post', function () {
-            return view('auth.post.show');
-        })->name('show.post');
-
-
-        Route::get('/saves', function () {
-            return view('auth.post.saves');
-        })->name('saves.post');
+        Route::get('/dashboard',  [MainController::class, 'showAdminDashboard'])->name('dashboard');
+        Route::get('/categorys',  [MainController::class, 'showAdminCategory'])->name('admin.category');
+        Route::get('/posts',  [MainController::class, 'showAdminPost'])->name('admin.post');
     });
 });
 
-Route::get('/test/a', function () {
-    return view('admin.category.table');
+
+Route::group(['prefix' => 'user'], function () {
+    Route::middleware(['auth:sanctum', 'verified',])->group(function () {
+        Route::get('/createpost', [MainController::class, 'showCreatePost'])->name('create.post');
+
+        Route::get('/likes', [MainController::class, 'showPostLike'])->name('post.like');
+
+        Route::get('/saves', [MainController::class, 'showPostSave'])->name('post.save');
+    });
+
+    Route::get('/chat',  [MainController::class, 'showChat'])->name('user.chat');
 });
 
-Route::get('/test/b', function () {
-    return view('admin.post.table');
-});
 
 
-Route::get('/user/chat', function () {
-    return view('user.chat');
-});
+// Route::get('/user/chat/{follow:chat_id}', [MainController::class , 'showChatId'])->name('chat.show');
