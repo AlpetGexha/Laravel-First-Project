@@ -1,5 +1,5 @@
    {{-- {{ $category }} --}}
-   <section class="my-5">
+   <section class="my-5 cart shadow ">
        <div class="row">
            <div class="col-lg-5 col-xl-4">
                <div class="view overlay rounded z-depth-1-half mb-lg-0 mb-4">

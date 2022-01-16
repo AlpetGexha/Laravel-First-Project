@@ -25,6 +25,14 @@
                     {{ __('Krijo Postime') }}
                 </x-jet-nav-link>
 
+                <x-jet-nav-link href="{{ route('post.save') }}" :active="request()->routeIs('post.save')">
+                    {{ __('Save') }}
+                </x-jet-nav-link>
+
+                <x-jet-nav-link href="{{ route('post.like') }}" :active="request()->routeIs('post.like')">
+                    {{ __('Like') }}
+                </x-jet-nav-link>
+
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -76,7 +84,7 @@
                                     <!-- Authentication -->
                                     <x-jet-dropdown-link href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                         document.getElementById('logout-form').submit();">
+                                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Log out') }}
                                     </x-jet-dropdown-link>
                                     <form method="POST" id="logout-form" action="{{ route('logout') }}">
@@ -97,4 +105,3 @@
         </div>
     </div>
 </nav>
-

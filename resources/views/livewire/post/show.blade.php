@@ -1,59 +1,18 @@
 <div>
     <input wire:model='search' type="search" placeholder="Kerko" class="form-control mb-2">
     @forelse ($posts as $post)
-
-        <div class="drejtimet card shadow bg-light mt-2 mb-5">
-            <div class="d-flex justify-content-center flex-wrap">
-                <div class="row g-0 bg-light container-layout">
-                    <h1 class="mt-0">{{ $post->title }}</h1>
-                    <div class="col-md-6 mb-md-0 p-md-4">
-                        {{-- <img src="{{ $post->photo }}" class="w-100 " alt="{{ $post->title }}"> --}}
-                        <img src="https://picsum.photos/200/150/?random" class="w-100 " alt="{{ $post->title }}">
-                        
-                    </div>
-
-                    <div class="col-md-6 p-4 ps-md-0 ">
-                        <div class="row">
-                            <div class="col">
-                                <a href="{{ route('user.show', $post->user->username) }}">
-                                    <p>{{ $post->user->username }}</p>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <p class="text-muted">{{ $post->created_at->diffForHumans() }}</p>
-                            </div>
-                        </div>
-
-                        {{-- <livewire:category.postcategory :id="$post->id"> --}}
-
-                        @foreach ($post->category as $category)
-                            <a style="text-decoration: none;"
-                                href="{{ route('category.single', $category->category->slug) }}">
-                                <span class="badge badge-sm bg-success">{{ $category->category->category }}</span>
-                            </a>
-                        @endforeach
-                        <p class="body-cart-text">{{ Str::limit($post->body, 200, '...') }}.</p>
-
-                        <div class="d-flex bd-highlight mb-3">
-                            <div class="p-2 bd-highlight"><i class="far fa-eye">{{ $post->views }}</i></div>
-                            <div class="p-2 bd-highlight">
-                                <i class="far fa-comment">{{ $post->comments()->count() }}</i>
-                            </div>
-                            <div class="p-2 bd-highlight"><i
-                                    class="far fa-thumbs-up">{{ $post->likes()->count() }}</i>
-                            </div>
-                            <div class="p-2 bd-highlight"><i
-                                    class="far fa-bookmark">{{ $post->saves()->count() }}</i>
-                            </div>
-                            <div class="ms-auto p-2 bd-highlight"><a class="btn btn-outline-success"
-                                    href="{{ route('post.single', $post->slug) }}">Lexo me shume</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <x-blog-post>
+            <x-slot name="title">{{ $post->title }}</x-slot>
+            <x-slot name="username">{{ $post->user->username }}</x-slot>
+            <x-slot name="created_at">{{ $post->created_at->diffForHumans() }}</x-slot>
+            <x-slot name="body"> {{ Str::limit($post->body, 200, '...') }},</x-slot>
+            <x-slot name="category">cat</x-slot>
+            <x-slot name="views">{{ $post->views }}</x-slot>
+            <x-slot name="likes">{{ $post->likes()->count() }}</x-slot>
+            <x-slot name="shares">{{ $post->saves()->count() }}</x-slot>
+            <x-slot name="comments">{{ $post->comments()->count() }}</x-slot>
+            <x-slot name="post_slug">{{ $post->slug }}</x-slot>
+        </x-blog-post>
     @empty
         <div class="text-center">
             <span style="color:red;">Nuk ka Postime</span>
@@ -61,6 +20,14 @@
 
     @endforelse
     <div class="body-footer d-flex justify-content-end">
-        {{-- {{ $posts->links() }} --}}
+        {{ $posts->links() }}
     </div>
 </div>
+
+{{-- <livewire:category.postcategory :id="$post->id"> --}}
+{{-- @foreach ($post->category as $category)
+                            <a style="text-decoration: none;"
+                                href="{{ route('category.single', $category->category->slug) }}">
+                                <span class="badge badge-sm bg-success">{{ $category->category->category }}</span>
+                            </a>
+                        @endforeach --}}

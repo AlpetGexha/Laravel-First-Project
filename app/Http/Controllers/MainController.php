@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\PostSaves;
 use App\Models\User;
 
 
 class MainController extends Controller
 {
 
-    public function showBallina(){
+    public function showBallina()
+    {
         return view('ballina');
     }
 
@@ -56,6 +58,15 @@ class MainController extends Controller
         return view('admin.category.table');
     }
 
+    public function showPostSave(PostSaves $post)
+    {
+        return view('post.save', compact('post'));
+    }
+
+    public function showPostLike()
+    {
+        return view('post.like');
+    }
     public function showAdminPost()
     {
         return view('admin.post.table');
