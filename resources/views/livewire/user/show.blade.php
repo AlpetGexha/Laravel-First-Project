@@ -124,6 +124,11 @@
     </div>
 
 </div>
+<h1>Postimet</h1>
+<div class="row">
+    <livewire:post.show :userid="$user->id">
+</div>
+
 
 {{-- @if (auth()->user()->id == $user->id)
     Edit
@@ -144,9 +149,3 @@
 {{-- @if (auth()->check() && auth()->user()->id == $user->id)
         Edit
     @endif --}}
-
-
-<h1>Postimet</h1>
-<div class="row">
-    <livewire:post.show :userid="$user->id">
-</div>
