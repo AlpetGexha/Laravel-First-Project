@@ -65,47 +65,51 @@
                                     <button class="btn btn-sm btn-success w-100 ml-2" wire:loading.attr='disabled'
                                         wire:click="follow({{ $user->id }})" type="submit">Follow</button>
                                 @endif
-                                &nbsp; <button class="btn btn-sm btn-outline-success w-100">Chat</button>
+                                &nbsp; <a class="btn btn-sm btn-outline-success w-100" href="#">Chat</a>
                             @endif
                         </div>
 
                         {{-- Rrjete sociale --}}
-                        @if ($user->profile()->first()->github !== null)
-                            <a href="https://www.github.com/{{ $user->profile()->first()->github }}">
-                                <i style="color: #333" class="fab fa-github" aria-hidden="true"></i>
-                            </a>
-                        @endif
+                        {{-- user has profiel --}}
 
-                        @if ($user->profile()->first()->linkedin !== null)
-                            <a href="https://www.linkedin.com/in/{{ $user->profile()->first()->linkedin }}">
-                                <i style="color: #0077b5" class="fab fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                        @endif
+                        @if ($user->hasProfile()){
+                            @if ($user->profile()->first()->github !== null)
+                                <a href="https://www.github.com/{{ $user->profile()->first()->github }}">
+                                    <i style="color: #333" class="fab fa-github" aria-hidden="true"></i>
+                                </a>
+                            @endif
 
-                        @if ($user->profile()->first()->facebook !== null)
-                            <a href="https://www.facebook.com/{{ $user->profile()->first()->facebook }}">
-                                <i class="fab fa-facebook" aria-hidden="true"></i>
-                            </a>
-                        @endif
+                            @if ($user->profile()->first()->linkedin !== null)
+                                <a href="https://www.linkedin.com/in/{{ $user->profile()->first()->linkedin }}">
+                                    <i style="color: #0077b5" class="fab fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                            @endif
 
-                        @if ($user->profile()->first()->instagram !== null)
-                            <a href="https://www.instagram.com/{{ $user->profile()->first()->instagram }}">
-                                <i style="color: #bc2a8d" class="fab fa-instagram" aria-hidden="true"></i>
-                            </a>
-                        @endif
+                            @if ($user->profile()->first()->facebook !== null)
+                                <a href="https://www.facebook.com/{{ $user->profile()->first()->facebook }}">
+                                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                                </a>
+                            @endif
 
-                        @if ($user->profile()->first()->twitter !== null)
-                            <a href="https://twitter.com/{{ $user->profile()->first()->twitter }}">
-                                <i style="color: #00acee" class="fab fa-twitter" aria-hidden="true"></i>
-                            </a>
-                        @endif
+                            @if ($user->profile()->first()->instagram !== null)
+                                <a href="https://www.instagram.com/{{ $user->profile()->first()->instagram }}">
+                                    <i style="color: #bc2a8d" class="fab fa-instagram" aria-hidden="true"></i>
+                                </a>
+                            @endif
 
-                        @if ($user->profile()->first()->youtube !== null)
-                            <a href="https://www.youtube.com/channel/{{ $user->profile()->first()->youtube }}">
-                                <i style="color: #FF0000" class="fab fa-youtube" aria-hidden="true"></i>
-                            </a>
-                        @endif
+                            @if ($user->profile()->first()->twitter !== null)
+                                <a href="https://twitter.com/{{ $user->profile()->first()->twitter }}">
+                                    <i style="color: #00acee" class="fab fa-twitter" aria-hidden="true"></i>
+                                </a>
+                            @endif
 
+                            @if ($user->profile()->first()->youtube !== null)
+                                <a href="https://www.youtube.com/channel/{{ $user->profile()->first()->youtube }}">
+                                    <i style="color: #FF0000" class="fab fa-youtube" aria-hidden="true"></i>
+                                </a>
+                            @endif
+                            }
+                        @endif
 
                         @if (auth()->guest())
                             <form method="" action="{{ route('login') }}">
@@ -144,39 +148,5 @@
 
 <h1>Postimet</h1>
 <div class="row">
-    @forelse ($user->post as $post)
-        <div class="col">
-            <x-blog-post>
-                <x-slot name="title">{{ $post->title }}</x-slot>
-                <x-slot name="username"></x-slot>
-                <x-slot name="created_at">{{ $post->created_at->diffForHumans() }}</x-slot>
-                <x-slot name="body"> {{ $post->body }},</x-slot>
-                <x-slot name="category">
-                    <livewire:category.postcategory :id="$post->id">
-                </x-slot>
-                <x-slot name="views">{{ $post->views }}</x-slot>
-                <x-slot name="likes">{{ $post->likes()->count() }}</x-slot>
-                <x-slot name="shares">{{ $post->saves()->count() }}</x-slot>
-                <x-slot name="comments">{{ $post->comments()->count() }}</x-slot>
-                <x-slot name="post_slug">{{ $post->slug }}</x-slot>
-            </x-blog-post>
-        </div>
-
-        {{-- @if (auth()->check())
-                @if (!$post->isSavedByUser(Auth::user()))
-                    <button wire:click="save({{ $post->id }})" type="submit"><i
-                            class="far fa-thumbs-up pr-3"></i>Save</button>
-                @else
-                    <button wire:click="unSave({{ $post->id }})" type="submit"><i
-                            class="fas fa-thumbs-up pr-3"></i>UnSave</button>
-                @endif
-
-                @if (auth()->check() && auth()->user()->id == $user->id)
-                    <button>Ndrysho</button> <button>Fshije</button>
-                @endif
-            @endif --}}
-</div>
-@empty
-<span class="text-center" style="color: red">Nuk ka postime</span>
-@endforelse
+    <livewire:post.show :userid="$user->id">
 </div>

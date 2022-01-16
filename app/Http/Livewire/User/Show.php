@@ -9,11 +9,14 @@ use Livewire\Component;
 class Show extends Component
 {
     public $user;
-
-    public function mount($username, User $user)
+    public $selectedConversation;
+    public function mount($username)
     {
         $this->user = User::where('username', $username)->first();
-        $this->status = Follow::where('following', $user->id)->first();
+        $this->selectedConversation = Follow::query()
+            ->where('user_id', auth()->id())
+            ->orWhere('following', auth()->id())
+            ->first();
     }
 
     public function follow(int $id)
@@ -22,7 +25,8 @@ class Show extends Component
         if (!$follow) {
             Follow::create([
                 'following' => auth()->user()->id,
-                'user_id' => $id
+                'user_id' => $id,
+                'chat_id' => md5(auth()->user()->id) . md5($id),
             ]);
             session()->flash('success', 'Follow');
         }
