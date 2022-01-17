@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,7 +17,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        
         $premissions = [
             'post_access',
             'post_delte',
@@ -44,10 +44,29 @@ class DatabaseSeeder extends Seeder
         }
 
         $admin = Role::create(['name' => 'admin']);
-           Role::create(['name' => 'Super Admin']);
+        Role::create(['name' => 'Super Admin']);
 
         foreach ($premissions as $premission) {
             $admin->givePermissionTo($premission);
         }
+
+        $categorys = [
+            'Programim',
+            'Sport',
+            'IT',
+            'Teknollogji',
+            'Lajme',
+            'Kosovë',
+            'Botë',
+            'Sport',
+            'Eksperti',
+            'Ekonomi',
+            'Stili',
+            'Shëndetësi',
+        ];
+
+        foreach ($categorys as $category) {
+            \App\Models\Category::create(['name' => Str::title($category)]);
+        }   
     }
 }

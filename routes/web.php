@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/categorys',  [MainController::class, 'showAdminCategory'])->name('admin.category');
         Route::get('/posts',  [MainController::class, 'showAdminPost'])->name('admin.post');
         Route::get('/roles',  [MainController::class, 'showAdimRole'])->name('admin.role');
+        Route::get('/users',  [MainController::class, 'showAdminUser'])->name('admin.user');
     });
 });
 

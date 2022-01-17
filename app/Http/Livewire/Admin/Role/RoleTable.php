@@ -14,12 +14,12 @@ class RoleTable extends Component
 
     public $search;
 
-    public $ids, $name; //role info
+    public $ids, $name, $role; //role info
     public $premissions = [];
     public $premissions_per_role = [];
 
     public $rules = [
-        'name' => 'min:3|max:40|unique:roles'
+        'name' => 'min:3|max:40|unique:roles',
     ];
 
 
@@ -50,12 +50,11 @@ class RoleTable extends Component
     /**
      * Jep vlerat aktuale
      */
-    public function edit($id)
+    public function edit($id,)
     {
         $role = Role::where('id', $id)->first();
         $this->ids = $role->id;
-        $this->name = $role->name;
-        $this->premissions_per_role = $this->role->permissions;
+        $this->role = $role->name;
     }
 
     /**

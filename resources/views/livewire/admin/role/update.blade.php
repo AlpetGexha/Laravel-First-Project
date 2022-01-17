@@ -10,7 +10,14 @@
             :value="old('name')" required autofocus autocomplete="name" wire:model.def='name' />
         <x-jet-input-error for="name"></x-jet-input-error>
     </div>
+    <div class="mb-3">
 
+        <select id="category-dropdown" class="form-control" name multiple wire:model="premissions_per_role">
+            @foreach ($permissions as $permission)
+                <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+            @endforeach
+        </select>
+    </div>
 
     {{-- show user --}}
 </x-modal>
