@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $premissions = [
             'post_access',
-            'post_delte',
+            'post_delete',
             'post_edit',
             'post_show',
             'comment_edit',
@@ -35,6 +35,15 @@ class DatabaseSeeder extends Seeder
             'user_delete',
             'user_edit',
             'user_show',
+            'role_access',
+            'role_delete',
+            'role_edit',
+            'role_show',
+            'role_create',
+            'permission_access',
+            'permission_delete',
+            'permission_edit',
+            'permission_show',
             'user_give_role',
             'chat_show',
         ];

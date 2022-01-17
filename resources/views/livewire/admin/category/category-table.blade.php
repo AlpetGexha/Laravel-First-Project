@@ -14,14 +14,14 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 mt-2"> 
+                    <div class="col-md-3 mt-2">
                         <input type="search" placeholder="kerko" class="form-control" wire:model='search'>
                     </div>
                 </div>
             </div>
             <table class="table table-hover table-striped table-responsive table-bordered shadow-sm">
                 <thead>
-                    <tr> 
+                    <tr>
                         <th width='8%' scope="col">#
                             <span wire:click='sortBy("id")' class="text-sm" style="cursor: pointer">
                                 <i
@@ -52,25 +52,29 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     {{-- Edit --}}
-                                    <button type="button" class="btn  btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#updateCategory"
-                                        wire:click.prevent='edit({{ $categorie->id }})'>
-                                        <i class="far fa-edit" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Edit"></i>
-                                    </button>
-                                    {{-- Delete --}}
-                                    <button type="button" class="btn btn-sm  btn-outline-primary"
-                                        wire:click.prevent='delete({{ $categorie->id }})'>
-                                        <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Delete"></i>
-                                    </button>
+                                    @can('category_edit')
+                                        <button type="button" class="btn  btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#updateCategory"
+                                            wire:click.prevent='edit({{ $categorie->id }})'>
+                                            <i class="far fa-edit" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Edit"></i>
+                                        </button>
+                                    @endcan
+
+                                    @can('category_delete')
+                                        {{-- Delete --}}
+                                        <button type="button" class="btn btn-sm  btn-outline-primary"
+                                            wire:click.prevent='delete({{ $categorie->id }})'>
+                                            <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Delete"></i>
+                                        </button>
+                                    @endcan
                                     {{-- Show --}}
                                     <button type="button" class="btn btn-sm  btn-outline-primary" data-bs-toggle="modal"
                                         data-bs-target="#editTodo">
                                         <i class="far fa-eye" data-bs-toggle="tooltip" data-bs-placement="top"
                                             title="Show"></i>
                                     </button>
-
                                 </div>
                             </td>
 

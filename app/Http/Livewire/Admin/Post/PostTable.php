@@ -6,10 +6,12 @@ use App\Models\Post;
 use App\Traits\WithSorting;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 
 class PostTable extends Component
 {
-    use WithPagination, WithSorting;
+    use WithPagination, WithSorting, AuthorizesRequests;
 
     public $search;
 
@@ -20,6 +22,7 @@ class PostTable extends Component
 
     public function delete($id)
     {
+        $this->authorize('post_delete');
         Post::where('id', $id)->first()->delete();
         session()->flash('success', 'Potimi u fshie me sukses');
     }

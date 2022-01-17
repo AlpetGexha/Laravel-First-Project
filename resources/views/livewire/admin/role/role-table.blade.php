@@ -6,8 +6,12 @@
 
             <div class="d-flex bd-highlight">
                 <div class="bd-highlight">Rolet</div>
-                <button class="ms-auto bd-highlight btn btn-success btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#creatRole">Krijo Role</button>
+                @can('role_create')
+                    <button class="ms-auto bd-highlight btn btn-success btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#creatRole">
+                        Krijo Role
+                    </button>
+                @endcan
             </div>
         </div>
 
@@ -70,17 +74,21 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     {{-- Edit --}}
-                                    <button type="button" class="btn  btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#updateRole" wire:click.prevent='edit({{ $role->id }})'>
-                                        <i class="far fa-edit" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Edit"></i>
-                                    </button>
+                                    @can('role_edit')
+                                        <button type="button" class="btn  btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#updateRole" wire:click.prevent='edit({{ $role->id }})'>
+                                            <i class="far fa-edit" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Edit"></i>
+                                        </button>
+                                    @endcan
                                     {{-- Delete --}}
-                                    <button type="button" class="btn btn-sm  btn-outline-primary"
-                                        wire:click.prevent='delete({{ $role->id }})'>
-                                        <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Delete"></i>
-                                    </button>
+                                    @can('role_delete')
+                                        <button type="button" class="btn btn-sm  btn-outline-primary"
+                                            wire:click.prevent='delete({{ $role->id }})'>
+                                            <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Delete"></i>
+                                        </button>
+                                    @endcan
                                 </div>
                             </td>
 

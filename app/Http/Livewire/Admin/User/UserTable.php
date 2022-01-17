@@ -2,16 +2,17 @@
 
 namespace App\Http\Livewire\Admin\User;
 
-use Spatie\Permission\Models\Role;
 use App\Models\User;
 use App\Traits\WithSorting;
+use Spatie\Permission\Models\Role;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Support\Str;
+
 
 class UserTable extends Component
 {
-    use WithPagination, WithSorting;
+    use WithPagination, WithSorting, AuthorizesRequests;
 
     public $search;
 
@@ -28,15 +29,17 @@ class UserTable extends Component
 
     public function updateRole()
     {
-        foreach($this->selectRoles as $role) {
+        $this->authorize('user_give_role');
+        foreach ($this->selectRoles as $role) {
             $user = User::find($this->ids);
             $user->assignRole($role);
         }
     }
 
-   //edit role
-    public function edit($id)
+    //edit role
+    public function editRole($id)
     {
+        $this->authorize('user_give_role');
         $user = User::find($id);
         $this->ids = $user->id;
         $this->selectRoles = $user->getRoleNames();

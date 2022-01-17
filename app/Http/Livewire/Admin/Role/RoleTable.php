@@ -4,13 +4,14 @@ namespace App\Http\Livewire\Admin\Role;
 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Traits\WithSorting;
 use Livewire\WithPagination;
 use Livewire\Component;
 
 class RoleTable extends Component
 {
-    use WithPagination, WithSorting;
+    use WithPagination, WithSorting, AuthorizesRequests;
 
     public $search;
 
@@ -29,6 +30,7 @@ class RoleTable extends Component
 
     public function store()
     {
+        $this->authorize('role_create');
         $this->validate();
         $role = Role::create(['name' => $this->name, 'guard_name' => 'web']);
         $this->emit('createRole');
@@ -52,6 +54,7 @@ class RoleTable extends Component
      */
     public function edit($id,)
     {
+        $this->authorize('role_edit');
         $role = Role::where('id', $id)->first();
         $this->ids = $role->id;
         $this->role = $role->name;
@@ -62,6 +65,7 @@ class RoleTable extends Component
      */
     public function update()
     {
+        $this->authorize('role_edit'); 
         $this->validate();
         if ($this->ids) {
             $role = Role::find($this->ids);
@@ -75,6 +79,7 @@ class RoleTable extends Component
 
     public function delete($id)
     {
+        $this->authorize('role_delete');
         Role::where('id', $id)->first()->delete();
         session()->flash('success', 'Roli u fshie me sukses');
     }

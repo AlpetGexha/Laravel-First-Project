@@ -70,28 +70,38 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     {{-- Edit --}}
-                                    <button type="button" class="btn  btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#updateCategory" {{-- wire:click.prevent='edit({{ $categorie->id }})' --}}>
-                                        <i class="far fa-edit" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Edit"></i>
-                                    </button>
+                                    @can('user_edit')
+                                        <button type="button" class="btn  btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#updateCategory" {{-- wire:click.prevent='edit({{ $categorie->id }})' --}}>
+                                            <i class="far fa-edit" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Edit"></i>
+                                        </button>
+                                    @endcan
                                     {{-- Delete --}}
-                                    <button type="button" class="btn btn-sm  btn-outline-primary" {{-- wire:click.prevent='delete({{ $categorie->id }})' --}}>
-                                        <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Delete"></i>
-                                    </button>
+                                    @can('user_delete')
+                                        <button type="button" class="btn btn-sm  btn-outline-primary" {{-- wire:click.prevent='delete({{ $categorie->id }})' --}}>
+                                            <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Delete"></i>
+                                        </button>
+                                    @endcan
+
                                     {{-- Show --}}
-                                    <button type="button" class="btn btn-sm  btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#showUser">
-                                        <i class="far fa-eye" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Show"></i>
-                                    </button>
+                                    @can('user_show')
+                                        <button type="button" class="btn btn-sm  btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#showUser">
+                                            <i class="far fa-eye" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Show"></i>
+                                        </button>
+                                    @endcan
+
                                     {{-- Role --}}
-                                    <button type="button" class="btn btn-sm  btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#giveRole" wire:click.prevent='edit({{$user->id}})'>
-                                        <i class="fas fa-user-tag" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Roles"></i>
-                                    </button>
+                                    @can('user_give_role')
+                                        <button type="button" class="btn btn-sm  btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#giveRole" wire:click.prevent='editRole({{ $user->id }})'>
+                                            <i class="fas fa-user-tag" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Roles"></i>
+                                        </button>
+                                    @endcan
                                 </div>
                             </td>
 

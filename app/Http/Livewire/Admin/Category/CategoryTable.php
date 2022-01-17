@@ -3,14 +3,15 @@
 namespace App\Http\Livewire\Admin\Category;
 
 use App\Models\Category;
-use Livewire\Component;
 use App\Traits\WithSorting;
 use Illuminate\Support\Str;
+use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CategoryTable extends Component
 {
-    use WithPagination, WithSorting;
+    use WithPagination, WithSorting, AuthorizesRequests;
 
     public $search;
 
@@ -39,6 +40,7 @@ class CategoryTable extends Component
      */
     public function edit($id)
     {
+        $this->authorize('category_edit');
         $Category = Category::where('id', $id)->first();
         $this->ids = $Category->id;
         $this->categoria = $Category->category;
@@ -47,6 +49,7 @@ class CategoryTable extends Component
 
     public function update()
     {
+        $this->authorize('category_edit');
         $this->validate();
         if ($this->ids) {
             $Category = Category::find($this->ids);
@@ -60,6 +63,7 @@ class CategoryTable extends Component
 
     public function delete($id)
     {
+        $this->authorize('category_delete');
         Category::where('id', $id)->first()->delete();
         session()->flash('success', 'Kategoria u fshie me sukses');
     }
@@ -74,8 +78,8 @@ class CategoryTable extends Component
     {
         return view('livewire.admin.category.category-table', [
             'categories' => Category::where('category', 'like', '%' . $this->search . '%')
-             ->orderBy($this->sortBy, $this->sortDirection)
-                ->paginate($this->paginate_page),   
+                ->orderBy($this->sortBy, $this->sortDirection)
+                ->paginate($this->paginate_page),
         ]);
     }
 }

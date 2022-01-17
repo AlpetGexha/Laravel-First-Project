@@ -90,26 +90,29 @@
 
                                 <td>{{ $post->title }}</td>
                                 <td>
-                                    <textarea readonly class="form-control" placeholder="Leave a comment here"
-                                        id="floatingTextarea" style="height: 20px">{{ $post->body }}</textarea>
+                                    <textarea readonly class="form-control" placeholder="" id="floatingTextarea"
+                                        style="height: 20px">{{ $post->body }}</textarea>
                                 </td>
-                                <td><a
-                                        href="{{ route('user.show', $post->user->username) }}">{{ $post->user->username }}</a>
+                                <td> username
+                                    {{-- <a href="{{ route('user.show', $post->user->username) }}">{{ $post->user->username }}</a> --}}
                                 </td>
                                 <td>kategorit</td>
                                 <td>{{ $post->views }}</td>
-                                <td>{{ $post->comments()->count() }} /{{ $replyCount }}
+                                <td>{{ $post->comments()->count() }}
                                 <td>{{ $post->likes()->count() }}</td>
                                 <td>{{ $post->saves()->count() }}</td>
 
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
                                         {{-- Delete --}}
+                                        @can('post_delete', $post)
                                         <button type="button" class="btn btn-sm  btn-outline-primary"
-                                            wire:click.prevent='delete({{ $post->id }})'>
-                                            <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Delete"></i>
-                                        </button>
+                                        wire:click.prevent='delete({{ $post->id }})'>
+                                        <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Delete"></i>
+                                    </button>
+                                        @endcan
+                                        
                                     </div>
                                 </td>
 
