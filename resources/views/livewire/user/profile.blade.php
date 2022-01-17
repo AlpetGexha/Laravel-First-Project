@@ -8,7 +8,6 @@
     </x-slot>
 
     @if (auth()->user()->hasProfile())
-
         <x-slot name="form">
             <div class="w-md-75">
                 {{-- bio --}}

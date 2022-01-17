@@ -67,8 +67,14 @@ class MainController extends Controller
     {
         return view('post.like');
     }
+
     public function showAdminPost()
     {
         return view('admin.post.table');
+    }
+    
+    public function showAdimRole(User $user)
+    {
+        return view('admin.role.table',compact('user'));
     }
 }

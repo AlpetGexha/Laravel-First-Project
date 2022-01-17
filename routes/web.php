@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/dashboard',  [MainController::class, 'showAdminDashboard'])->name('dashboard');
         Route::get('/categorys',  [MainController::class, 'showAdminCategory'])->name('admin.category');
         Route::get('/posts',  [MainController::class, 'showAdminPost'])->name('admin.post');
+        Route::get('/roles',  [MainController::class, 'showAdimRole'])->name('admin.role');
     });
 });
 
