@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Models\Category;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -52,8 +55,8 @@ class DatabaseSeeder extends Seeder
             Permission::create(['name' => $premission]);
         }
 
-        $admin = Role::create(['name' => 'admin']);
-        Role::create(['name' => 'Super Admin']);
+        $admin = Role::create(['name' => 'Super Admim']);
+        Role::create(['name' => 'Admin']);
 
         foreach ($premissions as $premission) {
             $admin->givePermissionTo($premission);
@@ -75,7 +78,17 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($categorys as $category) {
-            \App\Models\Category::create(['name' => Str::title($category)]);
-        }   
+            Category::create(['category' => Str::title($category), 'slug' => Str::slug($category, '-'),]);
+        }
+
+        User::create([
+            'name' => 'Admin',
+            'mbiemri' => 'Admin',
+            'email' => 'agexha@gmail.com',
+            'username' => 'alpetg',
+            'password' => Hash::make('Alpet123'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ])->assignRole('Super Admin');
     }
 }
