@@ -1,11 +1,9 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4 font-weight-bold">
-            {{ __('Categorit') }}
-        </h2>
+<x-Admin>
+    <x-slot name="name">
+        {{ __('Categorit') }}
     </x-slot>
     <livewire:admin.category.category-table>
-</x-app-layout>
+</x-Admin>
 
 <script type="text/javascript">
     // Per tu mbyllur model pas submitit

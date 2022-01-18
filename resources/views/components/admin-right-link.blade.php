@@ -1,37 +1,43 @@
 <x-ulliadmin>
     <x-slot name="icone">fas fa-tachometer-alt</x-slot>
-    <x-slot name="name">Dashboard</x-slot>
+    <x-slot name="name">{{ __('Dashboard') }}</x-slot>
 
     <x-liadmin>
         <x-slot name="icone">far fa-circle</x-slot>
-        Alpet
+        <x-slot name="go">#</x-slot>
+        {{ __('Alpet') }}
     </x-liadmin>
 
     <x-liadmin>
         <x-slot name="icone">far fa-circle</x-slot>
-        Alpet
+        <x-slot name="go">#</x-slot>
+        {{ __('Alpet') }}
     </x-liadmin>
 
 </x-ulliadmin>
 
 <x-liadmin>
-    <x-slot name="icone">far fa-circle</x-slot>
-    Alpet
+    {{ __('Userat') }}
+    <x-slot name="icone">fas fa-users</x-slot>
+    <x-slot name="go">{{ route('admin.user') }}</x-slot>
 </x-liadmin>
 
 <x-liadmin>
-    <x-slot name="icone">far fa-circle</x-slot>
-    Userat
+    {{ __('Rolet') }}
+    <x-slot name="icone">fas fa-user-tag</x-slot>
+    <x-slot name="go">{{ route('admin.role') }}</x-slot>
 </x-liadmin>
 
 <x-liadmin>
-    <x-slot name="icone">far fa-circle</x-slot>
-    Postimet
+    <x-slot name="icone">fas fa-blog</x-slot>
+    <x-slot name="go">{{ route('admin.post') }}</x-slot>
+    {{ __('Postimet') }}
 </x-liadmin>
 
 <x-liadmin>
-    <x-slot name="icone">far fa-circle</x-slot>
-    Kategorit
+    <x-slot name="icone">fas fa-blog</x-slot>
+    <x-slot name="go">{{ route('admin.category') }}</x-slot>
+    {{ __('Kategorit') }}
 </x-liadmin>
 
 {{-- <x-liadmin>

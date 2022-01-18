@@ -19,7 +19,8 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-hover table-striped table-responsive table-bordered shadow-sm">
+            <table class="table table-hover table-striped table-responsive table-bordered shadow-sm"
+                wire:loading.class='text-muted'>
                 <thead>
                     <tr>
                         <th width='8%' scope="col">#
