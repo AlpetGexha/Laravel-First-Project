@@ -50,7 +50,7 @@ class MainController extends Controller
 
     public function showAdminDashboard()
     {
-        return view('dashboard');
+        return view('admin.dashboard.dashboard');
     }
 
     public function showAdminCategory()
