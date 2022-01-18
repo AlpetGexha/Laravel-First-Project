@@ -14,7 +14,7 @@ trait WithSorting
     public $page_numer = [10, 20, 50, 70, 100];
 
     /** numri i faqeve (paginate)  */
-    public $paginate_page;
+    public $paginate_page = 10;
 
     /** Thema per paginate */
     protected $paginationTheme = 'bootstrap';
