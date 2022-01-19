@@ -14,14 +14,16 @@ class Profile extends Component
     public function mount()
     {
         $this->user =  UserProfile::where('user_id', auth()->user()->id)->first();
-        $this->bio = $this->user->bio;
-        $this->url = $this->user->url;
-        $this->github = $this->user->github;
-        $this->twitter = $this->user->twitter;
-        $this->facebook = $this->user->facebook;
-        $this->instagram = $this->user->insstagram;
-        $this->linkedin = $this->user->linkedin;
-        $this->youtube = $this->user->youtube;
+        if ($this->user) {
+            $this->bio = $this->user->bio;
+            $this->url = $this->user->url;
+            $this->github = $this->user->github;
+            $this->twitter = $this->user->twitter;
+            $this->facebook = $this->user->facebook;
+            $this->instagram = $this->user->insstagram;
+            $this->linkedin = $this->user->linkedin;
+            $this->youtube = $this->user->youtube;
+        }
     }
 
     protected  $rules = [
@@ -50,6 +52,18 @@ class Profile extends Component
             'facebook' => $this->facebook,
         ]);
         //Nese jane jane empty kthen nulls
+
+        if (empty($this->bio)) {
+            $user->update([
+                'bio' => null,
+            ]);
+        }
+
+        if (empty($this->url)) {
+            $user->update([
+                'url' => null,
+            ]);
+        }
         if (empty($this->github)) {
             $user->update([
                 'github' => null,

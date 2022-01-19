@@ -6,9 +6,9 @@
     <x-slot name="description">
         {{ __('Bio dhe rrjetet sociales.') }}
     </x-slot>
+    <x-slot name="form">
+        @if (auth()->user()->hasProfile())
 
-    @if (auth()->user()->hasProfile())
-        <x-slot name="form">
             <div class="w-md-75">
                 {{-- bio --}}
                 <div class="mb-3">
@@ -82,15 +82,20 @@
                 </div>
 
             </div>
-        </x-slot>
-    @else
-        <button wire:click.prevent='create' class="btn btn-dark text-uppercase">Krijo Profilin</button>
-    @endif
-    <x-slot name="actions">
-        <div class="d-flex align-items-baseline">
-            <x-jet-button>
-                {{ __('Save') }}
-            </x-jet-button>
-        </div>
+
+        @else
+            <div class="d-flex justify-content-end">
+                <button wire:click.prevent='create' class="btn btn-dark text-uppercase ">Krijo Profilin</button>
+            </div>
+        @endif
     </x-slot>
+    @if (auth()->user()->hasProfile())
+        <x-slot name="actions">
+            <div class="d-flex align-items-baseline">
+                <x-jet-button>
+                    {{ __('Save') }}
+                </x-jet-button>
+            </div>
+        </x-slot>
+    @endif
 </x-jet-form-section>

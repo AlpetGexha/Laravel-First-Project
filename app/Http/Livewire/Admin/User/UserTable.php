@@ -16,7 +16,7 @@ class UserTable extends Component
 
     public $search;
 
-    public $ids, $name;
+    public $ids, $name, $mbiemri, $email, $username, $create_at, $bio, $url, $facebook, $twitter, $instagram, $youtube, $linkedin, $github;
     public $selectRoles = [];
     public $rules = [
         'categoria' => 'min:3|max:255'
@@ -34,6 +34,31 @@ class UserTable extends Component
             $user = User::find($this->ids);
             $user->assignRole($role);
         }
+    }
+
+    // Show user info 
+    public function  showUser($id)
+    {
+        $this->authorize('user_show');
+        $user = User::find($id);
+        $this->name = $user->name;
+        $this->mbiemri = $user->mbiemri;
+        $this->email = $user->email;
+        $this->username = $user->username;
+        $this->create_at = $user->create_at;
+        // profile
+        // $this->bio = $user->bio;
+        if ($user->hasProfile()) {
+            $this->url = $user->profile->url;
+            $this->facebook = $user->profile->facebook;
+            $this->twitter = $user->profile->twitter;
+            $this->instagram = $user->profile->instagram;
+            $this->youtube = $user->profile->youtube;
+            $this->linkedin = $user->profile->linkedin;
+            $this->github = $user->profile->github;
+            $this->selectRoles = $user->getRoleNames();
+        }
+        $this->emit('showUser', $user);
     }
 
     //edit role
