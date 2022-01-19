@@ -1,6 +1,6 @@
 <div class="card-body">
-    <title>Laravel Livewire Select2 Multiple Example</title>
-
+    <!-- Select2 -->
+   
     <form method="POST">
         <x-alert />
         {{-- Title --}}
@@ -22,12 +22,11 @@
         </div>
 
         {{-- Kategoria --}}
-
-        <div class="col-md-12">
+        <div class="col-md-12 mb-3">
             <div class="form-group">
-                <label>Category</label>
+                <label>Kategoria</label>
                 <div wire:ignore>
-                    <select id="category-dropdown" class="form-control" name multiple wire:model="category">
+                    <select class="select2 form-select" multiple ata-placeholder="Any" wire:model="category" d>
                         <livewire:category.post-create />
                     </select>
                 </div>
@@ -37,17 +36,14 @@
             </div>
         </div>
 
-
-        {{-- tags --}}
+        {{-- tags
         <div class="mb-3">
             <x-jet-label value="{{ __('Tagat') }}" />
 
             <x-jet-input class="{{ $errors->has('Tags') ? 'is-invalid' : '' }}" type="text" wire:model=' Tags'
                 name="Tags" required />
             <x-jet-input-error for="Tags"></x-jet-input-error>
-        </div>
-
-
+        </div> --}}
 
         {{-- Photo --}}
         <div class="mb-3">
@@ -68,15 +64,3 @@
     </form>
 </div>
 
-<script>
-    $(document).ready(function() {
-        $('#category-dropdown').select2();
-        $('#category-dropdown').on('change', function(e) {
-            let data = $(this).val();
-            @this.set('category', data);
-        });
-        window.livewire.on('addPosts', () => {
-            $('#category-dropdown').select2();
-        });
-    });
-</script>
