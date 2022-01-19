@@ -46,8 +46,10 @@ class UserTable extends Component
         $this->email = $user->email;
         $this->username = $user->username;
         $this->create_at = $user->create_at;
+        $this->selectRoles = $user->getRoleNames();
         // profile
         // $this->bio = $user->bio;
+        /*
         if ($user->hasProfile()) {
             $this->url = $user->profile->url;
             $this->facebook = $user->profile->facebook;
@@ -56,8 +58,9 @@ class UserTable extends Component
             $this->youtube = $user->profile->youtube;
             $this->linkedin = $user->profile->linkedin;
             $this->github = $user->profile->github;
-            $this->selectRoles = $user->getRoleNames();
+           
         }
+        */
         $this->emit('showUser', $user);
     }
 

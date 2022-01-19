@@ -88,7 +88,7 @@
                                     {{-- Show --}}
                                     @can('user_show')
                                         <button type="button" class="btn btn-sm  btn-outline-primary" data-bs-toggle="modal"
-                                            data-bs-target="#showUser">
+                                            data-bs-target="#showUser" wire:click.prevent='showUser({{ $user->id }})'>
                                             <i class="far fa-eye" data-bs-toggle="tooltip" data-bs-placement="top"
                                                 title="Show"></i>
                                         </button>
