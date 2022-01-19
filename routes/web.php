@@ -21,13 +21,13 @@ Route::get('/post/{post:slug}', [MainController::class, 'show'])->name('post.sin
 Route::get('/kategoria/{category:slug}', [MainController::class, 'showCategory'])->name('category.single');
 
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::middleware(['auth:sanctum', 'verified',])->group(function () {
         Route::get('/dashboard',  [MainController::class, 'showAdminDashboard'])->name('dashboard');
-        Route::get('/categorys',  [MainController::class, 'showAdminCategory'])->name('admin.category');
-        Route::get('/posts',  [MainController::class, 'showAdminPost'])->name('admin.post');
-        Route::get('/roles',  [MainController::class, 'showAdimRole'])->name('admin.role');
-        Route::get('/users',  [MainController::class, 'showAdminUser'])->name('admin.user');
+        Route::get('/categorys',  [MainController::class, 'showAdminCategory'])->name('category');
+        Route::get('/posts',  [MainController::class, 'showAdminPost'])->name('post');
+        Route::get('/roles',  [MainController::class, 'showAdimRole'])->name('role');
+        Route::get('/users',  [MainController::class, 'showAdminUser'])->name('user');
     });
 });
 

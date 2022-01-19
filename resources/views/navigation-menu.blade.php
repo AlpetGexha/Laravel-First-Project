@@ -17,10 +17,6 @@
                     {{ __('Ballina') }}
                 </x-jet-nav-link>
 
-                <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
-                </x-jet-nav-link>
-
                 <x-jet-nav-link href="{{ route('create.post') }}" :active="request()->routeIs('create.post')">
                     {{ __('Krijo Postime') }}
                 </x-jet-nav-link>
@@ -65,6 +61,12 @@
                                         {{ __('Manage Account') }}
                                     </h6>
 
+                                    @can('admin_show')
+                                        <x-jet-dropdown-link href="{{ route('user.show') }}">
+                                            {{ __('Profile') }}
+                                        </x-jet-dropdown-link>
+                                    @endcan
+                                        
                                     <x-jet-dropdown-link href="{{ route('user.show', ['user' => Auth::user()->username]) }}">
                                         {{ __('Profile') }}
                                     </x-jet-dropdown-link>
@@ -84,7 +86,7 @@
                                     <!-- Authentication -->
                                     <x-jet-dropdown-link href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Log out') }}
                                     </x-jet-dropdown-link>
                                     <form method="POST" id="logout-form" action="{{ route('logout') }}">

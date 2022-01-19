@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $premissions = [
+            'admin_show',
             'post_access',
             'post_delete',
             'post_edit',

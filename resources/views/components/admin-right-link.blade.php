@@ -1,20 +1,9 @@
-<x-ulliadmin>
+<x-liadmin>
+    {{ __('Dashboard') }}
     <x-slot name="icone">fas fa-tachometer-alt</x-slot>
-    <x-slot name="name">{{ __('Dashboard') }}</x-slot>
+    <x-slot name="go">{{ route('admin.dashboard') }}</x-slot>
+</x-liadmin>
 
-    <x-liadmin>
-        <x-slot name="icone">far fa-circle</x-slot>
-        <x-slot name="go">#</x-slot>
-        {{ __('Alpet') }}
-    </x-liadmin>
-
-    <x-liadmin>
-        <x-slot name="icone">far fa-circle</x-slot>
-        <x-slot name="go">#</x-slot>
-        {{ __('Alpet') }}
-    </x-liadmin>
-
-</x-ulliadmin>
 
 <x-liadmin>
     {{ __('Userat') }}

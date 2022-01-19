@@ -16,6 +16,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('AdminPanel/dist/css/adminlte.min.css') }}">
     {{-- Livewire --}}
+    @stack('style')
     <livewire:styles />
 </head>
 
@@ -23,7 +24,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-light" id="navbar">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -268,8 +269,7 @@
                 {{--  --}}
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2022 &nbsp; Alpet Gexha.</strong>
-            reserved.
+            <strong>Copyright &copy; 2022 &nbsp; Alpet Gexha</strong>
         </footer>
     </div>
     <!-- ./wrapper -->
@@ -285,6 +285,7 @@
     <script src="{{ asset('AdminPanel/dist/js/adminlte.min.js') }}"></script>
     {{-- Livewire --}}
     <livewire:scripts />
+    @stack('script')
     <script>
         (function($) {
             "use strict";
@@ -298,6 +299,7 @@
         })(jQuery);
         //Aktivizo Dark Mode
         let darkModeOn = false;
+        let navbar = document.getElementById("navbar");
 
         const createStorage = (name, value) => {
             localStorage.setItem(name, value);
@@ -314,10 +316,12 @@
         const toggleDarkMode = (e) => {
             if (document.body.classList.contains("dark-mode")) {
                 document.body.classList.remove("dark-mode");
+                navbar.classList.remove("navbar-dark");
                 darkModeOn = false;
                 createStorage("my_preferredMode", "light-mode");
             } else {
                 document.body.classList.add("dark-mode");
+                navbar.classList.add("navbar-dark");
                 darkModeOn = true;
                 createStorage("my_preferredMode", "dark-mode");
             }
@@ -347,11 +351,13 @@
             if (darkModeOn) {
                 if (!document.body.classList.contains("dark-mode")) {
                     document.body.classList.add("dark-mode");
+                    navbar.classList.add("navbar-dark");
                 }
                 document.getElementById("darkMode").checked = true
             } else {
                 if (document.body.classList.contains("dark-mode")) {
                     document.body.classList.remove("dark-mode");
+                    navbar.classList.remove("navbar-dark");
                 }
             }
         })

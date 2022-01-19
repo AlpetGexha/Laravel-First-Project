@@ -48,9 +48,9 @@ class MainController extends Controller
         return view('auth.post');
     }
 
-    public function showAdminDashboard()
+    public function showAdminDashboard(User $user, Post $post, Category $category)
     {
-        return view('admin.dashboard.dashboard');
+        return view('admin.dashboard.dashboard', compact('user', 'post', 'category'));
     }
 
     public function showAdminCategory()
