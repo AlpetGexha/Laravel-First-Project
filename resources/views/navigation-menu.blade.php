@@ -62,8 +62,8 @@
                                     </h6>
 
                                     @can('admin_show')
-                                        <x-jet-dropdown-link href="{{ route('user.show') }}">
-                                            {{ __('Profile') }}
+                                        <x-jet-dropdown-link href="{{ route('admin.dashboard') }}">
+                                            {{ __('Paneli i Adminit') }}
                                         </x-jet-dropdown-link>
                                     @endcan
                                         
