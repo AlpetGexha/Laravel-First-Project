@@ -6,7 +6,7 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
             {{-- Users --}}
-            <div class="col-lg-3 col-6">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="small-box bg-info">
                     <div class="inner">
                         <h3>{{ $user->count() }}</h3>
@@ -22,7 +22,7 @@
             </div>
 
             {{-- Postimet --}}
-            <div class="col-lg-3 col-6">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="small-box bg-warning">
                     <div class="inner">
                         <h3>{{ $post->count() }}</h3>
@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-6">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="small-box bg-success">
                     <div class="inner">
                         <h3>{{ $category->count() }}</h3>

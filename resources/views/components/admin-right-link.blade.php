@@ -4,30 +4,37 @@
     <x-slot name="go">{{ route('admin.dashboard') }}</x-slot>
 </x-liadmin>
 
+@can('user_show')
+    <x-liadmin>
+        {{ __('Userat') }}
+        <x-slot name="icone">fas fa-users</x-slot>
+        <x-slot name="go">{{ route('admin.user') }}</x-slot>
+    </x-liadmin>
+@endcan
 
-<x-liadmin>
-    {{ __('Userat') }}
-    <x-slot name="icone">fas fa-users</x-slot>
-    <x-slot name="go">{{ route('admin.user') }}</x-slot>
-</x-liadmin>
+@can('role_show')
+    <x-liadmin>
+        {{ __('Rolet') }}
+        <x-slot name="icone">fas fa-user-tag</x-slot>
+        <x-slot name="go">{{ route('admin.role') }}</x-slot>
+    </x-liadmin>
+@endcan
 
-<x-liadmin>
-    {{ __('Rolet') }}
-    <x-slot name="icone">fas fa-user-tag</x-slot>
-    <x-slot name="go">{{ route('admin.role') }}</x-slot>
-</x-liadmin>
+@can('post_show')
+    <x-liadmin>
+        <x-slot name="icone">fas fa-blog</x-slot>
+        <x-slot name="go">{{ route('admin.post') }}</x-slot>
+        {{ __('Postimet') }}
+    </x-liadmin>
+@endcan
 
-<x-liadmin>
-    <x-slot name="icone">fas fa-blog</x-slot>
-    <x-slot name="go">{{ route('admin.post') }}</x-slot>
-    {{ __('Postimet') }}
-</x-liadmin>
-
-<x-liadmin>
-    <x-slot name="icone">fas fa-blog</x-slot>
-    <x-slot name="go">{{ route('admin.category') }}</x-slot>
-    {{ __('Kategorit') }}
-</x-liadmin>
+@can('category_show')
+    <x-liadmin>
+        <x-slot name="icone">fas fa-blog</x-slot>
+        <x-slot name="go">{{ route('admin.category') }}</x-slot>
+        {{ __('Kategorit') }}
+    </x-liadmin>
+@endcan
 
 {{-- <x-liadmin>
     <x-slot name="icon">fas fas-copy</x-slot>
