@@ -1,6 +1,6 @@
 <div class="card-body">
     <!-- Select2 -->
-   
+
     <form method="POST">
         <x-alert />
         {{-- Title --}}
@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label>Kategoria</label>
                 <div wire:ignore>
-                    <select class="select2 form-select" multiple ata-placeholder="Any" wire:model="category" d>
+                    <select id='category-dropdown' class="select2 form-select" multiple wire:model="category">
                         <livewire:category.post-create />
                     </select>
                 </div>
@@ -64,3 +64,15 @@
     </form>
 </div>
 
+<script>
+    $(document).ready(function() {
+        $('#category-dropdown').select2();
+        $('#category-dropdown').on('change', function(e) {
+            let data = $(this).val();
+            @this.set('category', data);
+        });
+        window.livewire.on('addPosts', () => {
+            $('#category-dropdown').select2();
+        });
+    });
+</script>
