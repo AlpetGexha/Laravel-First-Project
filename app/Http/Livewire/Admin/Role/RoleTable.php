@@ -16,11 +16,12 @@ class RoleTable extends Component
     public $search;
 
     public $ids, $name, $role; //role info
-    public $premissions = [];
+    public $user_premissions = [];
     public $premissions_per_role = [];
 
     public $rules = [
         'name' => 'min:3|max:40|unique:roles',
+        'premissions_per_role' => 'required',
     ];
 
 
@@ -34,10 +35,10 @@ class RoleTable extends Component
         $this->validate();
         $role = Role::create(['name' => $this->name, 'guard_name' => 'web']);
         $this->emit('createRole');
-        $this->blankField();
         foreach ($this->premissions_per_role as $premissions) {
             $role->givePermissionTo($premissions);
         }
+        $this->blankField();
     }
 
     /**
@@ -52,12 +53,13 @@ class RoleTable extends Component
     /**
      * Jep vlerat aktuale
      */
-    public function edit($id,)
+    public function edit(int $id)
     {
         $this->authorize('role_edit');
         $role = Role::where('id', $id)->first();
         $this->ids = $role->id;
-        $this->role = $role->name;
+        $this->name = $role->name;
+        $this->premissions_per_role = $role->permissions->pluck('id');
     }
 
     /**
@@ -65,19 +67,22 @@ class RoleTable extends Component
      */
     public function update()
     {
-        $this->authorize('role_edit'); 
+        $this->authorize('role_edit');
         $this->validate();
         if ($this->ids) {
             $role = Role::find($this->ids);
             $role->update([
                 'name' => $this->name,
             ]);
+            foreach ($this->premissions_per_role as $premissions) {
+                $role->givePermissionTo($premissions);
+            }
             session()->flash('success', 'Roli u editua me Sukses');
             $this->emit('updatRole');
         }
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         $this->authorize('role_delete');
         Role::where('id', $id)->first()->delete();

@@ -7,7 +7,7 @@
     <div class="mb-3">
         <x-jet-label value="{{ __('Role') }}" />
         <x-jet-input class="{{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
-            :value="old('name')" required autofocus autocomplete="name" wire:model.def='name' />
+            :value="old('name')" required autofocus autocomplete="name" wire:model='name' />
 
         <x-jet-input-error for="name"></x-jet-input-error>
     </div>
@@ -20,15 +20,20 @@
 
     <div class="col-md-12">
         <div class="form-group">
-            <label></label>
-
+            <label>Permission</label>
             <div wire:ignore>
-                <select id="category-dropdown" class="form-control" name multiple wire:model="premissions_per_role">
+                <div class="row">
                     @foreach ($permissions as $permission)
-                        <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                        <div class="col-md-4">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" wire:model='premissions_per_role'
+                                    id="customSwitch{{ $permission->id }}" value="{{ $permission->id }}">
+                                <label class="custom-control-label"
+                                    for="customSwitch{{ $permission->id }}">{{ $permission->name }}</label>
+                            </div>
+                        </div>
                     @endforeach
-                </select>
-                
+                </div>
             </div>
             @error('role')
                 {{ $message }}

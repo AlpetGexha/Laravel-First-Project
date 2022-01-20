@@ -11,12 +11,20 @@
         <x-jet-input-error for="name"></x-jet-input-error>
     </div>
     <div class="mb-3">
-
-        <select id="category-dropdown" class="form-control" name multiple wire:model="premissions_per_role">
+        <div class="row" wire:loading.class='text-muted'>
+            {{-- @dd($premissions_per_role) --}}
             @foreach ($permissions as $permission)
-                <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                <div class="col-md-4 ">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" wire:model.defer='premissions_per_role'
+                            id="customSwitch{{ $permission->id }}" value="{{ $permission->id }}">
+
+                        <label class="custom-control-label"
+                            for="customSwitch{{ $permission->id }}">{{ $permission->name }}</label>
+                    </div>
+                </div>
             @endforeach
-        </select>
+        </div>
     </div>
 
     {{-- show user --}}

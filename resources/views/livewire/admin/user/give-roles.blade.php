@@ -6,13 +6,14 @@
 
     <div class="mb-3">
 
-        @foreach ($roles as $role)
-            <input class="form-check-input" type="checkbox" value="{{ $role->id }}"
-                wire:model='selectRoles' id="flexCheckDefault">
+        @forelse ($roles as $role)
+            <input class="form-check-input" type="checkbox" value="{{ $role->id }}" wire:model='selectRoles'
+                id="flexCheckDefault">
             <span class="badge badge-sm bg-success">{{ $role->name }}</span><br>
-        @endforeach
+        @empty
+            Nuk ka
+        @endforelse
     </div>
-
 
 </x-modal>
 {{-- <button type="button" data-bs-toggle="modal" data-bs-target="#updateRole">dasdas</button> --}}
