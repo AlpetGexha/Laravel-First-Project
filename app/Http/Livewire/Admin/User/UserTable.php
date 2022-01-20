@@ -34,6 +34,7 @@ class UserTable extends Component
             $user = User::find($this->ids);
             $user->assignRole($role);
         }
+        $this->emit('updateRole');  
     }
 
     // Show user info 

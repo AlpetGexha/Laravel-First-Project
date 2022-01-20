@@ -16,9 +16,31 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mbyll</button>
-                <button type="button" wire:loading.attr='disabled' class="btn btn-success" {{ $function }}>{{ $type }}</button>
+                <button type="button" wire:loading.attr='disabled' class="btn btn-success"
+                    {{ $function }}>{{ $type }}</button>
             </div>
         </div>
     </div>
 </div>
 {{-- data-bs-toggle="modal" data-bs-target="#{{ $id }}"> --}}
+<script type="text/javascript">
+    // Per tu mbyllur model pas submitit
+    window.livewire.on('addTodo', () => { //emit
+        $('#createTodo').modal('hide');
+    });
+
+    window.livewire.on('updatRole', () => { //emit
+        $('#updateRole').modal('hide');
+    });
+
+    window.livewire.on('updateRole', () => { //emit
+        $('#giveRole').modal('hide');
+    });
+    
+    window.livewire.on('addTodo', () => { //emit
+        $('#createTodo').modal('hide');
+    });
+    window.livewire.on('updateTodo', () => { //emit
+        $('#updatesTodo').modal('hide');
+    });
+</script>
