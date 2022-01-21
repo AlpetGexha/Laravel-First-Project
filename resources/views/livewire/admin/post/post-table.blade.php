@@ -27,13 +27,14 @@
                                 <input class="" wire:model='selectPage' type="checkbox"
                                     id="flexCheckDefault">
                             </th>
-                            {{-- <x-sort :by='id' /> --}}
-                            <span wire:click='sortBy("id")' class="text-sm" style="cursor: pointer">
-                                <i
-                                    class="fa fa-arrow-up {{ $sortBy === 'id' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
-                                <i
-                                    class="fa fa-arrow-down {{ $sortBy === 'id' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
-                            </span>
+                            <th width='1%' scope="col">#
+                                {{-- <x-sort :by='id' /> --}}
+                                <span wire:click='sortBy("id")' class="text-sm" style="cursor: pointer">
+                                    <i
+                                        class="fa fa-arrow-up {{ $sortBy === 'id' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
+                                    <i
+                                        class="fa fa-arrow-down {{ $sortBy === 'id' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
+                                </span>
                             </th>
                             <th scope="col">Foto</th>
                             <th width='15%' scope="col">Titulli
@@ -82,8 +83,8 @@
 
                             <tr>
                                 <td>
-                                    <input class="" wire:model='selectIteams'
-                                        value="{{ $post->id }}" type="checkbox" id="flexCheckDefault">
+                                    <input class="" wire:model='selectIteams' value="{{ $post->id }}"
+                                        type="checkbox" id="flexCheckDefault">
                                 </td>
 
                                 <th scope="row">
