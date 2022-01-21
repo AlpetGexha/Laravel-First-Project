@@ -61,11 +61,12 @@
                                     <button class="btn btn-sm btn-outline-success w-100 ml-2"
                                         wire:loading.attr='disabled' wire:click="unFollow({{ $user->id }})"
                                         type="submit">UnFollow</button>
+                                    &nbsp; <a class="btn btn-sm btn-outline-success w-100"
+                                        href="{{ route('user.chat') }}">Chat</a>
                                 @else
                                     <button class="btn btn-sm btn-success w-100 ml-2" wire:loading.attr='disabled'
                                         wire:click="follow({{ $user->id }})" type="submit">Follow</button>
                                 @endif
-                                &nbsp; <a class="btn btn-sm btn-outline-success w-100" href="#">Chat</a>
                             @endif
                         </div>
 

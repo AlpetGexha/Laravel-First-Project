@@ -28,15 +28,16 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                {{-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
-                </li>
+                </li> --}}
             </ul>
 
             <!-- Right navbar links -->
@@ -180,9 +181,9 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="{{ route('admin.dashboard') }}" class="brand-link">
                 <x-jet-application-mark width="36" />
-                <span class="brand-texts font-weight-light ml-4">AlpetG Laravel</span>
+                <span class="brand-texts font-weight-light ml-4">{{ env('APP_NAME') }}</span>
             </a>
 
             <!-- Sidebar -->
@@ -190,11 +191,15 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ auth()->user()->profile_photo_url }}" class="img-circle elevation-2"
-                            alt="{{ auth()->user()->username }}">
+                        <a href="{{ url('/user/profile') }}">
+                            <img src="{{ auth()->user()->profile_photo_url }}" class="img-circle elevation-2"
+                                alt="{{ auth()->user()->username }}">
+                        </a>
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ auth()->user()->username }}</a>
+                        <a href="{{ url('/user/profile') }}" class="d-block">
+                            {{ auth()->user()->username }}
+                        </a>
                     </div>
                 </div>
 
