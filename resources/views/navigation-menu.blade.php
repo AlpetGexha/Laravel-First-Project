@@ -17,7 +17,7 @@
                     {{ __('Ballina') }}
                 </x-jet-nav-link>
 
-                <x-jet-nav-link href="{{ route('create.post') }}" :active="request()->routeIs('create.post')">
+                <x-jet-nav-link href="{{ route('post.create') }}" :active="request()->routeIs('post.create')">
                     {{ __('Krijo Postime') }}
                 </x-jet-nav-link>
 
