@@ -2,20 +2,22 @@
 
 namespace App\Http\Livewire\Admin\Category;
 
+// use App\Interface\WithCheckboxInterface;
 use App\Models\Category;
 use App\Traits\WithSorting;
+use App\Traits\WithCheckbox;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-
+//implements WithCheckboxInterface
 class CategoryTable extends Component
 {
-    use WithPagination, WithSorting, AuthorizesRequests;
+    use WithPagination, WithSorting, WithCheckbox, AuthorizesRequests;
 
     public $search;
-
     public $ids, $categoria, $created_at; //Category info
+
 
     public $rules = [
         'categoria' => 'min:3|max:255'
@@ -25,6 +27,8 @@ class CategoryTable extends Component
         'page' => ['except' => 1],
         'search' => ['except' => '', 'as' => 'q'],
     ];
+
+
 
     /**
      * Pastro te thenat
@@ -72,7 +76,11 @@ class CategoryTable extends Component
     public function updated($value)
     {
         $this->validateOnly($value);
+        $this->setModel(Category::class, 'category');
     }
+
+
+
 
     public function render()
     {
