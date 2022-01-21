@@ -3,7 +3,6 @@
     @include('livewire.admin.role.update')
     <div class="card shadow">
         <div class="card-header">
-
             <div class="d-flex bd-highlight">
                 <div class="bd-highlight">Rolet</div>
                 @can('role_create')
@@ -16,6 +15,7 @@
         </div>
 
         <div class="card-body">
+            @include('components.checkboxtable')
             <div class="col-md-12 mt-1 mb-3">
                 <div class="row d-flex">
                     <div class="col-md-2 mt-2">
@@ -35,8 +35,12 @@
                 </div>
             </div>
             <table class="table table-hover table-striped table-responsive table-bordered shadow-sm">
-                <thead>
+                <thead wire:loading.class='text-muted'>
                     <tr>
+                        <th width='1%' scope="col">
+                            <input class="" wire:model='selectPage' type="checkbox" id="flexCheckDefault">
+                        </th>
+
                         <th width='8%' scope="col">#
                             <span wire:click='sortBy("id")' class="text-sm" style="cursor: pointer">
                                 <i
@@ -62,6 +66,10 @@
                 <tbody>
                     @forelse ($roles as $role)
                         <tr>
+                            <td>
+                                <input class="" wire:model='selectIteams' value="{{ $role->id }}"
+                                    type="checkbox" id="flexCheckDefault">
+                            </td>
                             <th scope="row">
                                 {{ ($roles->currentPage() - 1) * $roles->perPage() + $loop->iteration }}
                             </th>

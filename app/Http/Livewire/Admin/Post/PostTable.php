@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Post;
 
 use App\Models\Post;
+use App\Traits\WithCheckbox;
 use App\Traits\WithSorting;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PostTable extends Component
 {
-    use WithPagination, WithSorting, AuthorizesRequests;
+    use WithPagination, WithSorting, WithCheckbox, AuthorizesRequests;
 
     public $search;
 
@@ -25,6 +26,11 @@ class PostTable extends Component
         $this->authorize('post_delete');
         Post::where('id', $id)->first()->delete();
         session()->flash('success', 'Potimi u fshie me sukses');
+    }
+
+    public function updated()
+    {
+        $this->setModel(Post::class, 'title');
     }
 
     public function render()

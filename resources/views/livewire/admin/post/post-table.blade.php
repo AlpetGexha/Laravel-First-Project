@@ -4,6 +4,7 @@
             Postimet
         </div>
         <div class="card-body">
+            @include('components.checkboxtable')
             <div class="col-md-12 mt-1 mb-3">
                 <div class="row d-flex">
                     <div class="col-md-2 mt-2">
@@ -22,15 +23,17 @@
                 <table class="table table-hover table-striped table-bordered shadow-sm text-center">
                     <thead wire:loading.class='text-muted'>
                         <tr>
-                            <th width='3%' scope="col"># </th>
-                            <th width='5%' scope="col">#
-                                {{-- <x-sort :by='id' /> --}}
-                                <span wire:click='sortBy("id")' class="text-sm" style="cursor: pointer">
-                                    <i
-                                        class="fa fa-arrow-up {{ $sortBy === 'id' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
-                                    <i
-                                        class="fa fa-arrow-down {{ $sortBy === 'id' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
-                                </span>
+                            <th width='1%' scope="col">
+                                <input class="" wire:model='selectPage' type="checkbox"
+                                    id="flexCheckDefault">
+                            </th>
+                            {{-- <x-sort :by='id' /> --}}
+                            <span wire:click='sortBy("id")' class="text-sm" style="cursor: pointer">
+                                <i
+                                    class="fa fa-arrow-up {{ $sortBy === 'id' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
+                                <i
+                                    class="fa fa-arrow-down {{ $sortBy === 'id' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
+                            </span>
                             </th>
                             <th scope="col">Foto</th>
                             <th width='15%' scope="col">Titulli
@@ -78,9 +81,10 @@
                         @forelse ($posts as $post)
 
                             <tr>
-                                <th scope="row">
-                                    box
-                                </th>
+                                <td>
+                                    <input class="" wire:model='selectIteams'
+                                        value="{{ $post->id }}" type="checkbox" id="flexCheckDefault">
+                                </td>
 
                                 <th scope="row">
                                     {{ ($posts->currentPage() - 1) * $posts->perPage() + $loop->iteration }}
@@ -106,13 +110,13 @@
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
                                         {{-- Delete --}}
                                         @can('post_delete', $post)
-                                        <button type="button" class="btn btn-sm  btn-outline-primary"
-                                        wire:click.prevent='delete({{ $post->id }})'>
-                                        <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Delete"></i>
-                                    </button>
+                                            <button type="button" class="btn btn-sm  btn-outline-primary"
+                                                wire:click.prevent='delete({{ $post->id }})'>
+                                                <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Delete"></i>
+                                            </button>
                                         @endcan
-                                        
+
                                     </div>
                                 </td>
 

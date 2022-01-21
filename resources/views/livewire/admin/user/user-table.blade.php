@@ -5,7 +5,7 @@
     @include('livewire.admin.user.show')
     <div class="card shadow">
         <div class="card-header">
-            Categori
+            Userat
         </div>
         <div class="card-body">
             <div class="col-md-12 mt-1 mb-3">
