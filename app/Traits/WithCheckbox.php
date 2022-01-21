@@ -82,10 +82,11 @@ trait WithCheckbox
 
     public function selectAllHere()
     {
-        $select = $this->model::where($this->model_search_name, 'like', '%' . $this->search . '%')
+        $select =  $this->model::where($this->model_search_name, 'like', '%' . $this->search . '%')
             ->paginate($this->paginate_page)
             ->pluck('id')->map(fn ($id) => (string) $id);
-        array_push($this->selectIteams, $select);
+        //push vetem 1 her 
+        $this->selectIteams = array_unique(array_merge($this->selectIteams, $select->toArray()));
         $this->blankFild();
     }
 
