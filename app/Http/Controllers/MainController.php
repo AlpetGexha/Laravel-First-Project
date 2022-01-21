@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\PostSaves;
 use App\Models\User;
-
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
@@ -50,7 +50,8 @@ class MainController extends Controller
 
     public function showAdminDashboard(User $user, Post $post, Category $category)
     {
-        return view('admin.dashboard.dashboard', compact('user', 'post', 'category'));
+        $sessions = DB::table('sessions')->count();
+        return view('admin.dashboard.dashboard', compact('user', 'post', 'category', 'sessions'));
     }
 
     public function showAdminCategory()

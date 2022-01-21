@@ -11,7 +11,7 @@
                     <div class="inner">
                         <h3>{{ $user->count() }}</h3>
 
-                        <p>Përdoruesit</p>
+                        <p>Përdoruesit të regjistruar</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-users"></i>
@@ -51,6 +51,21 @@
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="small-box bg-secondary">
+                    <div class="inner">
+                        <h3>{{ $sessions }}</h3>
+                        <p>Vizitort</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Më shumë informacion <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
         </div>
     </div>
 
