@@ -37,70 +37,110 @@
             <div class="card-body">
                 {{-- check this user post --}}
                 {{-- Delete edit button --}}
-                @auth
-                    @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
-                        <button wire:click.prevent='deleteCommnet({{ $comment->id }})'>Delete</button>
-                        @if ($comment->user_id == auth()->user()->id)
-                            <div x-data="{ open: false }">
-                                <button @click="open = ! open">Edit</button>
-                                <div x-show="open" @click.outside="open = false">
-                                    <input type="text">
-                                    <button>Edit</button>
-                                    {{-- <input wire:model='Komenti' type="text">
-                            <button wire:click.prevent='editComment({{ $comment->id }})'>Edit</button> --}}
-                                </div>
+                {{-- @auth
+                    @if ($comment->user_id == auth()->user()->id)
+                        <div x-data="{ open: false }">
+                            <button @click="open = ! open">Edit</button>
+                            <div x-show="open" @click.outside="open = false">
+                                <input type="text">
+                                <button>Edit</button>
                             </div>
-                        @endif
+                        </div>
                     @endif
+                @endauth --}}
+                {{-- Dropdown për delete, edit --}}
+                @auth
+                    <div class="d-flex justify-content-end">
+                        <div class="nav-item dropdown">
+                            <i class="fas fa-ellipsis-v" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                aria-expanded="false"> </i>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                {{-- Delete Commnet --}}
+                                @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
+                                    <button class="dropdown-item" wire:click.prevent='deleteCommnet({{ $comment->id }})'>
+                                        <p style="color:red"> Delete</p>
+                                    </button>
+                                    </li>
+                                    @if ($comment->user_id == auth()->user()->id)
+                                        <div x-data="{ open: false }">
+                                            <button @click="open = ! open">Edit</button>
+                                            <div x-show="open" @click.outside="open = false">
+                                                <input type="text">
+                                                <button>Edit</button>
+                                                {{-- <input wire:model='Komenti' type="text">
+                                <button wire:click.prevent='editComment({{ $comment->id }})'>Edit</button> --}}
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
                 @endauth
+
+                {{-- Foto Username --}}
                 <div class="d-flex">
                     <div class="flex-shrink-0">
                         <img class="rounded-circle" src="{{ $comment->user->profile_photo_url }}"
                             style="width: 50px; height:50px;" alt="{{ $comment->user->username }}">
                     </div>
+                    {{-- Komenti --}}
                     <div class="ms-3">
                         <div class="fw-bold">{{ $comment->user->username }}</div>
                         <p>{{ $comment->body }}</p>
                     </div>
-
                 </div>
+
                 {{-- Reply button --}}
                 @auth
-                    <div x-data="{ open: false }">
-                        <button wire:click='blankFildRepley()' @click="open = ! open">Reply</button>
+                    <div style="margin-left: 5rem;" x-data="{ open: false }">
+                        <button class="btn btn-sm btn-outline-success" wire:click='blankFildRepley()'
+                            @click="open = ! open">Reply</button>
                         <div wire:click.prevent='blankFildRepley()' x-show="open" @click.outside="open = false">
-                            <form action="">
-                                <input type="text" wire:model='Repley'>
-                                <button type='submit' wire:click.prevent="addReply({{ $comment->id }})">Reply</button>
+                            <form action="" class="input-group mb-1 mt-1">
+                                <input class="form-control" type="text" wire:model='Repley'>
+                                <button class="btn btn-sm btn-outline-dark" type='submit'
+                                    wire:click.prevent="addReply({{ $comment->id }})">Reply</button>
                             </form>
                         </div>
                     </div>
-
                 @endauth
 
                 {{-- Reply --}}
                 @foreach ($comment->replies as $reply)
+                    {{-- Dropdown for delete Replys --}}
+                    @auth
+                        <div class="d-flex justify-content-end">
+                            <div class="nav-item dropdown">
+                                <i class="fas fa-ellipsis-v" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false"> </i>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    {{-- Delete Commnet --}}
+                                    @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
+                                        <button class="dropdown-item"
+                                            wire:click.prevent='deleteReply({{ $reply->id }})'>Delete</button>
+                                        @if ($comment->user_id == auth()->user()->id)
+                                            <div x-data="{ open: false }">
+                                                <button class="dropdown-item" @click="open = ! open">Edit</button>
+                                                <div x-show="open" @click.outside="open = false">
+                                                    <input type="text">
+                                                    <button>Edit</button>
+                                                    {{-- <input wire:model='Komenti' type="text">
+                                                <button wire:click.prevent='editComment({{ $comment->id }})'>Edit</button> --}}
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                    @endauth
                     <div class="d-flex mt-4 ms-5">
                         <div class="flex-shrink-0">
                             <img class="rounded-circle" style="width: 50px; height:50px;"
                                 src="{{ $reply->user->profile_photo_url }}" alt="{{ $reply->user->username }}">
                         </div>
-                        @auth
-                            @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
-                                <button wire:click.prevent='deleteReply({{ $reply->id }})'>Delete</button>
-                                @if ($comment->user_id == auth()->user()->id)
-                                    <div x-data="{ open: false }">
-                                        <button @click="open = ! open">Edit</button>
-                                        <div x-show="open" @click.outside="open = false">
-                                            <input type="text">
-                                            <button>Edit</button>
-                                            {{-- <input wire:model='Komenti' type="text">
-                                <button wire:click.prevent='editComment({{ $comment->id }})'>Edit</button> --}}
-                                        </div>
-                                    </div>
-                                @endif
-                            @endif
-                        @endauth
+
                         <div class="ms-3">
                             <div class="fw-bold">{{ $reply->user->username }}</div>
                             <p>{{ $reply->body }}</p>
