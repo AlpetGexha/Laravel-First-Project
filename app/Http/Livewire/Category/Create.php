@@ -26,14 +26,14 @@ class Create extends Component
     {
         $executed = RateLimiter::attempt(
             'make-categoty:' . auth()->user()->id,
-            $perMinute = 2,
+            $perMinute = 4,
             function () {
                 $this->validate();
                 if (Category::create([
                     'category' => Str::ucfirst($this->category),
                     'slug' => Str::slug($this->category, '-'),
                 ])) {
-                    session()->flash('success', 'Kateogira u krijua me Sukses');
+                    session()->flash('success', 'Kateogira juaj është në shqyrtim');
                     $this->blankFild();
                     $this->emitUp('addCategorysss');
                 }

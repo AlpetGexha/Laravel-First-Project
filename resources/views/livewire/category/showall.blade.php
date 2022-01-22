@@ -9,16 +9,16 @@
             {{-- show more and less category --}}
         @endforeach
 
+        @if ($categories->total() > 0 && $categories->count() < $categories->total())
         <div class="d-flex justify-content-center mt-2 mb-2 ">
             <div>
-                @if ($categories->total() > 0 && $categories->count() < $categories->total())
-                    <button class="btn btn-outline-success btn-sm" wire:click.prevent='loadMore()'>
+                    <button class="btn btn-outline-success btn-sm" wire:click.prevent='showMore()'>
                         Shiko më shumë Kategori
                     </button>
                 @endif
 
                 @if ($categories->count() >= 11)
-                    <button class="btn btn-outline-success  btn-sm" wire:click.prevent='loadLess()'>
+                    <button class="btn btn-outline-success  btn-sm" wire:click.prevent='showLess()'>
                         Shiko më pak Kategori
                     </button>
                 @endif

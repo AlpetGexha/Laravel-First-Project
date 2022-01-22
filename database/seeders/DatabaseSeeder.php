@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($categorys as $category) {
-            Category::create(['category' => Str::title($category), 'slug' => Str::slug($category, '-'),]);
+            Category::create(['category' => Str::title($category), 'slug' => Str::slug($category, '-'), 'is_active' => 1]);
         }
 
         User::create([

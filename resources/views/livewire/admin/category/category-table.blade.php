@@ -44,6 +44,14 @@
                                 class="fa fa-arrow-down {{ $sortBy === 'category' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
                         </span>
                     </th>
+                    <th width='11%' scope='col'>Aktiviteti
+                        <span wire:click='sortBy("is_active")' class="text-sm" style="cursor: pointer">
+                            <i
+                                class="fa fa-arrow-up {{ $sortBy === 'is_active' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
+                            <i
+                                class="fa fa-arrow-down {{ $sortBy === 'is_active' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
+                        </span>
+                    </th>
                     <th width='10%' scope="col"></th>
                     </tr>
                 </thead>
@@ -58,6 +66,7 @@
                                 {{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->iteration }}
                             </th>
                             <td>{{ $categorie->category }}</td>
+                            <td> {{ $categorie->is_active == 1 ? 'Aktive' : 'JoAktive' }} </td>
 
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
@@ -85,6 +94,27 @@
                                         <i class="far fa-eye" data-bs-toggle="tooltip" data-bs-placement="top"
                                             title="Show"></i>
                                     </button>
+
+                                    {{-- Aktive --}}
+                                    @if ($categorie->is_active == 1)
+                                        @can('category_access')
+                                            <button type="button" class="btn btn-sm  btn-outline-primary"
+                                                wire:click.prevent='unactive({{ $categorie->id }})'>
+                                                <i class="fas fa-ban" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="UnPublik"></i>
+                                            </button>
+                                        @endcan
+                                    @else
+
+                                        {{-- UnActive --}}
+                                        @can('category_accept')
+                                            <button type="button" class="btn btn-sm  btn-outline-primary"
+                                                wire:click.prevent='active({{ $categorie->id }})'>
+                                                <i class="far fa-check-circle" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Publik"></i>
+                                            </button>
+                                        @endif
+                                    @endcan
                                 </div>
                             </td>
 

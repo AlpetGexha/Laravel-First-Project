@@ -10,7 +10,10 @@ class Show extends Component
     public function render()
     {
         return view('livewire.category.show', [
-            'categories' => Category::select('id', 'category')->get(),
+            'categories' => Category::where('is_active', 1)
+                ->select('id', 'category','is_active')
+                ->orderBy('id', 'desc')
+                ->get(),
         ]);
     }
 }

@@ -1,9 +1,9 @@
-<div class="card-body" >
+<div class="card-body">
     <form method="POST">
         <x-alert />
         {{-- Title --}}
         <div class="mb-3">
-            <x-jet-label value="{{ __('Kateogira') }}" />
+            <x-jet-label value="{{ __('Sygjeroni Kategori Të Reja') }}" />
 
             <x-jet-input class="{{ $errors->has('category') ? 'is-invalid' : '' }}" type="text" wire:model='category'
                 name="category" required />
