@@ -16,6 +16,8 @@ class PostTable extends Component
 
     public $search;
 
+    public $ids, $title, $userid, $body, $views,  $likes, $saves, $comments, $photo, $categorit, $created_at; //Post info
+
     public $queryString = [
         'page' => ['except' => 1],
         'search' => ['except' => '', 'as' => 'q'],
@@ -33,11 +35,26 @@ class PostTable extends Component
         $this->setModel(Post::class, 'title');
     }
 
+    public function edit(int $id)
+    {
+        $this->authorize('post_show');
+        $post = Post::where('id', $id)->first();
+        $this->ids = $post->id;
+        $this->photo = $post->photo;
+        $this->title = $post->title;
+        $this->userid  = $post->user->username;
+        $this->body = $post->body;
+        $this->categorit = $post->category;
+        $this->views = $post->views;
+        $this->comments = $post->comments()->count();
+        $this->likes = $post->likes()->count();
+        $this->saves = $post->saves()->count();
+        $this->created_at = $post->created_at; 
+    }
     public function render()
     {
         return view('livewire.admin.post.post-table', [
-            'posts' => Post::select('id', 'title', 'slug', 'created_at')
-                ->where('title', 'like', '%' . $this->search . '%')
+            'posts' => Post::where('title', 'like', '%' . $this->search . '%')
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate($this->paginate_page),
         ]);

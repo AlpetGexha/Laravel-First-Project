@@ -1,4 +1,5 @@
 <div class="container-fluid">
+    @include('livewire.admin.post.show')
     <div class="card shadow">
         <div class="card-header">
             Postimet
@@ -98,10 +99,19 @@
                                     <textarea readonly class="form-control" placeholder="" id="floatingTextarea"
                                         style="height: 20px">{{ $post->body }}</textarea>
                                 </td>
-                                <td> username
-                                    {{-- <a href="{{ route('user.show', $post->user->username) }}">{{ $post->user->username }}</a> --}}
+                                <td> {{ $post->user->username }}</td>
+                                {{-- <a href="{{ route('user.show', $post->user->username) }}">{{ $post->user->username }}</a> --}}
                                 </td>
-                                <td>kategorit</td>
+                                <td>
+                                    @forelse ($post->category as $categorit)
+                                        <span class="badge badge-primary">
+                                            {{ $categorit->category->category }}</span>
+                                    @empty
+                                        Nuk Ka
+                                    @endforelse
+                                </td>
+
+
                                 <td>{{ $post->views }}</td>
                                 <td>{{ $post->comments()->count() }}
                                 <td>{{ $post->likes()->count() }}</td>
@@ -118,6 +128,14 @@
                                             </button>
                                         @endcan
 
+                                        @can('post_show')
+                                            <button type="button" class="btn btn-sm  btn-outline-primary"
+                                                data-bs-toggle="modal" data-bs-target="#postShow"
+                                                wire:click.prevent='edit({{ $post->id }})'>
+                                                <i class="far fa-eye" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Show"></i>
+                                            </button>
+                                        @endcan
                                     </div>
                                 </td>
 

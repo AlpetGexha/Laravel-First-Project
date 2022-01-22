@@ -1,5 +1,5 @@
 <x-show-user-info>
-    <x-slot name='id'>showUser</x-slot>
+    <x-slot name='id'>postShow</x-slot>
     <x-slot name='title'>Përdoruesi</x-slot>
     <form action="">
         <input type="hidden" wire:model='ids'>
