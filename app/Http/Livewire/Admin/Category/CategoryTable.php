@@ -17,6 +17,7 @@ class CategoryTable extends Component
 
     public $search;
     public $ids, $categoria, $created_at; //Category info
+    public   $status = null;
 
 
     public $rules = [
@@ -100,6 +101,14 @@ class CategoryTable extends Component
         session()->flash('success', 'Kategoria nuk është publike tani');
     }
 
+
+    public function filterTodosByStatus($status = null)
+    {
+        $this->resetPage();
+
+        $this->status = $status;
+    }
+
     public function updated($value)
     {
         $this->validateOnly($value);
@@ -110,6 +119,7 @@ class CategoryTable extends Component
     {
         return view('livewire.admin.category.category-table', [
             'categories' => Category::where('category', 'like', '%' . $this->search . '%')
+                ->when($this->status, fn ($query, $status) => $query->where('is_active', $this->status))
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate($this->paginate_page),
         ]);
