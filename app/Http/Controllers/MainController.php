@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use AboutUs;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\PostSaves;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+
+use function PHPUnit\Framework\at;
 
 class MainController extends Controller
 {
@@ -29,6 +32,11 @@ class MainController extends Controller
 
     public  function showCategory(Category $category)
     {
+        // nese kategoria eshte private(0) aborto
+        $categorys = Category::findOrFail($category->id);
+        if (!$categorys->is_active == 1) {
+            abort(404);
+        }
         $category->update(['views' => $category->views + 1]);
         return view('category.single', compact('category'));
     }
