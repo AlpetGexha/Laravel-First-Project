@@ -26,7 +26,13 @@ class PostTable extends Component
     public function delete($id)
     {
         $this->authorize('post_delete');
-        Post::where('id', $id)->first()->delete();
+        $post = Post::findOrFail($id);
+        $path = 'storage/' . $post->photo;
+        $post->delete();
+        if (file_exists($path)) {
+            unlink($path);
+        }
+
         session()->flash('success', 'Potimi u fshie me sukses');
     }
 
@@ -49,7 +55,7 @@ class PostTable extends Component
         $this->comments = $post->comments()->count();
         $this->likes = $post->likes()->count();
         $this->saves = $post->saves()->count();
-        $this->created_at = $post->created_at; 
+        $this->created_at = $post->created_at;
     }
     public function render()
     {

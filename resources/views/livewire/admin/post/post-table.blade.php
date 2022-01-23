@@ -55,7 +55,7 @@
                                 </span>
                             </th>
 
-                            <th width='8%' scope="col">Përdoruesi
+                            <th width='10%' scope="col">Përdoruesi
                                 <span wire:click='sortBy("user_id")' class="text-sm" style="cursor: pointer">
                                     <i
                                         class="fa fa-arrow-up {{ $sortBy === 'user_id' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
@@ -144,7 +144,7 @@
                             </tr>
                         @empty
                             <tr class="text-center">
-                                <td colspan="11">
+                                <td colspan="12">
                                     Nuk ka resultat
                                 </td>
                             </tr>
