@@ -30,7 +30,7 @@
     @endif
     <div class="single_post p-2 card shadow-sm bg-light">
         <div class="single_post_info">
-            <img src="https://picsum.photos/200/150/?random" class="img-fluid" alt="image not available"
+            <img src="{{ asset('storage/' . $post->photo) }}" class="img-fluid" alt="{{ $post->title }}"
                 style="width:900px;height:380px" loading="lazy">
             <div class="single_post_info_show">
                 <ul>
