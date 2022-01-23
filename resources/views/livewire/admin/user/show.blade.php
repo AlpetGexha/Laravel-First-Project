@@ -4,6 +4,21 @@
     <form action="">
         <input type="hidden" wire:model='ids'>
         <table class="table">
+            <tr>
+                <td>
+                    {{ $last_seen }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @if (Cache::has('user-is-online-' . $ids))
+                        <span class="badge badge-success">Online</span>
+                    @else
+                        <span class="badge badge-danger">Offline</span>
+                    @endif
+                </td>
+            </tr>
 
             <tr>
                 <th scope="row">Emri</th>

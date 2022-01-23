@@ -33,6 +33,7 @@
                                     class="fa fa-arrow-down {{ $sortBy === 'id' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
                             </span>
                         </th>
+                        <th width='3%' scope="col">Statusi</th>
                         <th width='5%' scope="col">Emri</th>
                         <th width='5%' scope="col">Mbiemri</th>
                         <th width='6%' scope="col">Username
@@ -55,6 +56,13 @@
                             <th scope="row">
                                 {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
                             </th>
+                            <td>
+                                @if (Cache::has('user-is-online-' . $user->id))
+                                    <span class="badge badge-success">Online</span>
+                                @else
+                                    <span class="badge badge-danger">Offline</span>
+                                @endif
+                            </td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->mbiemri }}</td>
                             <td>{{ $user->username }}</td>
