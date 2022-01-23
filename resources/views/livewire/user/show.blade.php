@@ -30,8 +30,21 @@
                     {{-- <img src="assets/img/user/AlpetGBlogUser.60c38af32e7f04.43411620.jpg " class="rounded-circle" width="155"> --}}
                     <img src="{{ $user->profile_photo_url }}" class="rounded-circle m-3" height="155" width="155">
                     <div class="ml-3 w-100">
-                        <h4 class="mb-1 mt-1"> {{ $user->name }} {{ $user->mbiemri }} </h4> <span
-                            class="span_username">@</span><span class="span_username">{{ $user->username }}</span>
+                        <h4 class="mb-1 mt-1"> {{ $user->name }} {{ $user->mbiemri }}
+                            <span style="color: red">
+                                @if ($user->isVerified($user))
+                                    <img src="https://img.icons8.com/ios-glyphs/20/020400/approval.png" /
+                                        title="Verifikuar">
+                                @endif
+                            </span>
+                            {{-- @if (Cache::has('user-is-online-' . $user->id))
+                                <span class="badge badge-success" style="color:rebeccapurple;">Online</span>
+                            @else
+                                <span class="badge badge-danger">Offline</span>
+                                <sub>Aktive : {{ Carbon\Carbon::parse($user->last_login_at)->diffForHumans() }}</sub>
+                            @endif --}}
+                        </h4> <span class="span_username">@</span><span
+                            class="span_username">{{ $user->username }}</span>
 
                         <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
                             <div class="d-flex flex-column">
@@ -73,7 +86,7 @@
                         {{-- Rrjete sociale --}}
                         {{-- user has profiel --}}
 
-                        @if ($user->hasProfile()){
+                        @if ($user->hasProfile())
                             @if ($user->profile()->first()->github !== null)
                                 <a href="https://www.github.com/{{ $user->profile()->first()->github }}">
                                     <i style="color: #333" class="fab fa-github" aria-hidden="true"></i>
@@ -109,7 +122,7 @@
                                     <i style="color: #FF0000" class="fab fa-youtube" aria-hidden="true"></i>
                                 </a>
                             @endif
-                            }
+
                         @endif
 
                         @if (auth()->guest())
