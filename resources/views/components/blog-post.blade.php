@@ -3,7 +3,7 @@
        <div class="row">
            <div class="col-lg-5 col-xl-4">
                <div class="view overlay rounded z-depth-1-half mb-lg-0 mb-4 p-1">
-                   <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/49.webp"
+                   <img class="img-fluid" loading="lazy" src="{{$image}}"
                        alt="Sample image">
                    <a>
                        <div class="mask rgba-white-slight"></div>

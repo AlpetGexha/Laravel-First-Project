@@ -28,7 +28,7 @@
                                 <input class="" wire:model='selectPage' type="checkbox"
                                     id="flexCheckDefault">
                             </th>
-                            <th width='1%' scope="col">#
+                            <th width='5%' scope="col">#
                                 {{-- <x-sort :by='id' /> --}}
                                 <span wire:click='sortBy("id")' class="text-sm" style="cursor: pointer">
                                     <i
@@ -38,7 +38,7 @@
                                 </span>
                             </th>
                             <th scope="col">Foto</th>
-                            <th width='15%' scope="col">Titulli
+                            <th width='12%' scope="col">Titulli
                                 <span wire:click='sortBy("title")' class="text-sm" style="cursor: pointer">
                                     <i
                                         class="fa fa-arrow-up {{ $sortBy === 'title' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
@@ -92,7 +92,9 @@
                                     {{ ($posts->currentPage() - 1) * $posts->perPage() + $loop->iteration }}
                                 </th>
 
-                                <td width='6%'>fotoja</td>
+                                <td width='6%'>
+                                    <img src="{{ asset('storage/' . $post->photo) }}" alt="{{ $post->title }}" height="35px" width='35px' loading="lazy" >
+                                </td>
 
                                 <td>{{ $post->title }}</td>
                                 <td>

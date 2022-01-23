@@ -58,11 +58,12 @@ class Post extends Component
                 Posts::create([
                     'title' => Str::title($this->Titulli),
                     'body' => $this->Teksti,
-                    'photo' => $this->Foto->storeAs('img/posts', $this->Foto->hashName()),
+                    'photo' => $this->Foto->store('post_images', 'public', $this->Foto->hashName()),
                     // 'category' => json_encode($this->category),
                     'user_id' => auth()->user()->id,
                     'slug' => Str::slug($this->Titulli, '-'),
                 ]);
+                $this->Foto->store('post_images','public', $this->Foto->hashName());
                 // Per Kateqorinat
                 foreach ($this->category as $category) {
                     PostCategory::create([

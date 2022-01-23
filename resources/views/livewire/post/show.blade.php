@@ -3,6 +3,7 @@
     @forelse ($posts as $post)
         <x-blog-post>
             <x-slot name="title">{{ $post->title }}</x-slot>
+            <x-slot name="image">{{ asset('storage/' . $post->photo) }}</x-slot>
             <x-slot name="username">{{ $post->user->username }}</x-slot>
             <x-slot name="created_at">{{ $post->created_at->diffForHumans() }}</x-slot>
             <x-slot name="body"> {{ Str::limit($post->body, 200, '...') }},</x-slot>
