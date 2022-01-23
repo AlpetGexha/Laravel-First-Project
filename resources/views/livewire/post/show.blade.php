@@ -1,5 +1,7 @@
 <div>
-    <input wire:model='search' type="search" placeholder="Kerko" class="form-control mb-2">
+    @if ($posts->count() > 0 || $search != '')
+        <input wire:model='search' type="search" placeholder="Kerko" class="form-control mb-2">
+    @endif
     @forelse ($posts as $post)
         <x-blog-post>
             <x-slot name="title">{{ $post->title }}</x-slot>
