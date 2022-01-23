@@ -25,6 +25,7 @@ class User extends Authenticatable
         'name',
         'mbiemri',
         'username',
+        'verified',
         'email',
         'password',
     ];
@@ -97,5 +98,10 @@ class User extends Authenticatable
     public function hasProfile()
     {
         return (bool) $this->profile()->exists();
+    }
+
+    public function isVerified(User $user)
+    {
+        return (bool) $user->verified == 1 ? true : false;
     }
 }

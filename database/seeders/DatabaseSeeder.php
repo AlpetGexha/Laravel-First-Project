@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
             'permission_edit',
             'permission_show',
             'user_give_role',
+            'user_give_verify',
             'chat_show',
         ];
 
@@ -86,6 +87,7 @@ class DatabaseSeeder extends Seeder
             'mbiemri' => 'Admin',
             'email' => 'agexha@gmail.com',
             'username' => 'alpetg',
+            'verified' => 1,
             'password' => Hash::make('Alpet123'),
             'created_at' => now(),
             'updated_at' => now(),

@@ -46,6 +46,7 @@
                         </th>
                         <th width='6%' scope="col">Email</th>
                         <th width='6%' scope="col">Roles</th>
+                        <th width='5%' scope="col">Verifikimin</th>
 
                         <th width='1%' scope="col"></th>
                     </tr>
@@ -75,6 +76,7 @@
                                     User Normal
                                 @endforelse
                             </td>
+                            <td>{{ $user->isVerified($user) ? 'Verifikuar' : 'Jo Verifikuar' }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     {{-- Edit --}}
@@ -110,22 +112,45 @@
                                                 title="Roles"></i>
                                         </button>
                                     @endcan
-                                </div>
-                            </td>
 
-                        </tr>
-                    @empty
-                        <tr class="text-center">
-                            <td colspan="5">
-                                Nuk ka resultat
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                                    @can('user_give_verify')
+
+                                        @if ($user->verified == 1)
+                                            {{-- Hiq Verifikimin --}}
+                                            @can('user_give_verify')
+                                                <button type="button" class="btn btn-sm  btn-outline-primary"
+                                                    wire:click.prevent='unverified({{ $user->id }})'>
+                                                    <i class="fas fa-ban" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Hiq Verifikimin"></i>
+                                                </button>
+                                            @endcan
+                                        @else
+                                            {{-- Verifikiko --}}
+                                            @can('user_give_verify')
+                                                <button type="button" class="btn btn-sm  btn-outline-primary"
+                                                    wire:click.prevent='verified({{ $user->id }})'>
+                                                    <i class="far fa-check-circle" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Verifikiko"></i>
+                                                </button>
+                                            @endcan
+                                        @endif
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                            @empty
+                                <tr class="text-center">
+                                    <td colspan="5">
+                                        Nuk ka resultat
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <div class="body-footer d-flex justify-content-end">
+                    {{ $users->links() }}
+                </div>
+            </div>
         </div>
-        <div class="body-footer d-flex justify-content-end">
-            {{ $users->links() }}
-        </div>
-    </div>
-</div>

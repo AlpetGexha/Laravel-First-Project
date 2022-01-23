@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\User;
 
 use App\Models\User;
 use App\Traits\WithSorting;
+use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
@@ -16,8 +17,9 @@ class UserTable extends Component
 
     public $search;
 
-    public $ids, $name, $mbiemri, $email, $username, $create_at, $bio, $url, $facebook, $twitter, $instagram, $youtube, $linkedin, $github;
+    public $ids, $name, $mbiemri, $email, $username, $create_at, $last_seen, $online, $bio, $url, $facebook, $twitter, $instagram, $youtube, $linkedin, $github;
     public $selectRoles = [];
+    public $user_roles = [];
     public $rules = [
         'categoria' => 'min:3|max:255'
     ];
@@ -27,27 +29,20 @@ class UserTable extends Component
         'search' => ['except' => '', 'as' => 'q'],
     ];
 
-    public function updateRole()
-    {
-        $this->authorize('user_give_role');
-        foreach ($this->selectRoles as $role) {
-            $user = User::find($this->ids);
-            $user->assignRole($role);
-        }
-        $this->emit('updateRole');  
-    }
 
     // Show user info 
     public function  showUser($id)
     {
         $this->authorize('user_show');
         $user = User::find($id);
+        // $this->ids = $user->id;
         $this->name = $user->name;
         $this->mbiemri = $user->mbiemri;
         $this->email = $user->email;
         $this->username = $user->username;
         $this->create_at = $user->create_at;
         $this->selectRoles = $user->getRoleNames();
+        $this->last_seen = Carbon::parse($user->last_login_at)->diffForHumans();
         // profile
         // $this->bio = $user->bio;
         /*
@@ -69,9 +64,38 @@ class UserTable extends Component
     public function editRole($id)
     {
         $this->authorize('user_give_role');
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $this->ids = $user->id;
-        $this->selectRoles = $user->getRoleNames();
+        $this->selectRoles = $user->roles->pluck('id');
+    }
+
+    public function updateRole()
+    {
+        $this->authorize('user_give_role');
+        $user = User::findOrFail($this->ids);
+        // $this->selectRoles = $user->roles->pluck('id');
+        $user->syncRoles($this->selectRoles);
+        $this->emit('updateRole');
+    }
+
+    public function verified(int $id)
+    {
+        $this->authorize('user_give_verify');
+        $user = User::findOrFail($id);
+        $user->verified = 1;
+        $user->save();
+        $this->emit('verified');
+        session()->flash('success', 'User verified');
+    }
+
+    public function unverified($id)
+    {
+        $this->authorize('user_give_verify');
+        $user = User::findOrFail($id);
+        $user->verified = 0;
+        $user->save();
+        $this->emit('unverified');
+        session()->flash('success', 'User unverified');
     }
 
     public function render()
