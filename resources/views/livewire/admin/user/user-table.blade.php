@@ -112,9 +112,7 @@
                                                 title="Roles"></i>
                                         </button>
                                     @endcan
-
-                                    @can('user_give_verify')
-
+                                    
                                         @if ($user->verified == 1)
                                             {{-- Hiq Verifikimin --}}
                                             @can('user_give_verify')

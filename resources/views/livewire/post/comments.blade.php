@@ -50,20 +50,20 @@
                 @endauth --}}
                 {{-- Dropdown për delete, edit --}}
                 @auth
-                    <div class="d-flex justify-content-end">
-                        <div class="nav-item dropdown">
-                            <i class="fas fa-ellipsis-v" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                aria-expanded="false"> </i>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                {{-- Delete Commnet --}}
-                                @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
+                    @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
+                        <div class="d-flex justify-content-end">
+                            <div class="nav-item dropdown">
+                                <i class="fas fa-ellipsis-v" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                    aria-expanded="false"> </i>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    {{-- Delete Commnet --}}
                                     <button class="dropdown-item" wire:click.prevent='deleteCommnet({{ $comment->id }})'>
                                         <p style="color:red"> Delete</p>
                                     </button>
                                     </li>
                                     @if ($comment->user_id == auth()->user()->id)
                                         <div x-data="{ open: false }">
-                                            <button @click="open = ! open">Edit</button>
+                                            <button class="dropdown-item" @click="open = ! open">Edit</button>
                                             <div x-show="open" @click.outside="open = false">
                                                 <input type="text">
                                                 <button>Edit</button>
@@ -72,10 +72,10 @@
                                             </div>
                                         </div>
                                     @endif
-                                @endif
-                            </ul>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endauth
 
                 {{-- Foto Username --}}
@@ -93,7 +93,7 @@
 
                 {{-- Reply button --}}
                 @auth
-                    <div style="margin-left: 5rem;" x-data="{ open: false }">
+                    <div class="col-md-6" style="margin-left: 5rem;" x-data="{ open: false }">
                         <button class="btn btn-sm btn-outline-success" wire:click='blankFildRepley()'
                             @click="open = ! open">Reply</button>
                         <div wire:click.prevent='blankFildRepley()' x-show="open" @click.outside="open = false">
@@ -110,14 +110,15 @@
                 @foreach ($comment->replies as $reply)
                     {{-- Dropdown for delete Replys --}}
                     @auth
-                        <div class="d-flex justify-content-end">
-                            <div class="nav-item dropdown">
-                                <i class="fas fa-ellipsis-v" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false"> </i>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    {{-- Delete Commnet --}}
-                                    @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
-                                        <button class="dropdown-item"
+                        @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
+                            <div class="d-flex justify-content-end">
+                                <div class="nav-item dropdown">
+                                    <i class="fas fa-ellipsis-v" type="button" id="dropdownMenuButton1"
+                                        data-bs-toggle="dropdown" aria-expanded="false"> </i>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        {{-- Delete Commnet --}}
+
+                                        <button class="dropdown-item" style="color:red;"
                                             wire:click.prevent='deleteReply({{ $reply->id }})'>Delete</button>
                                         @if ($comment->user_id == auth()->user()->id)
                                             <div x-data="{ open: false }">
@@ -130,10 +131,10 @@
                                                 </div>
                                             </div>
                                         @endif
-                                    @endif
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endauth
                     <div class="d-flex mt-4 ms-5">
                         <div class="flex-shrink-0">

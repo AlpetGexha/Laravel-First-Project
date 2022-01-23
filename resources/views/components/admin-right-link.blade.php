@@ -30,12 +30,19 @@
 
 @can('category_show')
     <x-liadmin>
-        <x-slot name="icone">fas fa-blog</x-slot>
+        <x-slot name="icone">fas fa-tags</x-slot>
         <x-slot name="go">{{ route('admin.category') }}</x-slot>
         {{ __('Kategorit') }}
     </x-liadmin>
 @endcan
 
+@can('admin_show')
+    <x-liadmin>
+        <x-slot name="icone">fas fa-sign-out-alt</x-slot>
+        <x-slot name="go">{{ route('ballina') }}</x-slot>
+        {{ __('Shko në faqen kryesore') }}
+    </x-liadmin>
+@endcan
 {{-- <x-liadmin>
     <x-slot name="icon">fas fas-copy</x-slot>
     Alpet
