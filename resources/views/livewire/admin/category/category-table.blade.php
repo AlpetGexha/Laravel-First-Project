@@ -9,7 +9,7 @@
             <div class="col-md-12 mt-1 mb-3">
                 <div class="row d-flex">
                     <div class="col-md-2 mt-2">
-                        <select wire:model='paginate_page' class="form-select">
+                        <select wire:model='paginate_page' class="form-control">
                             @foreach ($page_numer as $page)
                                 <option value="{{ $page }}">{{ $page }}</option>
                             @endforeach

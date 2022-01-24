@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\User;
 
 use App\Models\User;
+use App\Traits\WithCheckbox;
 use App\Traits\WithSorting;
 use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
@@ -13,7 +14,7 @@ use Livewire\WithPagination;
 
 class UserTable extends Component
 {
-    use WithPagination, WithSorting, AuthorizesRequests;
+    use WithPagination, WithSorting, WithCheckbox, AuthorizesRequests;
 
     public $search;
 
@@ -98,10 +99,16 @@ class UserTable extends Component
         session()->flash('success', 'User unverified');
     }
 
+    public function updated()
+    {
+        $this->setModel(user::class, 'username', 'verified');
+    }
+
     public function render()
     {
         return view('livewire.admin.user.user-table', [
             'users' => User::where('username', 'like', '%' . $this->search . '%')
+                ->when($this->status, fn ($query, $status) => $query->where('verified', $this->status))
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate($this->paginate_page),
             'roles' => Role::orderBy($this->sortBy, $this->sortDirection)->get(),

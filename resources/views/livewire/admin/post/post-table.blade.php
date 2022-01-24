@@ -9,14 +9,18 @@
             <div class="col-md-12 mt-1 mb-3">
                 <div class="row d-flex">
                     <div class="col-md-2 mt-2">
-                        <select wire:model='paginate_page' class="form-select">
+                        <select wire:model='paginate_page' class="form-control">
                             @foreach ($page_numer as $page)
                                 <option value="{{ $page }}">{{ $page }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 mt-2">
-                        <input type="search" placeholder="kerko" class="form-control" wire:model='search'>
+                    <div class="col">
+                        <div class="d-flex flex-row-reverse bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                <input type="search" placeholder="kerko" class="form-control" wire:model='search'>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,7 +97,8 @@
                                 </th>
 
                                 <td width='6%'>
-                                    <img src="{{ asset('storage/' . $post->photo) }}" alt="{{ $post->title }}" height="35px" width='35px' loading="lazy" >
+                                    <img src="{{ asset('storage/' . $post->photo) }}" alt="{{ $post->title }}"
+                                        height="35px" width='35px' loading="lazy">
                                 </td>
 
                                 <td>{{ $post->title }}</td>
