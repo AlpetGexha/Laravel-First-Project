@@ -22,6 +22,18 @@ trait WithCheckbox
     public  $selectAll = false;
 
     /**
+     * Renditja e rreshtave sipas statusit
+     * @param $query vetem elementi 0 ose 1 mund te perdoret
+     */
+    public  $status = null;
+
+    /**
+     * Renditja e rreshtave sipas kategorive
+     * @param $query vetem elementi 0 ose 1 mund te perdoret
+     */
+    public $statusName = null;
+
+    /**
      * Kjo vlen për classe qe deshirojm te perdoret per checkbox
      * @var class
      */
@@ -37,13 +49,15 @@ trait WithCheckbox
      * Definimi i modelit(Databases)   "user::class"
      * @param class $class
      * @param string $model_search_name Emri i variabël që do të përdoret si search
+     * @param string $statusName Emri i variabël që do të përdoret si status(1 ose flase)
      * @return class
      */
 
-    public function setModel($class, $model_search_name = 'name')
+    public function setModel($class, String $model_search_name = 'name', String $statusName = null)
     {
         $this->model = $class;
         $this->model_search_name = $model_search_name;
+        $this->statusName = $statusName;
     }
 
     /**
@@ -83,6 +97,7 @@ trait WithCheckbox
     public function selectAllHere()
     {
         $select =  $this->model::where($this->model_search_name, 'like', '%' . $this->search . '%')
+            ->when($this->status, fn ($query, $status) => $query->where($this->statusName, $this->status))
             ->paginate($this->paginate_page)
             ->pluck('id')->map(fn ($id) => (string) $id);
         //push vetem 1 her 
@@ -96,17 +111,29 @@ trait WithCheckbox
     public function selectAllOnSearch()
     {
         $this->selectIteams = $this->model::where($this->model_search_name, 'like', '%' . $this->search . '%')
+            ->when($this->status, fn ($query, $status) => $query->where($this->statusName, $this->status))
             ->pluck('id');
 
         $this->blankFild();
     }
 
+    /**
+     * Renditja e rreshtave sipas statusit
+     * 
+     * @param $status vetem elementi 0 ose 1 mund te perdoret
+     */
+    public function sortByStatus($status = null)
+    {
+        $this->resetPage();
+        $this->status = $status;
+    }
 
     public function updatedSelectPage($value)
     {
         if ($value) {
             $this->selectIteams = $this->model::where($this->model_search_name, 'like', '%' . $this->search . '%')
                 ->orderBy($this->sortBy, $this->sortDirection)
+                ->when($this->status, fn ($query, $status) => $query->where($this->statusName, $this->status))
                 ->paginate($this->paginate_page)
                 ->pluck('id')->map(fn ($id) => (string) $id);
         } else {

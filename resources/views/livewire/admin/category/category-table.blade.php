@@ -17,17 +17,17 @@
                     </div>
                     <div class="col-md-7 mt-2">
                         <div class="btn-group d-flex" role="group" aria-label="Basic outlined example"">
-                            <button wire:click=" filterTodosByStatus" type="button"
+                            <button wire:click=" sortByStatus" type="button"
                             class="btn {{ is_null($status) ? 'btn-outline-primary' : 'btn-defaults' }}">
                             <span class="mr-1">Të gjitha</span>
                             {{-- <span style="color: red;" class="badge badge-pill badge-info"></span> --}}
                             </button>
-                            <button wire:click="filterTodosByStatus('1')" type="button"
+                            <button wire:click="sortByStatus('1')" type="button"
                                 class="btn {{ $status === '1' ? 'btn-outline-primary' : 'btn-default' }}">
                                 <span class="mr-1">Vetëm Aktivet</span>
                                 {{-- <span style="color: red;" class="badge badge-pill badge-primary"></span> --}}
                             </button>
-                            <button wire:click.prevent="filterTodosByStatus('false')" type="button"
+                            <button wire:click.prevent="sortByStatus('false')" type="button"
                                 class="btn {{ $status === '0' ? 'btn-outline-primary' : 'btn-default' }}">
                                 <span class="mr-1">Vetëm Jo Aktivet</span>
                                 <span style="color: red;" class="badge badge-pill badge-success"></span>
