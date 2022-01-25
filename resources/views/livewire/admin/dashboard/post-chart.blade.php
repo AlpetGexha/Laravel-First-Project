@@ -2,8 +2,8 @@
     <div style="margin: auto;">
         <canvas id="postPieChart"></canvas>
     </div>  
-    <pre>
-{{ print_r($datas) }}
+    {{-- <pre>
+{{ print_r($datas) }} --}}
     <script>
         const pie = document.getElementById('postPieChart').getContext('2d');
         const postPieChart = new Chart(pie, {
