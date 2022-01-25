@@ -2,7 +2,11 @@
     <x-slot name="name">
         {{ __('Dashboard') }}
     </x-slot>
+    @push('style')
+        <script src="{{ asset('AdminPanel/plugins/chart.js/Chart.bundle.min.js') }}"></script>
+    @endpush
     <div class="container-fluid">
+        {{-- ************************** Cart  ************************** --}}
         <!-- Small boxes (Stat box) -->
         <div class="row">
             {{-- Users --}}
@@ -65,7 +69,68 @@
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
+        </div>
+        
+        {{-- ************************** Chart  ************************** --}}
+        {{-- Perdoruesit e ri --}}
+        <div class="card card-success ">
+            <div class="card-header">
+                <h3 class="card-title">Përdorusit e ri</h3>
 
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body shadow">
+                <div class="chart">
+                    <livewire:admin.dashboard.user-chart />
+                </div>
+            </div>
+        </div> {{-- /Perdoruesit e ri --}}
+
+        {{-- Postimet dhe kategorit --}}
+        <div class="row">
+            {{-- Postimet --}}
+            <div class="col-md-6">
+                <div class="card card-success ">
+                    <div class="card-header">
+                        <h3 class="card-title">Potimet</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body shadow">
+                        <div class="chart">
+                            <livewire:admin.dashboard.post-chart />
+                        </div>
+                    </div>
+                </div>
+            </div>{{-- /Perdoruesit e ri --}}
+
+            {{-- Perdoruesit e ri --}}
+            <div class="col-md-6">
+                <div class="card card-success ">
+                    <div class="card-header">
+                        <h3 class="card-title">Categorit</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body shadow">
+                        <div class="chart">
+                            <livewire:admin.dashboard.categoty-chart />
+                        </div>
+                    </div>
+                </div> {{-- /Perdoruesit e ri --}}
+            </div>
         </div>
     </div>
 
