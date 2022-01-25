@@ -17,13 +17,14 @@ class UserChart extends Component
                 [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]
             )->get();
 
-        $datas = [0, 0, 0, 0, 0, 0, 0, 0];
+        $datas = [0, 0, 0, 0, 0, 0, 0];
 
         foreach ($users as $user) {
             $datas[$user->created_at->dayOfWeek] = $user->count();
         }
 
-        array_shift($datas);
+        array_push($datas, array_shift($datas));
+        // array_shift($datas);
 
         return view('livewire.admin.dashboard.user-chart', [
             'datas' => $datas

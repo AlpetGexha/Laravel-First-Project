@@ -16,13 +16,13 @@ class CategotyChart extends Component
                 [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]
             )->get();
 
-        $datas = [0, 0, 0, 0, 0, 0, 0, 0];
+        $datas = [0, 0, 0, 0, 0, 0, 0];
 
         foreach ($category as $category) {
             $datas[$category->created_at->dayOfWeek] = $category->count();
         }
-        
-        array_shift($datas);
+
+        array_push($datas, array_shift($datas));
 
         return view('livewire.admin.dashboard.categoty-chart', [
             'datas' => $datas
