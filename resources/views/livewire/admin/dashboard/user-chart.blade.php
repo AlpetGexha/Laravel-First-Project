@@ -1,9 +1,11 @@
 <div class="mb-5 mt-3">
     <div style="height: 400px; width: 900px; margin: auto;">
-        <canvas id="barChart"></canvas>
+        @if (count($datas) > 0)
+            <canvas id="barChart"></canvas>
+        @else
+            <span class="d-flex justify-content-center" style="color: var(--danger)">Nuk ka rezultat</span>
+        @endif
     </div>
-
-
     <script>
         const postPie = document.getElementById('barChart').getContext('2d');
         const barChart = new Chart(postPie, {

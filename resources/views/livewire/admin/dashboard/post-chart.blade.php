@@ -1,6 +1,10 @@
 <div class="mb-5 mt-3">
     <div style="margin: auto;">
-        <canvas id="postPieChart"></canvas>
+        @if (count($datas) > 0)
+            <canvas id="postPieChart"></canvas>
+        @else
+            <span class="d-flex justify-content-center" style="color: var(--danger)">Nuk ka rezultat</span>
+        @endif
     </div>
     {{-- <pre>
     {{ print_r($datas) }}

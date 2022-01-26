@@ -70,8 +70,26 @@
                 </div>
             </div>
         </div>
-        
+
         {{-- ************************** Chart  ************************** --}}
+        {{-- Post Views --}}
+        <div class="card card-success ">
+            <div class="card-header">
+                <h3 class="card-title">Shikimet</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body shadow">
+                <div class="chart">
+                    <livewire:admin.dashboard.post-view-chart />
+                </div>
+            </div>
+        </div> {{-- /Perdoruesit e ri --}}
+
         {{-- Perdoruesit e ri --}}
         <div class="card card-success ">
             <div class="card-header">
