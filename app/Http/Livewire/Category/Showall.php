@@ -15,7 +15,8 @@ class Showall extends Component
         return view('livewire.category.showall', [
             'categories' => Category::where('is_active', 1)
                 ->orderBy('id', 'desc')
-                ->paginate($this->per_page_moreless)
+                ->paginate($this->per_page_moreless),
+                'categories_count' => Category::where('is_active', 1)->count(),
         ]);
     }
 }
