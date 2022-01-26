@@ -8,10 +8,11 @@ use App\Models\Comment;
 use App\Models\CommentReply;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\RateLimiter;
+use App\Traits\WithMoreLess;
 
 class Comments extends Component
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests, WithMoreLess;
     public $post,
         //Komenti
         $Komenti = [], $editKommeti = [], $comment_id,
@@ -23,9 +24,9 @@ class Comments extends Component
         'Komenti' => 'required|min:3|max:1000',
         // 'Repley' => 'required|min:3',
     ];
-/**
- * @param  post_id $id
- */
+    /**
+     * @param  post_id $id
+     */
     public function mount(int $id)
     {
         $this->post = Post::find($id);
@@ -51,9 +52,14 @@ class Comments extends Component
      */
     public function addCommnet()
     {
+
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
         $executed = RateLimiter::attempt(
             'make-comment:' . auth()->user()->id,
-            $perMinute = 2,
+            $perMinute = 4, //4 komente per minut
             function () {
                 $this->validate();
                 Comment::create([
@@ -78,6 +84,9 @@ class Comments extends Component
 
     public function deleteCommnet(int $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
         //check if the user is the owner of the comment
         if (($this->post->user_id == auth()->user()->id) || (auth()->user()->id == $this->post->comments->where('id', $id)->first()->user_id)) {
             $this->post->comments()->where('id', $id)->delete();
@@ -90,6 +99,9 @@ class Comments extends Component
      */
     public  function editComment(int $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
         if (auth()->user()->id == $this->post->user_id) {
             $this->post->comments()->where('id', $id)->update(['body' => $this->Komenti]);
             $this->blankFild();
@@ -115,6 +127,9 @@ class Comments extends Component
      */
     public function addReply(int $ids)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
         $this->comment_id = $ids;
         $executed = RateLimiter::attempt(
             'make-reply:' . auth()->user()->id,
@@ -142,24 +157,13 @@ class Comments extends Component
      */
     public function deleteReply(int $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
         if (($this->post->user_id == auth()->user()->id) || (auth()->user()->id == $this->post->comments->where('id', $id)->first()->user_id)) {
             CommentReply::destroy($id);
         }
     }
-
-    public function loadMore()
-    {
-        $this->per_page += 5;
-    }
-
-    /**
-     * E lejon perdoruesin te shikoj me pak komente
-     */
-    public function loadLess()
-    {
-        $this->per_page -= 5;
-    }
-
     /**
      * Live Time Validation
      */
@@ -171,10 +175,11 @@ class Comments extends Component
     public function render()
     {
         return view('livewire.post.comments', [
-            'comments' => Comment::select('id','post_id',  'user_id',  'body',)
-            ->where('post_id', $this->post->id)
+            'comments' => Comment::select('id', 'post_id',  'user_id',  'body')
+                ->where('post_id', $this->post->id)
                 ->orderBy('id', 'desc')
-                ->paginate($this->per_page),
+                ->paginate($this->per_page_moreless),
+                'commnets_count' => Comment::where('post_id', $this->post->id)->count(),
         ]);
     }
 }
