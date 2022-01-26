@@ -72,13 +72,13 @@
                                         href="{{ url('/user/profile') }}">Edit</a>
                                 @elseif ($user->isFollow(auth()->user()))
                                     <button class="btn btn-sm btn-outline-success w-100 ml-2"
-                                        wire:loading.attr='disabled' wire:click="unFollow({{ $user->id }})"
+                                        wire:loading.attr='disabled' wire:click.prevent="unFollow({{ $user->id }})"
                                         type="submit">UnFollow</button>
                                     &nbsp; <a class="btn btn-sm btn-outline-success w-100"
                                         href="{{ route('user.chat') }}">Chat</a>
                                 @else
                                     <button class="btn btn-sm btn-success w-100 ml-2" wire:loading.attr='disabled'
-                                        wire:click="follow({{ $user->id }})" type="submit">Follow</button>
+                                        wire:click.prevent="follow({{ $user->id }})" type="submit">Follow</button>
                                 @endif
                             @endif
                         </div>
@@ -126,9 +126,10 @@
                         @endif
 
                         @if (auth()->guest())
-                            <form method="" action="{{ route('login') }}">
+                            <form method="POST" action="{{ route('login') }}">
                                 {{-- @csrf --}}
-                                <button class="btn btn-sm btn-success w-100 ml-2" type="submit">Follow</button>
+                                <button class="btn btn-sm btn-success w-100 ml-2"
+                                    wire:click.prevent="follow({{ $user->id }})" type="submit">Follow</button>
                             </form>
                         @endif
                     </div>

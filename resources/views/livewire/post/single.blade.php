@@ -21,13 +21,14 @@
     @endif
 
     @if (auth()->guest())
-        <form action="{{ route('login') }}">
-            <button class="btn btn-outline-dark" type="submit">
+        <form action="{{ route('login') }}" method="POST">
+            <button class="btn btn-outline-dark" type="submit" wire:click.prevent="like({{ $post->id }})">
                 <i class="far fa-thumbs-up"></i>&nbsp; Like </button>
-            <button class="btn btn-outline-dark" type="submit">
+            <button class="btn btn-outline-dark" type="submit" wire:click.prevent="save({{ $post->id }})">
                 <i class="far fa-bookmark"></i>&nbsp; Save</button>
         </form>
     @endif
+
     <div class="single_post p-2 card shadow-sm bg-light">
         <div class="single_post_info">
             <img src="{{ asset('storage/' . $post->photo) }}" class="img-fluid" alt="{{ $post->title }}"

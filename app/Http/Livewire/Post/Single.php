@@ -25,6 +25,10 @@ class Single extends Component
      */
     public function like(int $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+        
         // dd(PostLikes::class);
         //check if user has already liked the post
         $like = PostLikes::where('user_id', auth()->user()->id)->where('post_id', $id)->first();
@@ -44,6 +48,10 @@ class Single extends Component
      */
     public function unLike(int $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
         $like = PostLikes::where('post_id', $id)->where('user_id', auth()->user()->id);
 
         $like->delete();
@@ -58,6 +66,10 @@ class Single extends Component
      */
     public function save(int $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
         //check if user has already saved the post
         $save = PostSaves::where('user_id', auth()->user()->id)->where('post_id', $id)->first();
         if (!$save) {
@@ -79,6 +91,10 @@ class Single extends Component
 
     public function unSave(int $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
         $save = PostSaves::where('post_id', $id)->where('user_id', auth()->user()->id);
 
         $save->delete();

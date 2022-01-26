@@ -21,6 +21,10 @@ class Show extends Component
 
     public function follow(int $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
         $follow = Follow::where('following', auth()->user()->id)->where('user_id', $id)->first();
         if (!$follow) {
             Follow::create([
@@ -38,6 +42,9 @@ class Show extends Component
 
     public function unFollow(int $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
         $unFollow = Follow::where('following', auth()->user()->id)->where('user_id', $id);
 
         $unFollow->delete();

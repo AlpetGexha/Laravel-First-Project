@@ -2,7 +2,7 @@
 
     {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
 
-    <h1> {{ $comments->count() }} {{ $comments->count() == 1 ? 'Koment' : 'Komente' }}</h1>
+    <h1> {{ $commnets_count }} {{ $commnets_count == 1 ? 'Koment' : 'Komente' }}</h1>
     <x-alert />
     <form action="{{ route('login') }}">
         {{-- Title --}}
@@ -15,18 +15,13 @@
 
         <div class="mb-0">
             <div class="d-flex justify-content-end align-items-baseline">
-                @auth
+
+                <form action="{{ route('login') }}" method="POST">
                     <x-jet-button wire:click.prevent='addCommnet()'>
                         {{ __('Komento') }}
                     </x-jet-button>
-                @endauth
-                @guest
-                    <form action="{{ route('login') }}">
-                        <x-jet-button>
-                            {{ __('Komento') }}
-                        </x-jet-button>
-                    </form>
-                @endguest
+                </form>
+
             </div>
         </div>
     </form>
@@ -160,13 +155,13 @@
     <div class="d-flex justify-content-center mb-4 ">
         <div>
             @if ($comments->total() > 0 && $comments->count() < $comments->total())
-                <button class="btn btn-outline-success btn-sm" wire:click.prevent='loadMore()'>
+                <button class="btn btn-outline-success btn-sm" wire:click.prevent='showMore()'>
                     Shiko më shumë Komente
                 </button>
             @endif
 
             @if ($comments->count() >= 8)
-                <button class="btn btn-outline-success  btn-sm" wire:click.prevent='loadLess()'>
+                <button class="btn btn-outline-success  btn-sm" wire:click.prevent='showLess()'>
                     Shiko më pak Komente
                 </button>
             @endif
