@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use AboutUs;
-use App\Models\Category;
-use App\Models\Post;
-use App\Models\PostSaves;
-use App\Models\User;
+use App\Models\{Category, Post, PostSaves, User};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Http\Request;
+use Artesaos\SEOTools\Facades\{SEOMeta, OpenGraph};
 
-use function PHPUnit\Framework\at;
 
 class MainController extends Controller
 {
@@ -23,6 +19,22 @@ class MainController extends Controller
 
     public function show(Post $post, Request $r)
     {
+        SEOMeta::setTitle($post->title);
+        SEOMeta::setDescription($post->body);
+        SEOMeta::addMeta('article:created_at', $post->created_at->toW3CString(), 'property');
+        foreach ($post->category as $category) {
+            SEOMeta::addMeta('article:category', $category->category->category, 'property');
+        }
+        foreach ($post->category as $category) {
+            SEOMeta::addKeyword($category->category->category);
+        }
+        OpenGraph::setTitle($post->title);
+        OpenGraph::setDescription($post->body);
+        OpenGraph::setUrl(url()->current());
+        OpenGraph::addProperty('type', 'article');
+        OpenGraph::addProperty('article:author', $post->user->username);
+        OpenGraph::addImage(asset('storage/' . $post->photo));
+
         // Limito Userin per 1 shikim per minut
         if (RateLimiter::remaining($r->ip(), $perMinute = 1)) {
             RateLimiter::hit($r->ip());
@@ -35,12 +47,30 @@ class MainController extends Controller
 
     public function showUser(User $user)
     {
+        OpenGraph::setTitle('Profile of ' . $user->username)
+            ->setDescription($user->hasProfile() ? $user->profile->bio : 'No bio')
+            ->setType('profile')
+            ->setProfile([
+                'first_name' => $user->name,
+                'last_name' => $user->mbiemri,
+                'username' => $user->username,
+            ]);
+
         $user = User::find($user->id);
         return view('user.show', compact('user'));
     }
 
     public  function showCategory(Category $category)
     {
+        SEOMeta::setTitle($category->category);
+        SEOMeta::setDescription($category->category);
+        SEOMeta::addMeta('category:created_at', $category->created_at->toW3CString(), 'property');
+        SEOMeta::addMeta('author', 'Alpet Gexha');
+
+        OpenGraph::setTitle($category->category);
+        OpenGraph::setDescription($category->category);
+        OpenGraph::setUrl(url()->current());
+
         // nese kategoria eshte private(0) aborto
         $categorys = Category::findOrFail($category->id);
         if (!$categorys->is_active == 1) {
