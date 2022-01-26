@@ -8,6 +8,8 @@ use App\Models\Post;
 use App\Models\PostSaves;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\at;
 
@@ -19,14 +21,21 @@ class MainController extends Controller
         return view('ballina');
     }
 
-    public function show(Post $post)
+    public function show(Post $post, Request $r)
     {
-        $post->update(['views' => $post->views + 1]);
+        // Limito Userin per 1 shikim per minut
+        if (RateLimiter::remaining($r->ip(), $perMinute = 1)) {
+            RateLimiter::hit($r->ip());
+            // dd($r->ip());
+            $post->update(['views' => $post->views + 1]);
+        }
+
         return view('post.single', compact('post'));
     }
 
     public function showUser(User $user)
     {
+        $user = User::find($user->id);
         return view('user.show', compact('user'));
     }
 
@@ -37,7 +46,6 @@ class MainController extends Controller
         if (!$categorys->is_active == 1) {
             abort(404);
         }
-        $category->update(['views' => $category->views + 1]);
         return view('category.single', compact('category'));
     }
 
