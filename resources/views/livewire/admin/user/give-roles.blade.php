@@ -5,14 +5,20 @@
     <x-slot name="type">Jep Rolet</x-slot>
 
     <div class="mb-3">
-
-        @forelse ($roles as $role)
-            <input class="form-check-input" type="checkbox" value="{{ $role->id }}" wire:model='selectRoles'
-                id="flexCheckDefault">
-            <span class="badge badge-sm bg-success">{{ $role->name }}</span><br>
-        @empty
-            Nuk ka
-        @endforelse
+        <div class="row">
+            @forelse ($roles as $role)
+                <div class="col-md-4 ">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" wire:model.defer='selectRoles'
+                            id="customSwitch{{ $role->id }}" value="{{ $role->id }}">
+                        <label class="custom-control-label"
+                            for="customSwitch{{ $role->id }}">{{ $role->name }}</label>
+                    </div>
+                </div>
+            @empty
+                Nuk ka
+            @endforelse
+        </div>
     </div>
 
 </x-modal>

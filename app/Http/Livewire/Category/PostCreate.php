@@ -12,8 +12,8 @@ class PostCreate extends Component
     public function render()
     {
         return view('livewire.category.post-create', [
-            'categorys' => Category::select('id', 'category')
-                ->where('is_active', 1) 
+            'categorys' => Category::select(['id', 'category'])
+                ->where('is_active', 1)
                 ->orderBy('id', 'desc')
                 ->get()
         ]);

@@ -33,23 +33,49 @@ class Show extends Component
 
     public function render()
     {
-        if ($this->userid || $this->categoryid  == null) {
-        }
+
 
         if ($this->userid != null) {
-            $post = Post::where('user_id', $this->userid)
-                // ->where('title', 'like', '%' . $this->search . '%')
+            $post = Post::with([
+                'user' => fn ($q) => $q->select('id', 'username'),
+                'likes' => fn ($q) => $q->select('post_id'),
+                'saves' => fn ($q) => $q->select('post_id'),
+                'comments' => fn ($q) => $q->select('post_id'),
+            ])
+                ->withCount(['likes', 'saves', 'comments'])
+                ->select('id', 'title', 'body', 'photo', 'slug', 'created_at', 'user_id', 'views')
+                ->where('user_id', $this->userid)
+                ->where('title', 'like', '%' . $this->search . '%')
                 ->orderBy('id', 'desc')
                 ->paginate($this->paginate);
-        } elseif ($this->categoryid != null) {
+        } else if ($this->categoryid != null) {
             $post = PostCategory::where('category_id', $this->categoryid)
-                // ->where('title', 'like', '%' . $this->search . '%')
+                ->where('title', 'like', '%' . $this->search . '%')
                 ->orderBy('id', 'desc')
                 ->paginate($this->paginate);
         } else {
-            $post = Post::where('title', 'like', '%' . $this->search . '%')
+            $post = Post::with([
+                'user' => fn ($q) => $q->select('id', 'username'),
+                'likes' => fn ($q) => $q->select('post_id'),
+                'saves' => fn ($q) => $q->select('post_id'),
+                'comments' => fn ($q) => $q->select('post_id'),
+            ])
+                ->withCount(['likes', 'saves', 'comments'])
+                ->select('id', 'title', 'body', 'photo', 'slug', 'created_at', 'user_id', 'views')
+                ->where('title', 'like', '%' . $this->search . '%')
                 ->orderBy('id', 'desc')
                 ->paginate($this->paginate);
+
+            foreach ($post as $p) {
+                $p->likes_count = $p->likes->count();
+                $p->saves_count = $p->saves->count();
+                $p->comments_count = $p->comments->count();
+            }
+            // $posts = Post::withCount('comments')->get();
+
+            // foreach ($posts as $post) {
+            //     dd($post->comments_count);
+            // }
         }
 
         return view('livewire.post.show', [

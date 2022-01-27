@@ -7,8 +7,10 @@ use App\Models\Post;
 use App\Models\PostLikes;
 use App\Models\PostSaves;
 
+
 class Single extends Component
 {
+
     public  $post, $category;
     /**
      * @param  post_id $id

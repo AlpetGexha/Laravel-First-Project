@@ -4,25 +4,25 @@
         @foreach ($categories as $categorie)
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <a href="{{ route('category.single', $categorie->slug) }}">{{ $categorie->category }}</a>
-                <span class="badge badge-sm bg-success"> {{ $categorie->category()->count() }}</span>
+                <span class="badge badge-sm bg-success"> {{ $categorie->category()->count() }} </span>
             </li>
             {{-- show more and less category --}}
         @endforeach
 
         @if ($categories->total() > 0 && $categories->count() < $categories->total())
-        <div class="d-flex justify-content-center mt-2 mb-2 ">
-            <div>
+            <div class="d-flex justify-content-center mt-2 mb-2 ">
+                <div>
                     <button class="btn btn-outline-success btn-sm" wire:click.prevent='showMore()'>
                         Shiko më shumë Kategori
                     </button>
-                @endif
+        @endif
 
-                @if ($categories->count() >= 11)
-                    <button class="btn btn-outline-success  btn-sm" wire:click.prevent='showLess()'>
-                        Shiko më pak Kategori
-                    </button>
-                @endif
-            </div>
-        </div>
-    </ul>
+        @if ($categories->count() >= 11)
+            <button class="btn btn-outline-success  btn-sm" wire:click.prevent='showLess()'>
+                Shiko më pak Kategori
+            </button>
+        @endif
+</div>
+</div>
+</ul>
 </div>

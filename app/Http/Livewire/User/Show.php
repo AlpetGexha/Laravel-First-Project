@@ -9,13 +9,9 @@ use Livewire\Component;
 class Show extends Component
 {
     public $user;
-    public $selectedConversation;
     public function mount($username)
     {
-        $this->user = User::where('username', $username)->first();
-        $this->selectedConversation = Follow::query()
-            ->where('user_id', auth()->id())
-            ->orWhere('following', auth()->id())
+        $this->user = User::where('username', $username)
             ->first();
     }
 
@@ -54,8 +50,8 @@ class Show extends Component
     {
         return view('livewire.user.show', [
             'user' => $this->user,
-            'follows' => Follow::where('following', $this->user->id)->get(),
-            'followings' => Follow::where('user_id', $this->user->id)->get(),
+            'follows' => Follow::with(['user', 'follow'])->where('following', $this->user->id)->get(),
+            'followings' => Follow::with(['user', 'follow'])->where('user_id', $this->user->id)->get(),
         ]);
     }
 }

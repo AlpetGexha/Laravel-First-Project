@@ -4,16 +4,17 @@
     @endif
     @forelse ($posts as $post)
         <x-blog-post>
+
             <x-slot name="title">{{ $post->title }}</x-slot>
             <x-slot name="image">{{ asset('storage/' . $post->photo) }}</x-slot>
             <x-slot name="username">{{ $post->user->username }}</x-slot>
             <x-slot name="created_at">{{ $post->created_at->diffForHumans() }}</x-slot>
             <x-slot name="body"> {{ Str::limit($post->body, 200, '...') }},</x-slot>
-            <x-slot name="category">cat</x-slot>
+            <x-slot name="category">ddada</x-slot>
             <x-slot name="views">{{ $post->views }}</x-slot>
-            <x-slot name="likes">{{ $post->likes()->count() }}</x-slot>
-            <x-slot name="shares">{{ $post->saves()->count() }}</x-slot>
-            <x-slot name="comments">{{ $post->comments()->count() }}</x-slot>
+            <x-slot name="likes">{{ $post->likes_count }}</x-slot>
+            <x-slot name="shares">{{ $post->saves_count }}</x-slot>
+            <x-slot name="comments">{{ $post->comments_count }}</x-slot>
             <x-slot name="post_slug">{{ $post->slug }}</x-slot>
         </x-blog-post>
     @empty

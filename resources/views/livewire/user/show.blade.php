@@ -87,6 +87,12 @@
                         {{-- user has profiel --}}
 
                         @if ($user->hasProfile())
+                            @if ($user->profile()->first()->bio !== null)
+                                {{ $user->profile()->first()->bio }}
+                            @else
+                                #
+                            @endif
+
                             @if ($user->profile()->first()->github !== null)
                                 <a href="https://www.github.com/{{ $user->profile()->first()->github }}">
                                     <i style="color: #333" class="fab fa-github" aria-hidden="true"></i>
