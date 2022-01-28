@@ -28,7 +28,7 @@ class Profile extends Component
 
     protected  $rules = [
         'bio' => 'max:500',
-        'url' => 'url',
+        'url' => 'url|nullable',
         'github' => '',
         'twitter' => '',
         'facebook' => '',

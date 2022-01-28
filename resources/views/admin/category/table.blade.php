@@ -1,6 +1,6 @@
 <x-Admin>
     <x-slot name="name">
-        {{ __('Categorit') }}
+        {{ __('Kategorit') }}
     </x-slot>
     <livewire:admin.category.category-table>
 </x-Admin>

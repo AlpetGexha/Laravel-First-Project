@@ -1,5 +1,5 @@
 <x-liadmin>
-    {{ __('Dashboard') }}
+    {{ __('Paneli') }}
     <x-slot name="icone">fas fa-tachometer-alt</x-slot>
     <x-slot name="go">{{ route('admin.dashboard') }}</x-slot>
 </x-liadmin>

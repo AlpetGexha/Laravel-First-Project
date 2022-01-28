@@ -69,13 +69,13 @@
                             @if (auth()->check())
                                 @if (auth()->user()->id == $user->id)
                                     <a class="btn btn-sm btn-outline-success w-100 ml-2"
-                                        href="{{ url('/user/profile') }}">Edit</a>
+                                        href="{{ url('/user/profile') }}">Nrysho</a>
                                 @elseif ($user->isFollow(auth()->user()))
                                     <button class="btn btn-sm btn-outline-success w-100 ml-2"
                                         wire:loading.attr='disabled' wire:click.prevent="unFollow({{ $user->id }})"
                                         type="submit">UnFollow</button>
                                     &nbsp; <a class="btn btn-sm btn-outline-success w-100"
-                                        href="{{ route('user.chat') }}">Chat</a>
+                                        href="{{ route('user.chat') }}">Bisedoni</a>
                                 @else
                                     <button class="btn btn-sm btn-success w-100 ml-2" wire:loading.attr='disabled'
                                         wire:click.prevent="follow({{ $user->id }})" type="submit">Follow</button>

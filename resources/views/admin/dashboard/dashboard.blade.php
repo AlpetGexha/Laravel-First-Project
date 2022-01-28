@@ -1,6 +1,6 @@
 <x-Admin>
     <x-slot name="name">
-        {{ __('Dashboard') }}
+        {{ __('Paneli') }}
     </x-slot>
     @push('style')
         <script src="{{ asset('AdminPanel/plugins/chart.js/Chart.bundle.min.js') }}"></script>
@@ -13,7 +13,7 @@
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{ $user->count() }}</h3>
+                        <h3>{{ number_format($user->count()) }}</h3>
 
                         <p>Përdoruesit të regjistruar</p>
                     </div>
@@ -29,7 +29,7 @@
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>{{ $post->count() }}</h3>
+                        <h3>{{ number_format($post->count()) }}</h3>
 
                         <p>Postime</p>
                     </div>
@@ -44,7 +44,7 @@
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{ $category->count() }}</h3>
+                        <h3>{{ number_format($category->count()) }}</h3>
 
                         <p>Kategori</p>
                     </div>
@@ -59,7 +59,7 @@
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="small-box bg-secondary">
                     <div class="inner">
-                        <h3>{{ $sessions }}</h3>
+                        <h3>{{ number_format($sessions) }}</h3>
                         <p>Vizitort</p>
                     </div>
                     <div class="icon">

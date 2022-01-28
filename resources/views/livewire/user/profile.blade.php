@@ -47,9 +47,9 @@
                 {{-- facebook --}}
                 <div class="mb-3">
                     <x-jet-label for="Facebook" value="{{ __('Facebook Username') }}" />
-                    <x-jet-input id="Facebook" type="text" class="{{ $errors->has('Facebook') ? 'is-invalid' : '' }}"
-                        wire:model="Facebook" autocomplete="Facebook" />
-                    <x-jet-input-error for="Facebook" />
+                    <x-jet-input id="facebook" type="text" class="{{ $errors->has('facebook') ? 'is-invalid' : '' }}"
+                        wire:model="facebook" autocomplete="facebook" />
+                    <x-jet-input-error for="facebook" />
                     <span class="text-muted">https://www.facebook.com/{{ $facebook }}</span>
                 </div>
 

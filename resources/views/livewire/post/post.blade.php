@@ -14,7 +14,7 @@
 
         {{-- Textare --}}
         <div class="mb-3">
-            <x-jet-label value="{{ __('Pershkrimi') }}" />
+            <x-jet-label value="{{ __('Përshkrimi') }}" />
 
             <x-jet-input class="{{ $errors->has('Teksti') ? 'is-invalid' : '' }}" type="text" wire:model='Teksti'
                 name="Teksti" required />
@@ -24,7 +24,7 @@
         {{-- Kategoria --}}
         <div class="col-md-12 mb-3">
             <div class="form-group">
-                <label>Kategoria</label>
+                <label>{{ __('Kategoria') }}</label>
                 <div wire:ignore>
                     <select id='category-dropdown' class="select2 form-select" multiple wire:model="category">
                         <livewire:category.post-create />

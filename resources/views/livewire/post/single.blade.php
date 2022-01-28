@@ -3,19 +3,19 @@
 
         @if (!$post->isLikedByUser(auth()->user()))
             <button class="btn btn-outline-dark" wire:click.prevent="like({{ $post->id }})" type="submit">
-                <i class="far fa-thumbs-up"></i>&nbsp; Like
+                <i class="far fa-thumbs-up"></i>&nbsp; Pëlqej
             </button>
         @else
             <button class="btn btn-outline-dark" wire:click.prevent="unLike({{ $post->id }})" type="submit"><i
-                    class="fas fa-thumbs-up"></i>&nbsp; UnLike</button>
+                    class="fas fa-thumbs-up"></i>&nbsp; Pëlqej</button>
         @endif
 
         @if (!$post->isSavedByUser(auth()->user()))
             <button class="btn btn-outline-dark" wire:click.prevent="save({{ $post->id }})" type="submit"><i
-                    class="far fa-bookmark"></i>&nbsp; Save</button>
+                    class="far fa-bookmark"></i>&nbsp; Ruaj</button>
         @else
             <button class="btn btn-outline-dark" wire:click.prevent="unSave({{ $post->id }})" type="submit"><i
-                    class="fas fa-bookmark"></i>&nbsp; UnSave</button>
+                    class="fas fa-bookmark"></i>&nbsp; Ruaj</button>
         @endif
 
     @endif
@@ -23,7 +23,7 @@
     @if (auth()->guest())
         <form action="{{ route('login') }}" method="POST">
             <button class="btn btn-outline-dark" type="submit" wire:click.prevent="like({{ $post->id }})">
-                <i class="far fa-thumbs-up"></i>&nbsp; Like </button>
+                <i class="far fa-thumbs-up"></i>&nbsp; Pëlqe </button>
             <button class="btn btn-outline-dark" type="submit" wire:click.prevent="save({{ $post->id }})">
                 <i class="far fa-bookmark"></i>&nbsp; Save</button>
         </form>

@@ -7,7 +7,7 @@
     <form action="{{ route('login') }}">
         {{-- Title --}}
         <div class="mb-3">
-            <x-jet-label value="{{ __('Comment') }}" />
+            <x-jet-label value="{{ __('Komentoni këtu') }}" />
             <x-jet-input class="{{ $errors->has('Komenti') ? 'is-invalid' : '' }}" type="text" wire:model='Komenti'
                 name="Komenti" required />
             <x-jet-input-error for="Komenti"></x-jet-input-error>
@@ -53,12 +53,12 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     {{-- Delete Commnet --}}
                                     <button class="dropdown-item" wire:click.prevent='deleteCommnet({{ $comment->id }})'>
-                                        <p style="color:red"> Delete</p>
+                                        <p style="color:red"> Fshije</p>
                                     </button>
                                     </li>
                                     @if ($comment->user_id == auth()->user()->id)
                                         <div x-data="{ open: false }">
-                                            <button class="dropdown-item" @click="open = ! open">Edit</button>
+                                            <button class="dropdown-item" @click="open = ! open">Ndrysho</button>
                                             <div x-show="open" @click.outside="open = false">
                                                 <input type="text">
                                                 <button>Edit</button>
@@ -90,12 +90,12 @@
                 @auth
                     <div class="col-md-6" style="margin-left: 5rem;" x-data="{ open: false }">
                         <button class="btn btn-sm btn-outline-success" wire:click='blankFildRepley()'
-                            @click="open = ! open">Reply</button>
+                            @click="open = ! open">Përgjigju</button>
                         <div wire:click.prevent='blankFildRepley()' x-show="open" @click.outside="open = false">
                             <form action="" class="input-group mb-1 mt-1">
                                 <input class="form-control" type="text" wire:model='Repley'>
                                 <button class="btn btn-sm btn-outline-dark" type='submit'
-                                    wire:click.prevent="addReply({{ $comment->id }})">Reply</button>
+                                    wire:click.prevent="addReply({{ $comment->id }})">Përgjigju</button>
                             </form>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                                         {{-- Delete Commnet --}}
 
                                         <button class="dropdown-item" style="color:red;"
-                                            wire:click.prevent='deleteReply({{ $reply->id }})'>Delete</button>
+                                            wire:click.prevent='deleteReply({{ $reply->id }})'>Fshije</button>
                                         @if ($comment->user_id == auth()->user()->id)
                                             <div x-data="{ open: false }">
                                                 <button class="dropdown-item" @click="open = ! open">Edit</button>

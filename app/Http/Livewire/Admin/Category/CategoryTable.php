@@ -101,18 +101,10 @@ class CategoryTable extends Component
         session()->flash('success', 'Kategoria nuk është publike tani');
     }
 
-
-    public function filterTodosByStatus($status = null)
-    {
-        $this->resetPage();
-
-        $this->status = $status;
-    }
-
     public function updated($value)
     {
         $this->validateOnly($value);
-        $this->setModel(Category::class, 'category');
+        $this->setModel(Category::class, 'category', 'is_active');
     }
 
     public function render()

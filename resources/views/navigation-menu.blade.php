@@ -22,11 +22,11 @@
                 </x-jet-nav-link>
 
                 <x-jet-nav-link href="{{ route('post.save') }}" :active="request()->routeIs('post.save')">
-                    {{ __('Save') }}
+                    {{ __('Ruajtet') }}
                 </x-jet-nav-link>
 
                 <x-jet-nav-link href="{{ route('post.like') }}" :active="request()->routeIs('post.like')">
-                    {{ __('Like') }}
+                    {{ __('Pëlqimet') }}
                 </x-jet-nav-link>
 
             </ul>
@@ -43,7 +43,7 @@
                                         <img class="rounded-circle" width="32" height="32"
                                             src="{{ Auth::user()->profile_photo_url }}"
                                             alt="{{ Auth::user()->username }}" />
-                                            {{ Auth::user()->username }}
+                                        {{ Auth::user()->username }}
                                     @else
                                         <svg class="ms-2" width="18" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20" fill="currentColor">
@@ -57,7 +57,7 @@
                                 <x-slot name="content">
                                     <!-- Account Management -->
                                     <h6 class="dropdown-header small text-muted">
-                                        {{ __('Manage Account') }}
+                                        {{ __('Menaxho Llogarine') }}
                                     </h6>
 
                                     @can('admin_show')
@@ -65,13 +65,14 @@
                                             {{ __('Paneli i Adminit') }}
                                         </x-jet-dropdown-link>
                                     @endcan
-                                        
+
                                     <x-jet-dropdown-link href="{{ route('user.show', ['user' => Auth::user()->username]) }}">
-                                        {{ __('Profile') }}
+                                        {{ __('Profili') }}
                                     </x-jet-dropdown-link>
 
                                     <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                        {{ __('Setting') }}
+                                        {{ __('Parametrat') }}
+                                        {{-- {{ __('Setting') }} --}}
                                     </x-jet-dropdown-link>
 
                                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -83,10 +84,9 @@
                                     <hr class="dropdown-divider">
 
                                     <!-- Authentication -->
-                                    <x-jet-dropdown-link href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                                                                         document.getElementById('logout-form').submit();">
-                                        {{ __('Log out') }}
+                                    <x-jet-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                document.getElementById('logout-form').submit();">
+                                        {{ __('Shkyquni') }}
                                     </x-jet-dropdown-link>
                                     <form method="POST" id="logout-form" action="{{ route('logout') }}">
                                         @csrf

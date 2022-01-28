@@ -1,6 +1,6 @@
 <div class="mb-5 mt-3">
     <div style="margin: auto;">
-        @if (count($datas) > 0)
+        @if (array_sum($datas) > 0)
             <canvas id="categoryPieChart"></canvas>
         @else
             <span class="d-flex justify-content-center" style="color: var(--danger)">Nuk ka rezultat</span>

@@ -18,7 +18,7 @@
             <x-slot name="post_slug">{{ $post->post->slug }}</x-slot>
         </x-blog-post>
     @empty
-        <span class="text-center" style="color:red">
+        <span class="d-flex justify-content-center" style="color:red">
             Nuk ka postime
         </span>
     @endforelse
