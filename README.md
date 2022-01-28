@@ -1,27 +1,51 @@
 # AlpetG
 
-#### Livewire
+#### Update composer
+```
+composer update
 ```
 
-composer require livewire/livewire
+#### Config
+Copy .env.example and make new file ".env" <br />
+and change Database config 
 ```
-
-#### Jetstream
-```
-composer require laravel/jetstream
-php artisan jetstream:install livewire 
-npm install && npm run dev
-```
-
-#### Jetstream with Bootstrap theme
-```
-composer require nascent-africa/jetstrap --dev
-php artisan jetstrap:swap livewire
-npm install && npm run dev
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
 #### Migrate Databases
 ```
-
-php  artisan migrate --seed# Laravel-Projet
+php  artisan migrate --seed
 ```
+```
+php  artisan migrate --seed
+```
+
+#### Generate Key
+```
+php artisan key:generate
+```
+#### Start server
+```
+php artisan serve
+```
+
+#### Account
+
+###### Super Admin
+```
+us: admin
+pw: Admin123
+```
+
+###### Normal User
+```
+us: user
+pw: User123
+```
+
+And u are ready to go!!
