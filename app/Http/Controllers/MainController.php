@@ -36,8 +36,8 @@ class MainController extends Controller
         OpenGraph::addImage(asset('storage/' . $post->photo));
 
         // Limito Userin per 1 shikim per minut
-        if (RateLimiter::remaining($r->ip(), $perMinute = 1)) {
-            RateLimiter::hit($r->ip());
+        if (RateLimiter::remaining($r->ip() . $post->id, $perMinute = 1)) {
+            RateLimiter::hit($r->ip() . $post->id);
             // dd($r->ip());
             $post->update(['views' => $post->views + 1]);
         }
