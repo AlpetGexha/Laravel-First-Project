@@ -2,16 +2,15 @@
 
 namespace App\Http\Livewire\Admin\Role;
 
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\{Role, Permission};
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Traits\WithSorting;
+use App\Traits\{WithCheckbox, WithSorting};
 use Livewire\WithPagination;
 use Livewire\Component;
 
 class RoleTable extends Component
 {
-    use WithPagination, WithSorting, AuthorizesRequests;
+    use WithPagination, WithSorting, WithCheckbox, AuthorizesRequests;
 
     public $search;
 
@@ -48,6 +47,8 @@ class RoleTable extends Component
     {
         $this->ids = '';
         $this->name = '';
+        $this->user_premissions = [];
+        $this->premissions_per_role = [];
     }
 
     /**
@@ -93,6 +94,7 @@ class RoleTable extends Component
     public function updated($value)
     {
         $this->validateOnly($value);
+        $this->setModel(Role::class, 'name');
     }
 
 

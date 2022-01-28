@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -29,5 +30,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Super Admin') ? true : null;
         });
+        // ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
+
+        // Gate::define('big_comment_edit', function (Comment $comment) {
+        //     return $comment->user_id === auth()->user()->id;
+        // });
     }
 }
