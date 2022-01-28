@@ -1,23 +1,26 @@
 <div class="mb-5 mt-3">
     <div style="margin: auto;">
-        @if (count($views) > 0)
-            <canvas id="viewCountLine"></canvas>
+
+
+        @if (count($datas) > 0)
+            <canvas id="viewCountWeekLine"></canvas>
         @else
-            <span class="d-flex justify-content-center" style="color: var(--danger)">Nuk ka rezultat</span>
+            <span class="d-flex justify-content-center" style="color: var(--danger)">Nuk ka rezultat për këtë javë</span>
         @endif
+
     </div>
     {{-- <pre>
     {{ print_r($datas) }}
     {{ json_encode($datas) }} --}}
     <script>
-        const view = document.getElementById('viewCountLine').getContext('2d');
-        const viewCountLine = new Chart(view, {
+        const viewWeek = document.getElementById('viewCountWeekLine').getContext('2d');
+        const viewCountWeekLine = new Chart(viewWeek, {
             type: 'line',
             data: {
-                labels: <?= json_encode($mounth) ?>,
+                labels: <?= json_encode($data_time) ?>,
                 datasets: [{
-                    label: 'Shikimet për muaj',
-                    data: <?= json_encode($views) ?>,
+                    label: 'Shikimet për javë',
+                    data: <?= json_encode($datas) ?>,
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.1
