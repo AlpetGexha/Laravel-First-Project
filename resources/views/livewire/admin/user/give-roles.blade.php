@@ -23,3 +23,8 @@
 
 </x-modal>
 {{-- <button type="button" data-bs-toggle="modal" data-bs-target="#updateRole">dasdas</button> --}}
+<script>
+    window.livewire.on('updateRole', () => { //emit
+        $('#giveRole').modal('hide');
+    });
+</script>

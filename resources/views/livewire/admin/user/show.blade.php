@@ -1,21 +1,28 @@
 <x-show-user-info>
-    <x-slot name='id'>postShow</x-slot>
+    <x-slot name='id'>showUser</x-slot>
     <x-slot name='title'>Përdoruesi</x-slot>
     <form action="">
         <input type="hidden" wire:model='ids'>
         <table class="table">
             <tr>
+                <th scope="row">Foto</th>
                 <td>
-                    {{ $last_seen }}
+                    @if ($photo)
+                        <img src="{{ asset('storage/' . $photo) }}" alt="{{ $name }}" width="100">
+                    @else
+                        <img src="{{ asset('storage/default.png') }}" alt="{{ $name }}" width="100">
+                    @endif
                 </td>
             </tr>
 
             <tr>
+                <th scope="row">Statusi</th>
                 <td>
                     @if (Cache::has('user-is-online-' . $ids))
                         <span class="badge badge-success">Online</span>
                     @else
-                        <span class="badge badge-danger">Offline</span>
+                        <span class="badge badge-danger">Offilne </span><span>aktiviteti i fundit para:
+                            {{ $last_seen }}</span>
                     @endif
                 </td>
             </tr>
@@ -31,7 +38,7 @@
             </tr>
             <tr>
                 <th scope="row">Username</th>
-                <td>{{ $username }}</td>
+                <td> @if ($username)  <a href="{{ route('user.show', ['user' => $username]) }}"> {{ $username }}</a> @endif </td>
             </tr>
 
             <tr>
@@ -49,6 +56,17 @@
                     @endforelse
                 </td>
             </tr>
+
+            <tr>
+                <th scope="row">Postimet</th>
+                <td>{{ $postsCount }}</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Ndjekës</th>
+                <td>{{ $followersCount }}</td>
+            </tr>
+
 
             @if ($bio !== null)
                 <p>{{ $bio }}</p>
@@ -100,7 +118,7 @@
             <tr>
                 <th scope="row">U krija me </th>
                 <td>
-                    {{ strftime('%e %B, %Y', strtotime($create_at)) }}
+                    {{ strftime('%e %B, %Y', strtotime($created_at)) }}
                 </td>
             </tr>
 

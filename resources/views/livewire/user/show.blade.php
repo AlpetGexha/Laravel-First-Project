@@ -51,16 +51,16 @@
                                 <span class="articles">Postime</span>
                                 <span class="number">{{ $user->post()->count() }}</span>
                             </div>
-                            <a href="" data-bs-toggle="modal" data-bs-target="#showUserFollowing">
-                                <div class="d-flex flex-column">
-                                    <span class="articles">Ndjek</span>
-                                    <span class="number">{{ $follows->count() }}</span>
-                                </div>
-                            </a>
                             <a href="" data-bs-toggle="modal" data-bs-target="#showUserFollowers">
                                 <div class="d-flex flex-column">
                                     <span class="articles">Ndjekës</span>
                                     <span class="number">{{ $user->followers()->count() }}</span>
+                                </div>
+                            </a>
+                            <a href="" data-bs-toggle="modal" data-bs-target="#showUserFollowing">
+                                <div class="d-flex flex-column">
+                                    <span class="articles">Ndjek</span>
+                                    <span class="number">{{ $follows->count() }}</span>
                                 </div>
                             </a>
                         </div>

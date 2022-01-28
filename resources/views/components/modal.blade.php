@@ -36,11 +36,14 @@
     window.livewire.on('updateRole', () => { //emit
         $('#giveRole').modal('hide');
     });
-    
+
     window.livewire.on('addTodo', () => { //emit
         $('#createTodo').modal('hide');
     });
     window.livewire.on('updateTodo', () => { //emit
         $('#updatesTodo').modal('hide');
+    });
+    window.livewire.on('updateRole', () => { //emit
+        $('#giveRole').modal('hide');
     });
 </script>

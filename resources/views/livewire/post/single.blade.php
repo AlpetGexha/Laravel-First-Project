@@ -38,8 +38,8 @@
                     <li>
                         <a href="">
                             <i class="far fa-eye fa-x2"></i>{{ $post->views }}
-                            <i class="far fa-thumbs-up"></i>{{ $post->likes()->count() }}
-                            <i class="far fa-bookmark"></i>{{ $post->saves()->count() }}
+                            <i class="far fa-thumbs-up"></i>{{ $post->likes->count() }}
+                            <i class="far fa-bookmark"></i>{{ $post->saves->count() }}
                             <i class="far fa-user fa-x2"></i>{{ $post->user->username }}
                             <i class="far fa-calendar-alt"></i> {{ $post->created_at->diffForHumans() }}
                         </a>

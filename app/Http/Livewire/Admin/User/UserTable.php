@@ -18,7 +18,9 @@ class UserTable extends Component
 
     public $search;
 
-    public $ids, $name, $mbiemri, $email, $username, $create_at, $last_seen, $online, $bio, $url, $facebook, $twitter, $instagram, $youtube, $linkedin, $github;
+    public $user, $ids, $name, $mbiemri, $email, $username, $photo, $created_at, $last_seen, $online;
+    public $bio, $url, $facebook, $twitter, $instagram, $youtube, $linkedin, $github;
+    public $postsCount, $commentsCount, $likesCount, $dislikesCount, $followersCount, $followingCount;
     public $selectRoles = [];
     public $user_roles = [];
     public $rules = [
@@ -37,13 +39,18 @@ class UserTable extends Component
         $this->authorize('user_show');
         $user = User::find($id);
         // $this->ids = $user->id;
+        $this->photo = $user->photo;
         $this->name = $user->name;
         $this->mbiemri = $user->mbiemri;
         $this->email = $user->email;
         $this->username = $user->username;
-        $this->create_at = $user->create_at;
+        $this->created_at = $user->created_at;
         $this->selectRoles = $user->getRoleNames();
         $this->last_seen = Carbon::parse($user->last_login_at)->diffForHumans();
+        $this->postsCount = $user->post()->count();
+        $this->likesCount = $user->likes()->count();
+        $this->followersCount = $user->followers()->count();
+        // $this->followingCount = $user->following();
         // profile
         // $this->bio = $user->bio;
         /*
@@ -108,11 +115,12 @@ class UserTable extends Component
     {
         return view('livewire.admin.user.user-table', [
             'users' => User::where('username', 'like', '%' . $this->search . '%')
+                // ->with('roles', 'profile', 'post', 'likes', 'followers')
                 ->when($this->status, fn ($query, $status) => $query->where('verified', $this->status))
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate($this->paginate_page),
             'roles' => Role::orderBy($this->sortBy, $this->sortDirection)->get(),
-            // 'permissions' => Permission::all(),
+            // 'permissions' => Permission::all(),  
         ]);
     }
 }
