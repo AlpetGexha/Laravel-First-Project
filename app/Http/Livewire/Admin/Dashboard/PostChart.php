@@ -61,7 +61,7 @@ class PostChart extends Component
 
         // Shto ditët e javës në array dhe by default jep vlerën 0
         foreach (range(-6, 0) as $i) {
-            $date = Carbon::now()->startOfWeek($i)->format('Y-m-d');
+            $date = Carbon::now()->endOfWeek($i)->format('Y-m-d');
             $dates->put($date, 0);
         }
 
@@ -75,12 +75,16 @@ class PostChart extends Component
             ])
             ->pluck('count', 'date');
 
-        // Jep rezultatin final 
-        foreach ($posts as $date => $count) {
+            // Bashko vargjet
+        $dates = $dates->merge($posts);
+
+        // Jep rezultatin final (vlerat)
+        foreach ($dates as $date => $count) {
             $total[] = $count;
         }
 
-        //  dd($posts);
+
+        // dd($posts);
         // dd($dates);
         // dd($total);
         return view('livewire.admin.dashboard.post-chart', [
