@@ -3,15 +3,27 @@
     @include('livewire.admin.role.update')
     <div class="card shadow">
         <div class="card-header">
-            <div class="d-flex bd-highlight">
-                <div class="bd-highlight">Rolet</div>
-                @can('role_create')
-                    <button class="ms-auto bd-highlight btn btn-success btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#creatRole">
-                        Krijo Role
-                    </button>
-                @endcan
+
+            <div class="col-md-12 mt-1 mb-1">
+                <div class="row d-flex">
+                    <div class="col-md-2 mt-2">
+                        Rolet
+                    </div>
+                    <div class="col">
+                        <div class="d-flex flex-row-reverse bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                @can('role_create')
+                                    <button class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#creatRole"  >
+                                        Krijo Role
+                                    </button>
+                                @endcan
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
 
         <div class="card-body">

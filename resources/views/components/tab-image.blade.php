@@ -1,0 +1,1 @@
+<link rel='shortcut icon' type='image/x-icon' href='{{asset('img/main/tabico.ico')}}'>

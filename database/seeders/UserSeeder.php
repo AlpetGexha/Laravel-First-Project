@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'mbiemri' => 'Admin',
             'email' => 'admin@gmail.com',
-            'username' => 'Admin',
+            'username' => 'admin',
             'verified' => 1,
             'password' => Hash::make('Admin123'),
             'created_at' => now(),

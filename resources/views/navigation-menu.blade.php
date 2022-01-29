@@ -21,13 +21,15 @@
                     {{ __('Krijo Postime') }}
                 </x-jet-nav-link>
 
-                <x-jet-nav-link href="{{ route('post.save') }}" :active="request()->routeIs('post.save')">
-                    {{ __('Ruajtet') }}
-                </x-jet-nav-link>
+                @auth
+                    <x-jet-nav-link href="{{ route('post.save') }}" :active="request()->routeIs('post.save')">
+                        {{ __('Ruajtet') }}
+                    </x-jet-nav-link>
 
-                <x-jet-nav-link href="{{ route('post.like') }}" :active="request()->routeIs('post.like')">
-                    {{ __('Pëlqimet') }}
-                </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('post.like') }}" :active="request()->routeIs('post.like')">
+                        {{ __('Pëlqimet') }}
+                    </x-jet-nav-link>
+                @endauth
 
             </ul>
 
@@ -85,7 +87,7 @@
 
                                     <!-- Authentication -->
                                     <x-jet-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
+                                                                        document.getElementById('logout-form').submit();">
                                         {{ __('Shkyquni') }}
                                     </x-jet-dropdown-link>
                                     <form method="POST" id="logout-form" action="{{ route('logout') }}">

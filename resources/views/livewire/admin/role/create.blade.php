@@ -7,7 +7,7 @@
     <div class="mb-3">
         <x-jet-label value="{{ __('Role') }}" />
         <x-jet-input class="{{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
-            :value="old('name')" required autofocus autocomplete="name" wire:model='name' />
+            :value="old('name')" required autofocus autocomplete="name" wire:model.defer='name' />
 
         <x-jet-input-error for="name"></x-jet-input-error>
     </div>
@@ -26,7 +26,7 @@
                     @foreach ($permissions as $permission)
                         <div class="col-md-4">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" wire:model='premissions_per_role'
+                                <input type="checkbox" class="custom-control-input" wire:model.defer='premissions_per_role'
                                     id="customSwitch{{ $permission->id }}" value="{{ $permission->id }}">
                                 <label class="custom-control-label"
                                     for="customSwitch{{ $permission->id }}">{{ $permission->name }}</label>

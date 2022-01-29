@@ -1,9 +1,12 @@
 <div class="container-fluid">
+
     @include('livewire.admin.category.update')
+
     <div class="card shadow">
         <div class="card-header">
             Kategorit
         </div>
+
         <div class="card-body">
             @include('components.checkboxtable')
             <div class="col-md-12 mt-1 mb-3">
