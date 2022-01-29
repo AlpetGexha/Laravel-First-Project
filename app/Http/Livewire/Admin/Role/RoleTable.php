@@ -75,9 +75,7 @@ class RoleTable extends Component
             $role->update([
                 'name' => $this->name,
             ]);
-            foreach ($this->premissions_per_role as $premissions) {
-                $role->givePermissionTo($premissions);
-            }
+            $role->syncPermissions($this->premissions_per_role);
             session()->flash('success', 'Roli u editua me Sukses');
             $this->emit('updatRole');
         }
