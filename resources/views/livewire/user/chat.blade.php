@@ -32,59 +32,61 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
-            <div class="card shadow direct-chat direct-chat-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Bisedë me
-                        <span>
-                            @if ($selectedConversation) {{ $selectedConversation->user->username }} @endif
-                        </span>
-                    </h3>
-                </div>
-
-                <div class="card-body ">
-                    <div class="msg_history">
-                        @if ($selectedConversation)
-                            @forelse ($selectedConversation->messages as $message)
-                                <div class="incoming_msg">
-                                    <div
-                                        class="  {{ $message->user_id === auth()->id() ? 'received_msg' : 'sent_msg' }}">
-                                        <div
-                                            class=" {{ $message->user_id === auth()->id() ? 'received_withd_msg' : 'sent_msg' }}">
-                                            <p>{{ $message->body }}</p>
-                                            <span class="time_date">
-                                                {{ $message->created_at->diffForHumans() }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @empty
-                                <span style="color:red text-center">Nuk ka bised! Shkruaj i pari!!!</span>
-                            @endforelse
-                        @endif
+        @if ($conversations->count() > 0)
+            <div class="col-md-8">
+                <div class="card shadow direct-chat direct-chat-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Bisedë me
+                            <span>
+                                @if ($selectedConversation) {{ $selectedConversation->user->username }} @endif
+                            </span>
+                        </h3>
                     </div>
 
-
-
-                </div>
-                <div class="card-footer">
-                    <form wire:submit.prevent="sendMessage" action="#">
-                        <div class="input-group">
-                            <input wire:model.defer="mesazhi" type="text" placeholder="Shkruja mesazhin ..."
-                                class="form-control">
-                            <span class="input-group-append">
-                                <button type="submit" class="btn btn-primary">Dergo</button>
-                            </span>
+                    <div class="card-body ">
+                        <div class="msg_history">
+                            @if ($selectedConversation)
+                                @forelse ($selectedConversation->messages as $message)
+                                    <div class="incoming_msg">
+                                        <div
+                                            class="  {{ $message->user_id === auth()->id() ? 'received_msg' : 'sent_msg' }}">
+                                            <div
+                                                class=" {{ $message->user_id === auth()->id() ? 'received_withd_msg' : 'sent_msg' }}">
+                                                <p>{{ $message->body }}</p>
+                                                <span class="time_date">
+                                                    {{ $message->created_at->diffForHumans() }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <span style="color:red text-center">Nuk ka bised! Shkruaj i pari!!!</span>
+                                @endforelse
+                            @endif
                         </div>
 
-                        @error('mesazhi')
-                            <strong class="text-center"
-                                style="margin-top: 0.25rem; font-size: 0.875em; color: #e3342f;">{{ $message }}</strong>
-                        @enderror
-                    </form>
-                </div>
 
+
+                    </div>
+                    <div class="card-footer">
+                        <form wire:submit.prevent="sendMessage" action="#">
+                            <div class="input-group">
+                                <input wire:model.defer="mesazhi" type="text" placeholder="Shkruja mesazhin ..."
+                                    class="form-control">
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-primary">Dergo</button>
+                                </span>
+                            </div>
+
+                            @error('mesazhi')
+                                <strong class="text-center"
+                                    style="margin-top: 0.25rem; font-size: 0.875em; color: #e3342f;">{{ $message }}</strong>
+                            @enderror
+                        </form>
+                    </div>
+
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 </div>
 
