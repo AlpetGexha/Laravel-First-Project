@@ -13,13 +13,11 @@
         </div>
 
         {{-- Textare --}}
-        <div class="mb-3">
-            <x-jet-label value="{{ __('Përshkrimi') }}" />
 
-            <x-jet-input class="{{ $errors->has('Teksti') ? 'is-invalid' : '' }}" type="text" wire:model='Teksti'
-                name="Teksti" required />
-            <x-jet-input-error for="Teksti"></x-jet-input-error>
-        </div>
+        <x-jet-label value="{{ __('Përshkrimi') }}" />
+        <x-textarea class="{{ $errors->has('Teksti') ? 'is-invalid' : '' }}" type="text" wire:model='Teksti'
+            name="Teksti" required />
+        <x-jet-input-error for="Teksti"></x-jet-input-error>
 
         {{-- Kategoria --}}
         <div class="col-md-12 mb-3">

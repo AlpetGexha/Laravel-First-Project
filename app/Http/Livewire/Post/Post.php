@@ -17,6 +17,7 @@ class Post extends Component
     use AuthorizesRequests, WithFileUploads;
 
     public Post $post;
+    public $edit_id;
     public $Titulli,  $Teksti, $Foto,  $Kategoria = [], //Kategoria e Postit
         $category = []; //Selektimi i kategorive
 
@@ -28,9 +29,20 @@ class Post extends Component
         'category' => 'required',
     ];
 
-    public function mount()
+    public function mount(int $id = null)
     {
-        $this->Kategoria = Category::all();
+
+        if ($id) {
+            $this->edit_id = $id;
+            $post = Posts::findOrFail($id);
+            // $this->edit_id = $post->id;
+            $this->Titulli = $post->title;
+            $this->Teksti = $post->body;
+            $this->Foto = $post->photo;
+            $this->category = PostCategory::where('post_id', $id)->pluck('category_id')->toArray();
+        }
+
+        $this->Kategoria = Category::get(['id', 'category', 'is_active', 'slug']);
     }
 
     /** I  fshin te dhenat ne input */
@@ -63,7 +75,7 @@ class Post extends Component
                     'user_id' => auth()->user()->id,
                     'slug' => Str::slug($this->Titulli, '-'),
                 ]);
-                $this->Foto->store('post_images','public', $this->Foto->hashName());
+                $this->Foto->store('post_images', 'public', $this->Foto->hashName());
                 // Per Kateqorinat
                 foreach ($this->category as $category) {
                     PostCategory::create([
@@ -79,6 +91,48 @@ class Post extends Component
         if (!$posting) {
             $seconds = RateLimiter::availableIn('make-post:' . auth()->user()->id);
             session()->flash('success', 'U lutem prisni ' . $seconds . ' sekonda para se krijoni postim të ri');
+        }
+    }
+
+    /**
+     * E Ndryshon postimin
+     * @param int $id
+     */
+    public function update()
+    {
+
+        // dd($this->edit_id);
+        $post = Posts::findOrFail($this->edit_id);
+
+        if (!auth()->user()->id === $post->user_id) {
+            // session()->flash('error', 'Nuk jeni i autorizuar');
+            return redirect()->back();
+        }
+
+        $this->validate([
+            'Titulli' => 'required|min:3|max:255',
+            'Teksti' => 'required|min:3',
+            'category' => 'required',
+        ]);
+        $update =   $post->update([
+            'title' => Str::title($this->Titulli),
+            'body' => $this->Teksti,
+            'slug' => Str::slug($this->Titulli, '-'),
+        ]);
+        $path = 'storage/' . $post->photo;
+        if ($this->Foto !== $path) {
+            if (file_exists($path)) {
+                unlink($path);
+            }
+            $post->update([
+                'photo' => $this->Foto->store('post_images', 'public', $this->Foto->hashName()),
+            ]);
+            $this->Foto->store('post_images', 'public', $this->Foto->hashName());
+        }
+        if ($update) {
+            session()->flash('success', 'Postimi u ndryshua me sukses');
+            $this->emit('updatePosts');
+            // redirect()->route('ballina');
         }
     }
 

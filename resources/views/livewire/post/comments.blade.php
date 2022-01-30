@@ -5,10 +5,11 @@
     <h1> {{ $commnets_count }} {{ $commnets_count == 1 ? 'Koment' : 'Komente' }}</h1>
     <x-alert />
     <form action="{{ route('login') }}">
-        {{-- Title --}}
-        <div class="mb-3">
+        {{-- Komenti --}}
+        <div class="mb-3 p-1">
             <x-jet-label value="{{ __('Komentoni këtu') }}" />
-            <x-jet-input class="{{ $errors->has('Komenti') ? 'is-invalid' : '' }}" type="text" wire:model='Komenti'
+
+            <x-textarea class="{{ $errors->has('Komenti') ? 'is-invalid' : '' }}" type="text" wire:model='Komenti'
                 name="Komenti" required />
             <x-jet-input-error for="Komenti"></x-jet-input-error>
         </div>
