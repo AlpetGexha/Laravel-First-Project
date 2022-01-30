@@ -30,7 +30,7 @@ class Single extends Component
         if (!auth()->check()) {
             return redirect()->route('login');
         }
-        
+
         // dd(PostLikes::class);
         //check if user has already liked the post
         $like = PostLikes::where('user_id', auth()->user()->id)->where('post_id', $id)->first();
@@ -102,6 +102,18 @@ class Single extends Component
         $save->delete();
         session()->flash('success', 'Ju e unSave');
         $this->post_save = false;
+    }
+
+    public function delete(int $id)
+    {
+        $post = Post::findOrFail($id);
+        if (!(auth()->user()->id == $post->user_id)) {
+            return redirect()->back();
+        }
+
+        $post->delete();
+        session()->flash('success', 'Ju e fshij');
+        return redirect()->route('ballina');
     }
 
     public function render()

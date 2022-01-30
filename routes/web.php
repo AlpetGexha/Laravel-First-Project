@@ -15,12 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [MainController::class, 'showBallina'])->name('ballina');
-Route::get('/{user:username}', [MainController::class, 'showUser'])->name('user.show');
-Route::get('/post/{post:slug}', [MainController::class, 'show'])->name('post.single');
-Route::get('/kategoria/{category:slug}', [MainController::class, 'showCategory'])->name('category.single');
+Route::get('/', [MainController::class, 'showBallina'])->name('ballina'); //Index
+Route::get('/{user:username}', [MainController::class, 'showUser'])->name('user.show'); //User Profile
+Route::get('/kategoria/{category:slug}', [MainController::class, 'showCategory'])->name('category.single'); //Single Category
 
+// Post
+Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
+    Route::get('/{post:slug}', [MainController::class, 'show'])->name('single'); //Single Post
+    Route::get('/edit/{post:slug}', [MainController::class, 'postEdit'])->name('edit')->middleware(['auth:sanctum', 'verified']); //Edit Post
 
+});
+
+// Admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['can:admin_show']], function () {
     Route::middleware(['auth:sanctum', 'verified',])->group(function () {
         Route::get('/dashboard',  [MainController::class, 'showAdminDashboard'])->name('dashboard');
@@ -31,7 +37,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['can:admin
     });
 });
 
-
+// Users
 Route::group(['prefix' => 'user'], function () {
     Route::middleware(['auth:sanctum', 'verified',])->group(function () {
         Route::group(['as' => 'post.'], function () {

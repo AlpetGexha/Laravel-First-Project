@@ -45,6 +45,18 @@ class MainController extends Controller
         return view('post.single', compact('post'));
     }
 
+    public function postEdit(Post $post)
+    {
+        $post = Post::findOrFail($post->id);
+        if (auth()->user()->id !== $post->user_id) {
+            session()->flash('error', 'Nuk keni access');
+            // return redirect()->route('post.single', ['post' => $post->slug]);
+            return redirect()->back();
+        }
+        $this->authorize('user_post_edit', $post->user_id);
+        return view('post.edit', compact('post'));
+    }
+
     public function showUser(User $user)
     {
         OpenGraph::setTitle('Profile of ' . $user->username)
@@ -56,7 +68,7 @@ class MainController extends Controller
                 'username' => $user->username,
             ]);
 
-        $user = User::find($user->id);
+        $user = User::findOrFail($user->id);
         return view('user.show', compact('user'));
     }
 
