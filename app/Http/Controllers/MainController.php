@@ -54,7 +54,7 @@ class MainController extends Controller
             // return redirect()->route('post.single', ['post' => $post->slug]);
             return redirect()->back();
         }
-        $this->authorize('user_post_edit', $post->user_id);
+        // $this->authorize('user_post_edit', $post->user_id);
         return view('post.edit', compact('post'));
     }
 

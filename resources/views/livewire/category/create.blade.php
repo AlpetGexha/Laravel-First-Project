@@ -13,7 +13,7 @@
         <div class="mb-0">
             <div class="d-flex justify-content-end align-items-baseline">
                 <x-jet-button wire:click.prevent='store()'>
-                    {{ __('Posto') }}
+                    {{ __('Sygjeroni') }}
                 </x-jet-button>
             </div>
         </div>

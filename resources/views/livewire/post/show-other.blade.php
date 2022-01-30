@@ -1,7 +1,9 @@
 <div>
+    {{-- <div class="col-md-2"> --}}
     @if ($posts->count() > 0 || $search != '')
         <input wire:model='search' type="search" placeholder="Kerko" class="form-control mb-2">
     @endif
+    {{-- </div> --}}
     {{-- <h1> {{ $category->category }}</h1> --}}
     @forelse ($posts as $post)
         <x-blog-post>
@@ -9,7 +11,7 @@
             <x-slot name="image">{{ asset('storage/' . $post->post->photo) }}</x-slot>
             <x-slot name="username">{{ $post->post->user->username }}</x-slot>
             <x-slot name="created_at">{{ $post->post->created_at->diffForHumans() }}</x-slot>
-            <x-slot name="body"> {{ Str::limit($post->post->body, 200, '...') }},</x-slot>
+            <x-slot name="body"> {{ $post->post->body }}</x-slot>
             <x-slot name="category">cat</x-slot>
             <x-slot name="views">{{ $post->post->views }}</x-slot>
             <x-slot name="likes">{{ $post->post->likes_count }}</x-slot>

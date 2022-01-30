@@ -72,6 +72,10 @@
                                         {{ __('Profili') }}
                                     </x-jet-dropdown-link>
 
+                                    <x-jet-dropdown-link href="{{ route('user.chat') }}">
+                                        {{ __('Bisedat') }}
+                                    </x-jet-dropdown-link>
+
                                     <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                         {{ __('Parametrat') }}
                                         {{-- {{ __('Setting') }} --}}
@@ -86,8 +90,9 @@
                                     <hr class="dropdown-divider">
 
                                     <!-- Authentication -->
-                                    <x-jet-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                        document.getElementById('logout-form').submit();">
+                                    <x-jet-dropdown-link href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                                document.getElementById('logout-form').submit();">
                                         {{ __('Shkyquni') }}
                                     </x-jet-dropdown-link>
                                     <form method="POST" id="logout-form" action="{{ route('logout') }}">

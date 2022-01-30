@@ -1,5 +1,5 @@
    {{-- {{ $category }} --}}
-   <section class="my-5 cart shadow ">
+   {{-- <section class="my-5 cart shadow ">
        <div class="row">
            <div class="col-lg-5 col-xl-4">
                <div class="view overlay rounded z-depth-1-half mb-lg-0 mb-4 p-1">
@@ -37,4 +37,36 @@
                </div>
            </div>
        </div>
-   </section>
+   </section> --}}
+   <div class="blog-card">
+       <div class="meta">
+           <div class="photo">
+               <img loading="lazy" src="{{ $image }}" alt="">
+           </div>
+           <ul class="details">
+               <li>
+                   <i class="far fa-user"></i>
+                   <a href="{{ route('user.show', $username) }}">{{ $username }}</a>
+               </li>
+               <li><i class="far fa-calendar"></i>{{ $created_at }}</li>
+               <li> <i class="far fa-eye"></i>{{ $views }}</li>
+               <li> <i class="far fa-thumbs-up"></i>{{ $likes }}</li>
+               <li> <i class="far fa-comment"></i>{{ $comments }}</li>
+               <li><i class="far fa-bookmark"></i>{{ $shares }}</li>
+               {{-- <li class="tags">
+                   <ul>
+                       <li><a href="#">Learn</a></li>
+                   </ul>
+               </li> --}}
+           </ul>
+       </div>
+       <div class="description">
+           <h1 class="text-center">{{ $title }}</h1>
+           {{-- <h2></h2> --}}
+           <p > {{ Str::limit($body, 200, '...') }}</p>
+           <p class="read-more">
+               {{-- <i class="fas fa-arrow-right"></i> --}}
+               <a href="{{ route('post.single', $post_slug) }}">Lexo më Shumë</a>
+           </p>
+       </div>
+   </div>

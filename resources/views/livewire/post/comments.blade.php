@@ -82,7 +82,14 @@
                     </div>
                     {{-- Komenti --}}
                     <div class="ms-3">
-                        <div class="fw-bold">{{ $comment->user->username }}</div>
+                        <div class="fw-bold">{{ $comment->user->username }}
+                            @if ($comment->user->hasRole('Super Admin'))
+                                <x-user-simbol-admin />
+                            @endif
+                            @if ($comment->user->isVerified($comment->user))
+                                <x-user-simbol-check />
+                            @endif
+                        </div>
                         <p>{{ $comment->body }}</p>
                     </div>
                 </div>
@@ -139,7 +146,9 @@
                         </div>
 
                         <div class="ms-3">
-                            <div class="fw-bold">{{ $reply->user->username }}</div>
+                            <div class="fw-bold">{{ $reply->user->username }}
+                                {{-- <livewire:user.simbol :id="$reply->user->id" /> --}}
+                            </div>
                             <p>{{ $reply->body }}</p>
                         </div>
                     </div>

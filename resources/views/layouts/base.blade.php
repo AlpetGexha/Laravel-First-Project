@@ -47,10 +47,10 @@
                 <main class="container my-5">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-lg-8">
                                 {{ $slot }}
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 ">
                                 <div class="position-sticky" style="top: 5rem;">
                                     <x-sitebar />
                                 </div>

@@ -32,10 +32,7 @@
                     <div class="ml-3 w-100">
                         <h4 class="mb-1 mt-1"> {{ $user->name }} {{ $user->mbiemri }}
                             <span style="color: red">
-                                @if ($user->isVerified($user))
-                                    <img src="https://img.icons8.com/ios-glyphs/20/020400/approval.png" /
-                                        title="Verifikuar">
-                                @endif
+                                <livewire:user.simbol :id="$user->id" />
                             </span>
                             {{-- @if (Cache::has('user-is-online-' . $user->id))
                                 <span class="badge badge-success" style="color:rebeccapurple;">Online</span>
