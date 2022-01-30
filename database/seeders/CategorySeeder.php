@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-
+        $datas = [];
         $categorys = [
             'Programim',
             'Sport',
@@ -32,11 +32,17 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categorys as $category) {
-            Category::create([
-                'category' => Str::title($category),
-                'slug' => Str::slug($category, '-'),
-                'is_active' => 1
-            ]);
+            $datas[] = [
+                'category' => $category,
+                'slug' => Str::slug($category),
+                'is_active' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+        $chunk  = array_chunk($datas, 50);
+        foreach ($chunk as $data) {
+            Category::insert($data);
         }
     }
 }

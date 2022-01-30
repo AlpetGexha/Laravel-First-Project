@@ -12,7 +12,7 @@ class PostCreate extends Component
     public function render()
     {
         return view('livewire.category.post-create', [
-            'categorys' => Category::select(['id', 'category'])
+            'categorys' => Category::select(['id', 'category','is_active','slug'])
                 ->where('is_active', 1)
                 ->orderBy('id', 'desc')
                 ->get()

@@ -39,7 +39,7 @@ class ShowOther extends Component
                 ->where('category_id', $this->categoryid)
                 ->with([
                     'category' => fn ($q) => $q->select('category', 'slug', 'id', 'is_active'),
-                    'post' => fn ($q) => $q->select('id', 'title', 'body', 'photo', 'user_id', 'created_at', 'views')->with('user', 'likes', 'saves', 'comments')->withCount(['likes', 'saves', 'comments'])
+                    'post' => fn ($q) => $q->select('id', 'title', 'slug','body', 'photo', 'user_id', 'created_at', 'views')->with('user', 'likes', 'saves', 'comments')->withCount(['likes', 'saves', 'comments'])
                 ])
                 ->select('post_id', 'category_id')
                 ->orderBy('id', 'desc')
