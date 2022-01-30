@@ -13,12 +13,12 @@
         </div>
 
         {{-- Textare --}}
-
-        <x-jet-label value="{{ __('Përshkrimi') }}" />
-        <x-textarea class="{{ $errors->has('Teksti') ? 'is-invalid' : '' }}" type="text" wire:model='Teksti'
-            name="Teksti" required />
-        <x-jet-input-error for="Teksti"></x-jet-input-error>
-
+        <div class="mb-3">
+            <x-jet-label value="{{ __('Përshkrimi') }}" />
+            <x-textarea class="{{ $errors->has('Teksti') ? 'is-invalid' : '' }}" type="text" wire:model='Teksti'
+                name="Teksti" required />
+            <x-jet-input-error for="Teksti"></x-jet-input-error>
+        </div>
         {{-- Kategoria --}}
         <div class="col-md-12 mb-3">
             <div class="form-group">
@@ -28,10 +28,11 @@
                         <livewire:category.post-create />
                     </select>
                 </div>
-                @error('category')
-                    {{ $message }}
-                @enderror
+
             </div>
+            @error('category')
+                <strong style="color: #e3342f;font-size: 0.875em;">{{ $message }}</strong>
+            @enderror
         </div>
 
         {{-- tags
