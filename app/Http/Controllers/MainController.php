@@ -47,6 +47,7 @@ class MainController extends Controller
 
     public function postEdit(Post $post)
     {
+        SEOMeta::setTitle('Ndryshimi i postimit - ' . $post->title);
         $post = Post::findOrFail($post->id);
         if (auth()->user()->id !== $post->user_id) {
             session()->flash('error', 'Nuk keni access');
@@ -59,6 +60,7 @@ class MainController extends Controller
 
     public function showUser(User $user)
     {
+        SEOMeta::setTitle($user->username);
         OpenGraph::setTitle('Profile of ' . $user->username)
             ->setDescription($user->hasProfile() ? $user->profile->bio : 'No bio')
             ->setType('profile')
@@ -74,6 +76,7 @@ class MainController extends Controller
 
     public  function showCategory(Category $category)
     {
+        SEOMeta::setTitle($category->category);
         SEOMeta::setTitle($category->category);
         SEOMeta::setDescription($category->category);
         SEOMeta::addMeta('category:created_at', $category->created_at->toW3CString(), 'property');
@@ -93,52 +96,63 @@ class MainController extends Controller
 
     public function showChatId(User $user)
     {
+        SEOMeta::setTitle('Chat');
         return view('user.chat', compact('user'));
     }
 
     public function showChat()
     {
+        SEOMeta::setTitle('Chat');
         return view('user.chat');
     }
 
     public  function showCreatePost()
     {
+        SEOMeta::setTitle('Krijimi i Postimit');
         return view('auth.post');
     }
 
+    public function showPostSave(PostSaves $post)
+    {
+        SEOMeta::setTitle('Postimer i Ruajtura');
+        return view('post.save', compact('post'));
+    }
+
+    public function showPostLike()
+    {
+        SEOMeta::setTitle('Postimer i Pelqyera');
+        return view('post.like');
+    }
+
+
     public function showAdminDashboard(User $user, Post $post, Category $category)
     {
+        SEOMeta::setTitle('Admin - Dashboard');
         $sessions = DB::table('sessions')->count();
         return view('admin.dashboard.dashboard', compact('user', 'post', 'category', 'sessions'));
     }
 
     public function showAdminCategory()
     {
+        SEOMeta::setTitle('Admin - Kategori');
         return view('admin.category.table');
-    }
-
-    public function showPostSave(PostSaves $post)
-    {
-        return view('post.save', compact('post'));
-    }
-
-    public function showPostLike()
-    {
-        return view('post.like');
     }
 
     public function showAdminPost()
     {
+        SEOMeta::setTitle('Admin - Posts');
         return view('admin.post.table');
     }
 
     public function showAdimRole(User $user)
     {
+        SEOMeta::setTitle('Admin - Roles');
         return view('admin.role.table', compact('user'));
     }
 
     public function showAdminUser(User $user)
     {
+        SEOMeta::setTitle('Admin - Users');
         return view('admin.user.table', compact('user'));
     }
 }
