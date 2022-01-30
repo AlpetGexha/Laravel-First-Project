@@ -120,7 +120,7 @@ class Post extends Component
             'slug' => Str::slug($this->Titulli, '-'),
         ]);
         $path = 'storage/' . $post->photo;
-        if ($this->Foto !== $path) {
+        if ('storage/' . ($this->Foto) !== $path) {
             if (file_exists($path)) {
                 unlink($path);
             }
@@ -129,6 +129,7 @@ class Post extends Component
             ]);
             $this->Foto->store('post_images', 'public', $this->Foto->hashName());
         }
+
         if ($update) {
             session()->flash('success', 'Postimi u ndryshua me sukses');
             $this->emit('updatePosts');

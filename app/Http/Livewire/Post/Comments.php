@@ -29,7 +29,7 @@ class Comments extends Component
      */
     public function mount(int $id)
     {
-        $this->post = Post::find($id);
+        $this->post = Post::findOrFail($id);
     }
 
     /** 
@@ -68,6 +68,7 @@ class Comments extends Component
                     'post_id' =>   $this->post->id,
                 ]);
                 $this->blankFild();
+                $this->emit('addComment');
             }
         );
         if (!$executed) {
@@ -160,8 +161,10 @@ class Comments extends Component
         if (!auth()->check()) {
             return redirect()->route('login');
         }
-        if (($this->post->user_id == auth()->user()->id) || (auth()->user()->id == $this->post->comments->where('id', $id)->first()->user_id)) {
-            CommentReply::destroy($id);
+        $comment = CommentReply::where('id', $id);
+        //delet reply
+        if (($this->post->user_id == auth()->user()->id) || (auth()->user()->id == $comment->first()->user_id)) {
+            $comment->delete();
         }
     }
     /**
@@ -174,12 +177,18 @@ class Comments extends Component
 
     public function render()
     {
+        $count = Comment::where('post_id', $this->post->id)->count() + CommentReply::with(['comment' => fn ($q) => $q->where('post_id', $this->post->id)])->count();
+        $comment = Comment::select('id', 'post_id',  'user_id',  'body')
+            ->where('post_id', $this->post->id)
+            ->orderBy('id', 'desc')
+            ->paginate($this->per_page_moreless);
+        // dd($this->post->comments()->comment->id);
+        //get comment id from $this->post
+        // $comment_id = CommentReply::pluck('comment_id')->toArray(); 
         return view('livewire.post.comments', [
-            'comments' => Comment::select('id', 'post_id',  'user_id',  'body')
-                ->where('post_id', $this->post->id)
-                ->orderBy('id', 'desc')
-                ->paginate($this->per_page_moreless),
-                'commnets_count' => Comment::where('post_id', $this->post->id)->count(),
+            'comments' => $comment,
+            // 'replies' => Comment::where('id', $comment_id)->get(),
+            'commnets_count' => $count,
         ]);
     }
 }
