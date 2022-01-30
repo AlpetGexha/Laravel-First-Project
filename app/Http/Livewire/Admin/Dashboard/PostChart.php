@@ -66,7 +66,8 @@ class PostChart extends Component
         }
 
         //Merr shumen e postimeve per ditët e javës
-        $posts = Post::where('created_at', '>=', $dates->keys()->first())
+        // dd($dates->keys()->first());
+        $posts = Post::where('created_at', '>=', Carbon::now()->format('Y-m-d'))
             ->groupBy('date')
             ->orderBy('date')
             ->get([

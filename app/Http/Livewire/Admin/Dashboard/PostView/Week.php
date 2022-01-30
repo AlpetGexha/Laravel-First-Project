@@ -21,7 +21,7 @@ class Week extends Component
         }
 
         //Merr shumen e postimeve per ditët e javës
-        $category = Post::where('created_at', '>=', $dates->keys()->first())
+        $category = Post::where('created_at', '>=', Carbon::now()->format('Y-m-d'))
             ->groupBy('date')
             ->orderBy('date')
             ->get([

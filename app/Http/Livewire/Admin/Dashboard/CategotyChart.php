@@ -21,7 +21,7 @@ class CategotyChart extends Component
         }
 
         //Merr shumen e postimeve per ditët e javës
-        $category = Category::where('created_at', '>=', $dates->keys()->first())
+        $category = Category::where('created_at', '>=',Carbon::now()->format('Y-m-d'))
             ->where('is_active', 1)
             ->groupBy('date')
             ->orderBy('date')
