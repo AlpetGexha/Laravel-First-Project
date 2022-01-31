@@ -24,7 +24,7 @@ class SingleSitebar extends Component
 
         // $posts = Post::with(['category' => fn ($q) => $q->where('post_id', $this->post_id)->where('category_id', $category_id)])->get();
 
-        $posts = PostCategory::with(['post', 'category'])->where('category_id', $category_id)->where('post_id', '<>', $this->post_id)->get();
+        $posts = PostCategory::with(['post', 'category'])->where('category_id', $category_id)->where('post_id', '<>', $this->post_id)->take(6)->get();
         
 
         // dd($posts);
