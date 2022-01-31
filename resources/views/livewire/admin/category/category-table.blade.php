@@ -1,10 +1,15 @@
 <div class="container-fluid">
-
+    <x-alert />
     @include('livewire.admin.category.update')
+    @include('livewire.admin.category.create')
 
     <div class="card shadow">
         <div class="card-header">
-            Kategorit
+            <div class="d-flex bd-highlight">
+                <div class="mr-auto bd-highlight"> Kategorit</div>
+                <button class="bd-highlight btn btn-success btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#createAdminCategory">Krijo Kategori</button>
+            </div>
         </div>
 
         <div class="card-body">

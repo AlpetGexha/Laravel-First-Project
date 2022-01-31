@@ -16,12 +16,12 @@ class CategoryTable extends Component
     use WithPagination, WithSorting, WithCheckbox, AuthorizesRequests;
 
     public $search;
-    public $ids, $categoria, $created_at; //Category info
+    public $ids, $categoria, $created_at, $name,$category; //Category info
     public   $status = null;
 
 
     public $rules = [
-        'categoria' => 'min:3|max:255'
+        'categoria' => 'min:3|max:255',
     ];
 
     public $queryString = [
@@ -38,6 +38,24 @@ class CategoryTable extends Component
     {
         $this->ids = '';
         $this->categoria = '';
+    }
+
+    /**
+     * Krijo nje kategori
+     */
+
+    public function create(){
+        $this->validate([
+            'category' => 'required|min:3|max:255|unique:categories',
+        ]);
+
+        Category::create([
+            'category' => $this->category,
+            'slug' => Str::slug($this->category),
+            'is_active' => 1,
+        ]);
+        $this->category = '';
+        session()->flash('success', 'Kategoria u krijua me sukses');
     }
 
     /**
