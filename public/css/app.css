@@ -13081,3 +13081,53 @@ p {
 .symbol svg {
     width: 15px;
 }
+
+/** User Search **/
+.user_search .dropdown-content {
+    display: none;
+    /* padding: 10px; */
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+}
+
+.user_search .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user_search .dropdown-content a:hover {
+    color: #1e2125;
+    background-color: #e9ecef;
+}
+
+.user_search .dropdown-content a:focus {
+    color: #e9ecef;
+    background-color: var(--bs-success);
+}
+
+.user_search .show {
+    display: block;
+}
+
+.user-search-navbar {
+    float: none;
+    position: absolute;
+    top: 25%;
+    left: 51%;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 600px) {
+
+    .user-search-navbar {
+        position: relative;
+        top: 0;
+        transform: none;
+    }
+}

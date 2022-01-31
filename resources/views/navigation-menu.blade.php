@@ -30,9 +30,10 @@
                         {{ __('Pëlqimet') }}
                     </x-jet-nav-link>
                 @endauth
-
+                <li class="user-search-navbar">
+                    <livewire:user.search />
+                </li>
             </ul>
-
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav align-items-baseline">
                 <!-- Settings Dropdown -->
@@ -92,7 +93,7 @@
                                     <!-- Authentication -->
                                     <x-jet-dropdown-link href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
                                         {{ __('Shkyquni') }}
                                     </x-jet-dropdown-link>
                                     <form method="POST" id="logout-form" action="{{ route('logout') }}">
