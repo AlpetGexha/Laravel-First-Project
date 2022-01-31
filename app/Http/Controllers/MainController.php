@@ -62,7 +62,7 @@ class MainController extends Controller
     {
         SEOMeta::setTitle($user->username);
         OpenGraph::setTitle('Profile of ' . $user->username)
-            ->setDescription($user->hasProfile() ? $user->profile->bio : 'No bio')
+            // ->setDescription($user->hasProfile() ? $user->profile->bio : 'No bio')
             ->setType('profile')
             ->setProfile([
                 'first_name' => $user->name,

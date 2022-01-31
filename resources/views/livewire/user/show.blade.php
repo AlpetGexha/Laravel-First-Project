@@ -32,7 +32,14 @@
                     <div class="ml-3 w-100">
                         <h4 class="mb-1 mt-1"> {{ $user->name }} {{ $user->mbiemri }}
                             <span style="color: red">
-                                <livewire:user.simbol :id="$user->id" />
+                                @if ($user->verified == 1)
+                                    <x-user-simbol-check />
+                                @endif
+
+                                @if ($user->hasRole('Super Admin'))
+                                    <x-user-simbol-admin />
+                                @endif
+
                             </span>
                             {{-- @if (Cache::has('user-is-online-' . $user->id))
                                 <span class="badge badge-success" style="color:rebeccapurple;">Online</span>
