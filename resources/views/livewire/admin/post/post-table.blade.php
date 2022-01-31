@@ -1,4 +1,5 @@
 <div class="container-fluid">
+    <x-alert />
     @include('livewire.admin.post.show')
     <div class="card shadow">
         <div class="card-header">

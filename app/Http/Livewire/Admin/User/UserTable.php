@@ -33,8 +33,12 @@ class UserTable extends Component
     ];
 
 
-    // Show user info 
-    public function  showUser($id)
+    /**
+     * Informacionet për userat
+     * 
+     * @param int $id id e userit
+     */
+    public function  showUser(int $id)
     {
         $this->authorize('user_show');
         $user = User::find($id);
@@ -68,7 +72,11 @@ class UserTable extends Component
         $this->emit('showUser', $user);
     }
 
-    //edit role
+    /**
+     * Shfaq rolet e userit
+     * 
+     * @param int $id id e userit
+     */
     public function editRole($id)
     {
         $this->authorize('user_give_role');
@@ -77,14 +85,31 @@ class UserTable extends Component
         $this->selectRoles = $user->roles->pluck('id');
     }
 
+    /**
+     * Ndryshoni rolet e userit
+     */
+
     public function updateRole()
     {
         $this->authorize('user_give_role');
         $user = User::findOrFail($this->ids);
+        //check if slectRole has SuperAdmin role
+
+
+        if (in_array(1, $this->selectRoles)) {
+            $user->syncRoles($this->selectRoles);
+            $this->emit('updateRole');
+            session()->flash('message', 'Roli u ndryshua me sukses');
+        } else {
+            $this->addError('SPError', 'Nuk mund ta hiqni rolin e Super Adminit');
+        }
         // $this->selectRoles = $user->roles->pluck('id');
-        $user->syncRoles($this->selectRoles);
-        $this->emit('updateRole');
     }
+    /**
+     * Verikiko Userin
+     * 
+     * @param int $id id e userit
+     */
 
     public function verified(int $id)
     {
@@ -93,17 +118,44 @@ class UserTable extends Component
         $user->verified = 1;
         $user->save();
         $this->emit('verified');
-        session()->flash('success', 'User verified');
+        session()->flash('success', 'Përdoruesi u verifikua me sukses');
     }
 
-    public function unverified($id)
+    /**
+     * Hiq Verifikimin e Userit
+     * 
+     * @param int $id id e userit
+     */
+    public function unverified(int $id)
     {
         $this->authorize('user_give_verify');
         $user = User::findOrFail($id);
         $user->verified = 0;
         $user->save();
         $this->emit('unverified');
-        session()->flash('success', 'User unverified');
+        session()->flash('success', 'Përdoruesit ju hoq verifikimi me sukses');
+    }
+
+    /**
+     * Fshije Userin
+     * 
+     * @param int $id id e userit
+     */
+    public function delete(int $id)
+    {
+        $this->authorize('user_delete');
+        $user = User::findOrFail($id);
+        if (auth()->user()->id === $user->id) {
+            session()->flash('error', ' Ju nuk mund ta fshini veten');
+            return redirect()->back();
+        } else {
+            $user->delete();
+            session()->flash('success', 'User u fshie me sukses');
+            return redirect()->back();
+        }
+
+        $this->emit('delete');
+        session()->flash('success', 'Përdoruesi u fshie me sukses');
     }
 
     public function updated()

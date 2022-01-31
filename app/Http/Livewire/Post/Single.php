@@ -104,15 +104,20 @@ class Single extends Component
         $this->post_save = false;
     }
 
+    /**
+     * Fshirja e Postimit
+     * 
+     * @param  int  $id
+     */
     public function delete(int $id)
     {
         $post = Post::findOrFail($id);
-        if (!(auth()->user()->id == $post->user_id)) {
+        if (!(auth()->user()->id == $post->user_id) && (!(auth()->user()->hasPermissionTo('post_delete')))) {
             return redirect()->back();
         }
 
         $post->delete();
-        session()->flash('success', 'Ju e fshij');
+        session()->flash('success', 'Postimi u fshia me success');
         return redirect()->route('ballina');
     }
 

@@ -1,4 +1,5 @@
 <div class="container-fluid">
+    <x-alert />
     @include('livewire.admin.user.delete')
     @include('livewire.admin.user.edit')
     @include('livewire.admin.user.give-roles')
@@ -7,6 +8,7 @@
         <div class="card-header">
             Userat
         </div>
+
         <div class="card-body">
             <div class="col-md-12 mt-1 mb-3">
                 <div class="row d-flex">
@@ -98,22 +100,6 @@
                             <td>{{ $user->isVerified($user) ? 'Verifikuar' : 'Jo Verifikuar' }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                    {{-- Edit --}}
-                                    @can('user_edit')
-                                        <button type="button" class="btn  btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                            data-bs-target="#updateCategory" {{-- wire:click.prevent='edit({{ $categorie->id }})' --}}>
-                                            <i class="far fa-edit" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Edit"></i>
-                                        </button>
-                                    @endcan
-                                    {{-- Delete --}}
-                                    @can('user_delete')
-                                        <button type="button" class="btn btn-sm  btn-outline-primary" {{-- wire:click.prevent='delete({{ $categorie->id }})' --}}>
-                                            <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Delete"></i>
-                                        </button>
-                                    @endcan
-
                                     {{-- Show --}}
                                     @can('user_show')
                                         <button type="button" class="btn btn-sm  btn-outline-primary" data-bs-toggle="modal"
@@ -122,6 +108,27 @@
                                                 title="Show"></i>
                                         </button>
                                     @endcan
+
+                                    {{-- Edit --}}
+                                    @can('user_edit')
+                                        <button type="button" class="btn  btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#updateCategory" {{-- wire:click.prevent='edit({{ $user->id }})' --}}>
+                                            <i class="far fa-edit" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Edit"></i>
+                                        </button>
+                                    @endcan
+
+                                    {{-- Delete --}}
+                                    @if (auth()->user()->id !== $user->id)
+                                        @can('user_delete')
+                                            <button type="submit" class="btn btn-sm  btn-outline-primary"
+                                                onsubmit="return confirm('A jeni i sigurt qe doni ta fshini $user->username pasi ta fshini nuk do te keni mundesi te rivendosni dhe te gjitha postimet mesazhet ndjeksat e tij')"
+                                                @if (auth()->user()->id !== $user->id)  wire:click.prevent='delete({{ $user->id }})' @endif>
+                                                <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Delete"></i>
+                                            </button>
+                                        @endcan
+                                    @endif
 
                                     {{-- Role --}}
                                     @can('user_give_role')

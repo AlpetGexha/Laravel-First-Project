@@ -16,9 +16,10 @@
                     </div>
                 </div>
             @empty
-                Nuk ka
+                Nuk ka role
             @endforelse
         </div>
+        @error('SPError') <strong style="color: var(--danger)">{{ $message }}</strong> @enderror
     </div>
 
 </x-modal>

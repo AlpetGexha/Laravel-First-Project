@@ -7,8 +7,10 @@ composer update
 
 #### Config
 Copy .env.example and make new file ".env" <br />
-and change Database config 
+and change Database config and Website name("APP_NAME") 
 ```
+APP_NAME=YOUR_WEBSITE_NAME
+
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306

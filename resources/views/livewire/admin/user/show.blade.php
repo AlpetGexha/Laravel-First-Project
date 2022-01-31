@@ -10,7 +10,7 @@
                     @if ($photo)
                         <img src="{{ asset('storage/' . $photo) }}" alt="{{ $name }}" width="100">
                     @else
-                        <img src="{{ asset('storage/default.png') }}" alt="{{ $name }}" width="100">
+                        <img src="{{ $photo }}" alt="{{ $name }}" width="100">
                     @endif
                 </td>
             </tr>
@@ -38,7 +38,7 @@
             </tr>
             <tr>
                 <th scope="row">Username</th>
-                <td> @if ($username)  <a href="{{ route('user.show', ['user' => $username]) }}"> {{ $username }}</a> @endif </td>
+                <td> @if ($username)  <a href="{{ url('/' . $username) }}"> {{ $username }}</a> @endif </td>
             </tr>
 
             <tr>

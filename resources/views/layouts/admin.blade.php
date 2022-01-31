@@ -66,7 +66,7 @@
                     </div>
                 </li>
 
-                <!-- Messages Dropdown Menu -->
+                {{-- <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-comments"></i>
@@ -154,7 +154,7 @@
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                        </div>
+                        </div> --}}
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -184,7 +184,7 @@
             <!-- Brand Logo -->
             <a href="{{ route('admin.dashboard') }}" class="brand-link">
                 <x-jet-application-mark width="36" />
-                <span class="brand-texts font-weight-light ml-4">{{ env('APP_NAME') }}</span>
+                <span class="brand-texts font-weight-light ml-4">{{ config('app.name') }}</span>
             </a>
 
             <!-- Sidebar -->

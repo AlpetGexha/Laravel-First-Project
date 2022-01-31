@@ -92,7 +92,7 @@
                                     <!-- Authentication -->
                                     <x-jet-dropdown-link href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                document.getElementById('logout-form').submit();">
                                         {{ __('Shkyquni') }}
                                     </x-jet-dropdown-link>
                                     <form method="POST" id="logout-form" action="{{ route('logout') }}">
@@ -111,5 +111,6 @@
 
             </ul>
         </div>
+
     </div>
 </nav>

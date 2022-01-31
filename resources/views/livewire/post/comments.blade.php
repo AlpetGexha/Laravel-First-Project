@@ -53,9 +53,11 @@
                                     aria-expanded="false"> </i>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     {{-- Delete Commnet --}}
-                                    <button class="dropdown-item" wire:click.prevent='deleteCommnet({{ $comment->id }})'>
-                                        <p style="color:red"> Fshije</p>
-                                    </button>
+                                    <li>
+                                        <button class="dropdown-item"
+                                            wire:click.prevent='deleteCommnet({{ $comment->id }})'>
+                                            <p style="color:red"> Fshije</p>
+                                        </button>
                                     </li>
                                     @if ($comment->user_id == auth()->user()->id)
                                         <div x-data="{ open: false }">
@@ -113,7 +115,7 @@
                 @foreach ($comment->replies as $reply)
                     {{-- Dropdown for delete Replys --}}
                     @auth
-                        @if ($comment->post->user_id == auth()->user()->id || $comment->user_id == auth()->user()->id)
+                        @if ($comment->post->user_id == auth()->user()->id || $reply->user_id == auth()->user()->id)
                             <div class="d-flex justify-content-end">
                                 <div class="nav-item dropdown">
                                     <i class="fas fa-ellipsis-v" type="button" id="dropdownMenuButton1"
@@ -123,7 +125,7 @@
 
                                         <button class="dropdown-item" style="color:red;"
                                             wire:click.prevent='deleteReply({{ $reply->id }})'>Fshije</button>
-                                        @if ($comment->user_id == auth()->user()->id)
+                                        @if ($reply->user_id == auth()->user()->id)
                                             <div x-data="{ open: false }">
                                                 <button class="dropdown-item" @click="open = ! open">Edit</button>
                                                 <div x-show="open" @click.outside="open = false">

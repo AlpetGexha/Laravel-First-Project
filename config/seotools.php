@@ -6,7 +6,7 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => "AlpetG", // set false to total remove
+            'title'        => config('app.name'), // set false to total remove
             'titleBefore'  => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
             'description'  => 'AlpetG', // set false to total remove
             'separator'    => ' - ',

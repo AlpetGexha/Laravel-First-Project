@@ -5,13 +5,16 @@
     <x-slot name="type">Ndrysho</x-slot>
 
     <div class="mb-3">
+        <x-alert />
         <x-jet-label value="{{ __('Roli') }}" />
         <x-jet-input class="{{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
             :value="old('name')" required autofocus autocomplete="name" wire:model.def='name' />
         <x-jet-input-error for="name"></x-jet-input-error>
+        {{-- {{ $errors = $this->getErrorBag() }} --}}
+        @error('SPError') <strong style="color: var(--danger)">{{ $message }}</strong> @enderror
     </div>
     <div class="mb-3">
-        
+
         <div class="row" wire:loading.class='text-muted'>
             {{-- @dd($premissions_per_role) --}}
             @foreach ($permissions as $permission)

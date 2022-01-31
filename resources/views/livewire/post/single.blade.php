@@ -18,11 +18,13 @@
                     class="fas fa-bookmark"></i>&nbsp; Ruaj</button>
         @endif
 
-        @if (auth()->user()->id == $post->user_id)
+        @if (auth()->user()->id == $post->user_id ||  auth()->user()->can('post_delete'))
             <button class="btn btn-outline-dark" wire:click.prevent="delete({{ $post->id }})" type="submit">
                 <i class="far fa-trash-alt"></i>
                 &nbsp; Fshij
             </button>
+        @endif
+        @if (auth()->user()->id == $post->user_id)
             <a href="{{ route('post.edit', ['post' => $post->slug]) }}" class="btn btn-outline-dark" type="submit">
                 <i class="far fa-edit"></i>
                 &nbsp; Ndrysho

@@ -63,7 +63,7 @@
        <div class="description">
            <h1 class="text-center">{{ $title }}</h1>
            {{-- <h2></h2> --}}
-           <p > {{ Str::limit($body, 200, '...') }}</p>
+           <p> {{ Str::limit($body, 200, '...') }}</p>
            <p class="read-more">
                {{-- <i class="fas fa-arrow-right"></i> --}}
                <a href="{{ route('post.single', $post_slug) }}">Lexo më Shumë</a>

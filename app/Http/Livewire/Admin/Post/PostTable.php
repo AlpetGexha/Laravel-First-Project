@@ -23,7 +23,7 @@ class PostTable extends Component
         'search' => ['except' => '', 'as' => 'q'],
     ];
 
-    public function delete($id)
+    public function delete(int $id)
     {
         $this->authorize('post_delete');
         $post = Post::findOrFail($id);

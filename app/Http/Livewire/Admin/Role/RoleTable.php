@@ -19,7 +19,7 @@ class RoleTable extends Component
     public $premissions_per_role = [];
 
     public $rules = [
-        'name' => 'min:3|max:40|unique:roles',
+        'name' => 'min:3|max:40|required',
         'premissions_per_role' => 'required',
     ];
 
@@ -31,7 +31,10 @@ class RoleTable extends Component
     public function store()
     {
         $this->authorize('role_create');
-        $this->validate();
+        $this->validate([
+            'name' => 'required|min:3|max:40|unique:roles',
+            'premissions_per_role' => 'required',
+        ]);
         $role = Role::create(['name' => $this->name, 'guard_name' => 'web']);
         $this->emit('createRole');
         foreach ($this->premissions_per_role as $premissions) {
@@ -71,13 +74,18 @@ class RoleTable extends Component
         $this->authorize('role_edit');
         $this->validate();
         if ($this->ids) {
-            $role = Role::find($this->ids);
+            $role = Role::findOrFail($this->ids);
+            if ($role->name == 'Super Admin') {
+                $this->addError('SPError', 'Nuk mund te ndrysho rolin e Super Adminit');
+            }
+          else{
             $role->update([
                 'name' => $this->name,
             ]);
             $role->syncPermissions($this->premissions_per_role);
             session()->flash('success', 'Roli u editua me Sukses');
             $this->emit('updatRole');
+          }
         }
     }
 

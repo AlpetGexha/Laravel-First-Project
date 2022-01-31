@@ -1,4 +1,5 @@
 <div class="container-fluid">
+    <x-alert />
     @include('livewire.admin.role.create')
     @include('livewire.admin.role.update')
     <div class="card shadow">
@@ -14,7 +15,7 @@
                             <div class="p-2 bd-highlight">
                                 @can('role_create')
                                     <button class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#creatRole"  >
+                                        data-bs-target="#creatRole">
                                         Krijo Role
                                     </button>
                                 @endcan
