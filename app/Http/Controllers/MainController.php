@@ -14,6 +14,7 @@ class MainController extends Controller
 
     public function showBallina()
     {
+        SEOMeta::setTitle('Ballina');
         return view('ballina');
     }
 

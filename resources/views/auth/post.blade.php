@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="{{ asset('AdminPanel/plugins/select2/css/select2.min.css') }}">
     @endpush
     <x-slot name="header">
-        Krijo Postime
+        {{ __('Krijo Postime') }}
     </x-slot>
     {{-- Postime --}}
     <x-jet-authentication-card>

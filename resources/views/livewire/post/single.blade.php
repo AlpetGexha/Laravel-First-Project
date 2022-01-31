@@ -1,4 +1,5 @@
 <div>
+
     @if (auth()->check())
 
         @if (!$post->isLikedByUser(auth()->user()))

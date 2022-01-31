@@ -52,7 +52,11 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="position-sticky" style="top: 5rem;">
-                                    <x-sitebar />
+                                    <x-sitebar>
+                                        @if (Route::is('post.single'))
+                                            {{ $singlePostSiteBar }}
+                                        @endif
+                                    </x-sitebar>
                                 </div>
                             </div>
                         </div>
