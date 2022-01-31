@@ -129,6 +129,13 @@ class Post extends Component
             ]);
             $this->Foto->store('post_images', 'public', $this->Foto->hashName());
         }
+        PostCategory::where('post_id', $this->edit_id)->delete();
+        foreach ($this->category as $category) {
+            PostCategory::create([
+                'post_id' => $this->edit_id,
+                'category_id' => $category,
+            ]);
+        }
 
         if ($update) {
             session()->flash('success', 'Postimi u ndryshua me sukses');
