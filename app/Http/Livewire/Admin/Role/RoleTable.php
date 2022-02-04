@@ -77,23 +77,29 @@ class RoleTable extends Component
             $role = Role::findOrFail($this->ids);
             if ($role->name == 'Super Admin') {
                 $this->addError('SPError', 'Nuk mund te ndrysho rolin e Super Adminit');
+            } else {
+                $role->update([
+                    'name' => $this->name,
+                ]);
+                $role->syncPermissions($this->premissions_per_role);
+                session()->flash('success', 'Roli u editua me Sukses');
+                $this->emit('updatRole');
             }
-          else{
-            $role->update([
-                'name' => $this->name,
-            ]);
-            $role->syncPermissions($this->premissions_per_role);
-            session()->flash('success', 'Roli u editua me Sukses');
-            $this->emit('updatRole');
-          }
         }
     }
 
     public function delete(int $id)
     {
-        $this->authorize('role_delete');
-        Role::where('id', $id)->first()->delete();
-        session()->flash('success', 'Roli u fshie me sukses');
+        if ($this->ids) {
+            $role = Role::findOrFail($this->ids);
+            if ($role->name == 'Super Admin') {
+                $this->addError('SPError', 'Nuk mund te ndrysho rolin e Super Adminit');
+            } else {
+                $this->authorize('role_delete');
+                Role::where('id', $id)->first()->delete();
+                session()->flash('success', 'Roli u fshie me sukses');
+            }
+        }
     }
 
 

@@ -95,8 +95,8 @@ class UserTable extends Component
         $user = User::findOrFail($this->ids);
         //check if slectRole has SuperAdmin role
 
-
-        if (in_array(1, $this->selectRoles)) {
+        // dd($this->selectRoles);
+        if (!$user->hasRole('Super Admin') && in_array(1, $this->selectRoles)) {
             $user->syncRoles($this->selectRoles);
             $this->emit('updateRole');
             session()->flash('message', 'Roli u ndryshua me sukses');
