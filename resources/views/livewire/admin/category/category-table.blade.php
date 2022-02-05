@@ -2,13 +2,21 @@
     <x-alert />
     @include('livewire.admin.category.update')
     @include('livewire.admin.category.create')
+    @include('livewire.admin.category.create-sub-category')
 
     <div class="card shadow">
         <div class="card-header">
             <div class="d-flex bd-highlight">
                 <div class="mr-auto bd-highlight"> Kategorit</div>
                 <button class="bd-highlight btn btn-success btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#createAdminCategory">Krijo Kategori</button>
+                    data-bs-target="#createAdminCategory">
+                    Krijo Kategori
+                </button>
+                &nbsp;
+                <button class="bd-highlight btn btn-success btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#createAdminSubCategory">
+                    Krijo Nën Kategori
+                </button>
             </div>
         </div>
 
@@ -84,6 +92,7 @@
                 </thead>
                 <tbody>
                     @forelse ($categories as $categorie)
+                        {{-- @dd($categorie->subCategory()) --}}
                         <tr>
                             <td>
                                 <input class="" wire:model='selectIteams' value="{{ $categorie->id }}"

@@ -22,4 +22,10 @@ class Category extends Model
     {
         return $this->hasMany(PostCategory::class);
     }
+
+    public function subCategory()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
+
 }

@@ -38,6 +38,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         } else {
             $user->forceFill([
                 'name' => Str::replace(' ', '', Str::ucfirst($input['name'])),
+                'mbiemri' => Str::replace(' ', '', Str::ucfirst($input['mbiemri'])),
                 'email' => $input['email'],
             ])->save();
         }

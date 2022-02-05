@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Category;
 
 // use App\Interface\WithCheckboxInterface;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Traits\WithSorting;
 use App\Traits\WithCheckbox;
 use Illuminate\Support\Str;
@@ -16,9 +17,12 @@ class CategoryTable extends Component
     use WithPagination, WithSorting, WithCheckbox, AuthorizesRequests;
 
     public $search;
-    public $ids, $categoria, $created_at, $name,$category; //Category info
-    public   $status = null;
-
+    public $ids, $categoria, $created_at, $name, $category; //Category info
+    public  $status = null;
+    public $subcategory;
+    // public $subcategory_all = [];
+    public $SubCategoryNumberSelect = 1; //numri i kolona i selektuar
+    public $SubCategoryNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; //numri i kolonave 
 
     public $rules = [
         'categoria' => 'min:3|max:255',
@@ -29,8 +33,6 @@ class CategoryTable extends Component
         'search' => ['except' => '', 'as' => 'q'],
     ];
 
-
-
     /**
      * Pastro te thenat
      */
@@ -38,13 +40,15 @@ class CategoryTable extends Component
     {
         $this->ids = '';
         $this->categoria = '';
+        $this->subcategory = [];
     }
 
     /**
      * Krijo nje kategori
      */
 
-    public function create(){
+    public function create()
+    {
         $this->validate([
             'category' => 'required|min:3|max:255|unique:categories',
         ]);
@@ -119,6 +123,49 @@ class CategoryTable extends Component
         session()->flash('success', 'Kategoria nuk është publike tani');
     }
 
+    /**
+     * Krijo Sub Category
+     */
+    public function createSubCategory()
+    {
+        $this->validate([
+            'subcategory' => 'required|min:3|max:255|unique:sub_categories',
+        ]);
+
+        //nese eshte i zbrazet jep vleren e fundit
+        if ($this->categoria == null) {
+            $this->categoria = $this->getLastIdCategory();
+        }
+
+        SubCategory::create([
+            'subcategory' => $this->subcategory,
+            'slug' => Str::slug($this->subcategory),
+            'category_id' => $this->getIdCategory($this->categoria),
+            'is_active' => 1,
+        ]);
+        $this->blankField();
+        session()->flash('success', 'Nën Kategoria u krijua me sukses');
+    }
+
+    /**
+     * get id category from name
+     * 
+     * @param string $name
+     */
+
+    public function getIdCategory(String $name)
+    {
+        $category = Category::where('category', $name)->first();
+        return $category->id;
+    }
+
+
+    public function getLastIdCategory()
+    {
+        $category = Category::orderBy('id', 'desc')->first();
+        return $category->category;
+    }
+
     public function updated($value)
     {
         $this->validateOnly($value);
@@ -132,6 +179,7 @@ class CategoryTable extends Component
                 ->when($this->status, fn ($query, $status) => $query->where('is_active', $this->status))
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate($this->paginate_page),
+            'subcategories' => Category::orderBy('id', 'desc')->get(['id', 'category', 'is_active']),
         ]);
     }
 }
