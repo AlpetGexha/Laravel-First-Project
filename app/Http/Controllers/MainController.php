@@ -138,6 +138,12 @@ class MainController extends Controller
         SEOMeta::setTitle('Admin - Kategori');
         return view('admin.category.table');
     }
+    
+    public function showAdminSubCategory()
+    {
+        SEOMeta::setTitle('Admin - Sub Kategori');
+        return view('admin.category.subcategory-table');
+    }
 
     public function showAdminPost()
     {

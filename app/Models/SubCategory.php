@@ -19,4 +19,10 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    
+    public function getIdFromName(String $name)
+    {
+        $category = Category::where('category', $name)->first();
+        return $category->id;
+    }
 }

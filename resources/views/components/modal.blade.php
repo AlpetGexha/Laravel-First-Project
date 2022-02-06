@@ -46,4 +46,8 @@
     window.livewire.on('updateRole', () => { //emit
         $('#giveRole').modal('hide');
     });
+
+    window.livewire.on('updateSubCategory', () => { //emit
+        $('#updateSubCategory').modal('hide'); //modal id
+    });
 </script>

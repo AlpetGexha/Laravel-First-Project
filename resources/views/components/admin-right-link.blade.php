@@ -36,6 +36,14 @@
     </x-liadmin>
 @endcan
 
+@can('category_show')
+    <x-liadmin>
+        <x-slot name="icone">fas fa-tags</x-slot>
+        <x-slot name="go">{{ route('admin.subcategory') }}</x-slot>
+        {{ __('Nën Kategorit') }}
+    </x-liadmin>
+@endcan
+
 @can('admin_show')
     <x-liadmin>
         <x-slot name="icone">fas fa-sign-out-alt</x-slot>

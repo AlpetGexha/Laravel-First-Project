@@ -22,7 +22,7 @@
                     <div class="col-md-7 mt-2">
                         <div class="btn-group d-flex" role="group" aria-label="Basic outlined example"">
                             <button wire:click=" sortByStatus" type="button"
-                            class="btn {{ is_null($status) ? 'btn-outline-primary' : 'btn-defaults' }}">
+                            class="btn {{ is_null($status) ? 'btn-outline-primary' : 'btn-default' }}">
                             <span class="mr-1">Të gjith</span>
                             {{-- <span style="color: red;" class="badge badge-pill badge-info"></span> --}}
                             </button>

@@ -1,16 +1,15 @@
 <div class="container-fluid">
     <x-alert />
-    @include('livewire.admin.category.update')
-    @include('livewire.admin.category.create')
-    {{-- @include('livewire.admin.category.create-sub-category') --}}
+    @include('livewire.admin.subcategory.update')
+    @include('livewire.admin.category.create-sub-category')
 
     <div class="card shadow">
         <div class="card-header">
             <div class="d-flex bd-highlight">
-                <div class="mr-auto bd-highlight"> Kategorit</div>
+                <div class="mr-auto bd-highlight">Nën Kategorit</div>
                 <button class="bd-highlight btn btn-success btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#createAdminCategory">
-                    Krijo Kategori
+                    data-bs-target="#createAdminSubCategory">
+                    Krijo Nën Kategori
                 </button>
             </div>
         </div>
@@ -66,12 +65,22 @@
                                 class="fa fa-arrow-down {{ $sortBy === 'id' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
                         </span>
                     </th>
+
+                    <th scope="col">Nën Kategoria
+                        <span wire:click='sortBy("subcategory")' class="text-sm" style="cursor: pointer">
+                            <i
+                                class="fa fa-arrow-up {{ $sortBy === 'subcategory' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
+                            <i
+                                class="fa fa-arrow-down {{ $sortBy === 'subcategory' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
+                        </span>
+                    </th>
+
                     <th scope="col">Kategoria
-                        <span wire:click='sortBy("category")' class="text-sm" style="cursor: pointer">
+                        <span wire:click='sortBy("category_id")' class="text-sm" style="cursor: pointer">
                             <i
-                                class="fa fa-arrow-up {{ $sortBy === 'category' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
+                                class="fa fa-arrow-up {{ $sortBy === 'category_id' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
                             <i
-                                class="fa fa-arrow-down {{ $sortBy === 'category' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
+                                class="fa fa-arrow-down {{ $sortBy === 'category_id' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
                         </span>
                     </th>
                     <th width='11%' scope='col'>Aktiviteti
@@ -86,7 +95,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($categories as $categorie)
+                    @forelse ($subcategories as $categorie)
                         {{-- @dd($categorie->subCategory()) --}}
                         <tr>
                             <td>
@@ -94,9 +103,10 @@
                                     type="checkbox" id="flexCheckDefault">
                             </td>
                             <th scope="row">
-                                {{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->iteration }}
+                                {{ ($subcategories->currentPage() - 1) * $subcategories->perPage() + $loop->iteration }}
                             </th>
-                            <td>{{ $categorie->category }}</td>
+                            <td>{{ $categorie->subcategory }}</td>
+                            <td>{{ $categorie->category->category }}</td>
                             <td> {{ $categorie->is_active == 1 ? 'Aktive' : 'JoAktive' }} </td>
 
                             <td>
@@ -104,7 +114,7 @@
                                     {{-- Edit --}}
                                     @can('category_edit')
                                         <button type="button" class="btn  btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                            data-bs-target="#updateCategory"
+                                            data-bs-target="#updateSubCategory"
                                             wire:click.prevent='edit({{ $categorie->id }})'>
                                             <i class="far fa-edit" data-bs-toggle="tooltip" data-bs-placement="top"
                                                 title="Edit"></i>
@@ -161,7 +171,7 @@
             </table>
         </div>
         <div class="body-footer d-flex justify-content-end">
-            {{ $categories->links() }}
+            {{ $subcategories->links() }}
         </div>
     </div>
 </div>

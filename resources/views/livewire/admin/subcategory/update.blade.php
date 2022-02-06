@@ -1,7 +1,7 @@
 <x-modal>
-    <x-slot name="id">createAdminSubCategory</x-slot>
+    <x-slot name="id">updateSubCategory</x-slot>
     <x-slot name="title">Krijo Nën Kategori të re</x-slot>
-    <x-slot name="function">wire:click='createSubCategory()'</x-slot>
+    <x-slot name="function">wire:click='update()'</x-slot>
     <x-slot name="type">Krijo</x-slot>
     <div class="row">
         <div class="d-flex bd-highlight">
@@ -25,9 +25,9 @@
     <div class="mb-3">
         <x-alert />
         <x-jet-label value="{{ __('Kategoria') }}" />
-        <select wire:model="category" class="form-control bd-highlight ">
-            @foreach ($categorys as $categorie)
-                <option value="{{ $categorie->category }}">{{ $categorie->category }}</option>
+        <select wire:model="categoria" class="form-control bd-highlight ">
+            @foreach ($categorys as $category)
+                <option value="{{ $category->category }}">{{ $category->category }}</option>
             @endforeach
         </select>
     </div>

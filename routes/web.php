@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['can:admin
     Route::middleware(['auth:sanctum', 'verified',])->group(function () {
         Route::get('/dashboard',  [MainController::class, 'showAdminDashboard'])->name('dashboard');
         Route::get('/categorys',  [MainController::class, 'showAdminCategory'])->name('category')->middleware('can:category_show');
+        Route::get('/subcategorys',  [MainController::class, 'showAdminSubCategory'])->name('subcategory')->middleware('can:category_show');
         Route::get('/posts',  [MainController::class, 'showAdminPost'])->name('post')->middleware('can:post_show');
         Route::get('/roles',  [MainController::class, 'showAdimRole'])->name('role')->middleware('can:role_show');
         Route::get('/users',  [MainController::class, 'showAdminUser'])->name('user')->middleware('can:user_show');

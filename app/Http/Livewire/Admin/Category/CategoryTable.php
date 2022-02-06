@@ -123,49 +123,6 @@ class CategoryTable extends Component
         session()->flash('success', 'Kategoria nuk është publike tani');
     }
 
-    /**
-     * Krijo Sub Category
-     */
-    public function createSubCategory()
-    {
-        $this->validate([
-            'subcategory' => 'required|min:3|max:255|unique:sub_categories',
-        ]);
-
-        //nese eshte i zbrazet jep vleren e fundit
-        if ($this->categoria == null) {
-            $this->categoria = $this->getLastIdCategory();
-        }
-
-        SubCategory::create([
-            'subcategory' => $this->subcategory,
-            'slug' => Str::slug($this->subcategory),
-            'category_id' => $this->getIdCategory($this->categoria),
-            'is_active' => 1,
-        ]);
-        $this->blankField();
-        session()->flash('success', 'Nën Kategoria u krijua me sukses');
-    }
-
-    /**
-     * get id category from name
-     * 
-     * @param string $name
-     */
-
-    public function getIdCategory(String $name)
-    {
-        $category = Category::where('category', $name)->first();
-        return $category->id;
-    }
-
-
-    public function getLastIdCategory()
-    {
-        $category = Category::orderBy('id', 'desc')->first();
-        return $category->category;
-    }
-
     public function updated($value)
     {
         $this->validateOnly($value);
@@ -179,7 +136,7 @@ class CategoryTable extends Component
                 ->when($this->status, fn ($query, $status) => $query->where('is_active', $this->status))
                 ->orderBy($this->sortBy, $this->sortDirection)
                 ->paginate($this->paginate_page),
-            'subcategories' => Category::orderBy('id', 'desc')->get(['id', 'category', 'is_active']),
+            'subcategories' => Category::where('is_active', 1)->orderBy('id', 'desc')->get(['id', 'category', 'is_active']),
         ]);
     }
 }
