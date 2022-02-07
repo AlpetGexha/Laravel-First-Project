@@ -1,9 +1,11 @@
-<x-guest-layout>
+<x-app-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
         </x-slot>
-
+        <x-slot name="header">
+            {{ __('Kyquni') }}
+        </x-slot>
         <div class="card-body">
 
             <x-jet-validation-errors class="mb-3 rounded-0" />
@@ -57,4 +59,4 @@
             </form>
         </div>
     </x-jet-authentication-card>
-</x-guest-layout>
+</x-app-layout>

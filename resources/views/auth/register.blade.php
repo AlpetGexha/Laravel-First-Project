@@ -1,10 +1,14 @@
-<x-guest-layout>
+<x-app-layout>
+    <x-slot name="header">
+        {{ __('Regjistohuni') }}
+    </x-slot>
+
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
         </x-slot>
 
-        <x-jet-validation-errors class="mb-3" />
+        <x-jet-validation-errors />
 
         <div class="card-body">
             <form method="POST" action="{{ route('register') }}">
@@ -41,8 +45,8 @@
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Username') }}" />
 
-                    <x-jet-input class="{{ $errors->has('username') ? 'is-invalid' : '' }}" type="text" name="username"
-                        :value="old('username')" required autofocus autocomplete="username" />
+                    <x-jet-input class="{{ $errors->has('username') ? 'is-invalid' : '' }}" type="text"
+                        name="username" :value="old('username')" required autofocus autocomplete="username" />
                     <x-jet-input-error for="username"></x-jet-input-error>
                 </div>
 
@@ -62,19 +66,29 @@
                 </div>
 
                 @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mb-3">
-                    <div class="custom-control custom-checkbox">
-                        <x-jet-checkbox id="terms" name="terms" />
-                        <label class="custom-control-label" for="terms">
-                            {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                            'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'">'.__('Terms of
-                                Service').'</a>',
-                            'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'">'.__('Privacy
-                                Policy').'</a>',
-                            ]) !!}
-                        </label>
+                    <div class="mb-3">
+                        <div class="custom-control custom-checkbox">
+                            <x-jet-checkbox id="terms" name="terms" />
+                            <label class="custom-control-label" for="terms">
+                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
+    'terms_of_service' =>
+        '<a target="_blank" href="' .
+        route('terms.show') .
+        '">' .
+        __('Terms of
+                                Service') .
+        '</a>',
+    'privacy_policy' =>
+        '<a target="_blank" href="' .
+        route('policy.show') .
+        '">' .
+        __('Privacy
+                                Policy') .
+        '</a>',
+]) !!}
+                            </label>
+                        </div>
                     </div>
-                </div>
                 @endif
 
                 <div class="mb-0">
@@ -91,4 +105,4 @@
             </form>
         </div>
     </x-jet-authentication-card>
-</x-guest-layout>
+</x-app-layout>
