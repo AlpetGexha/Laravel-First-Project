@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\WithPagination;
 
 
@@ -18,11 +19,13 @@ class UserTable extends Component
 
     public $search;
 
-    public $user, $ids, $name, $mbiemri, $email, $username, $photo, $created_at, $last_seen, $online;
+    public $user, $ids, $name, $mbiemri, $email, $username, $photo, $created_at, $last_seen, $online, $bannedStatus;
     public $bio, $url, $facebook, $twitter, $instagram, $youtube, $linkedin, $github;
     public $postsCount, $commentsCount, $likesCount, $dislikesCount, $followersCount, $followingCount;
     public $selectRoles = [];
     public $user_roles = [];
+    public $userBanData = ['0', '1', '5', '7', '30', '90', '150', '365']; //ditë
+    public $userBanTime;
     public $rules = [
         'categoria' => 'min:3|max:255'
     ];
@@ -41,7 +44,7 @@ class UserTable extends Component
     public function  showUser(int $id)
     {
         $this->authorize('user_show');
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         // $this->ids = $user->id;
         $this->photo = $user->photo;
         $this->name = $user->name;
@@ -54,6 +57,16 @@ class UserTable extends Component
         $this->postsCount = $user->post()->count();
         $this->likesCount = $user->likes()->count();
         $this->followersCount = $user->followers()->count();
+        $this->bannedStatus = "Përdoruesi nuk është i suspenduar";
+        if ($user->banned_till != null) {
+            if ($user->banned_till == 0) {
+                $this->bannedStatus = "Suspedim i Përjetshëm";
+            }
+            if (now()->lessThan($user->banned_till)) {
+                $banned_days = now()->diffInDays($user->banned_till) + 1;
+                $this->bannedStatus = "Suspedim për " . $banned_days . ' ' . Str::plural('ditë', $banned_days);
+            }
+        }
         // $this->followingCount = $user->following();
         // profile
         // $this->bio = $user->bio;
@@ -160,16 +173,52 @@ class UserTable extends Component
 
     public function ban()
     {
-        // ban for days
-        $ban_for_next_7_days = Carbon::now()->addDays(7);
-        $ban_for_next_14_days = Carbon::now()->addDays(14);
-        $ban_permanently = 0;
+        $this->authorize('user_give_ban');
 
-        // ban user
-        $user_id = 2;
-        $user = User::find($user_id);
-        $user->banned_till = $ban_for_next_7_days;
+        if ($this->ids) {
+            $user = User::findOrFail($this->ids);
+            $userBanTime = Carbon::now()->addDays($this->userBanTime);
+
+            if ($this->userBanTime == 0) {
+                $user->banned_till = 0;
+            } else {
+                $user->banned_till = $userBanTime;
+            }
+
+            //flase if  user id is same with auth id
+            if (auth()->user()->id === $user->id) {
+                session()->flash('success', 'Ju nuk mund ta suspendoni veten');
+                return false;
+            }
+
+            if ($user->hasRole('Super Admin')) {
+                session()->flash('success', 'Ju nuk mund ta suspendoni Super Adminin');
+                return false;
+            }
+
+            if ($user->save()) {
+                $message = "Përdoruesi " . $user->username . " u Suspendua për " . $userBanTime->diffForHumans();
+                session()->flash('success', $message);
+                return true;
+            }
+        }
+    }
+
+    public function unban(int $id)
+    {
+        $this->authorize('user_give_unban');
+        $user = User::findOrFail($id);
+        $user->banned_till = null;
         $user->save();
+        session()->flash('success', "Përdoruesit " . $user->username . " ju hoq suspendimi");
+    }
+
+    public function userBanEdit(int $id)
+    {
+        $this->ids = $id;
+
+        $user = User::findOrFail($this->ids);
+        $this->username = $user->username;
     }
 
     public function updated()

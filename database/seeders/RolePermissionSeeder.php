@@ -45,6 +45,8 @@ class RolePermissionSeeder extends Seeder
             'permission_show',
             'user_give_role',
             'user_give_verify',
+            'user_give_ban',
+            'user_give_unban',
             'chat_show',
         ];
 

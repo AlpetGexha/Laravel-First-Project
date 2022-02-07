@@ -4,13 +4,15 @@
     @include('livewire.admin.user.edit')
     @include('livewire.admin.user.give-roles')
     @include('livewire.admin.user.show')
+    @include('livewire.admin.user.user-ban')
+
     <div class="card shadow">
         <div class="card-header">
             Userat
         </div>
 
         <div class="card-body">
-            <button wire:click.prevent='ban()'>ban</button>
+            <!-- <button wire:click.prevent='unban()'>ban</button> -->
             <div class="col-md-12 mt-1 mb-3">
                 <div class="row d-flex">
                     <div class="col-md-2 mt-2">
@@ -21,11 +23,11 @@
                         </select>
                     </div>
                     <div class="col-md-7 mt-2">
-                        <div class="btn-group d-flex" role="group" aria-label="Basic outlined example"">
+                        <div class="btn-group d-flex" role="group" aria-label="Basic outlined example">
                             <button wire:click=" sortByStatus" type="button"
-                            class="btn {{ is_null($status) ? 'btn-outline-primary' : 'btn-default' }}">
-                            <span class="mr-1">Të gjith</span>
-                            {{-- <span style="color: red;" class="badge badge-pill badge-info"></span> --}}
+                                class="btn {{ is_null($status) ? 'btn-outline-primary' : 'btn-default' }}">
+                                <span class="mr-1">Të gjith</span>
+                                {{-- <span style="color: red;" class="badge badge-pill badge-info"></span> --}}
                             </button>
                             <button wire:click="sortByStatus('1')" type="button"
                                 class="btn {{ $status === '1' ? 'btn-outline-primary' : 'btn-default' }}">
@@ -58,14 +60,7 @@
                         <th width='3%' scope="col">Statusi</th>
                         <th width='5%' scope="col">Emri</th>
                         <th width='5%' scope="col">Mbiemri</th>
-                        <th width='6%' scope="col">Username
-                            <span wire:click='sortBy("username")' class="text-sm" style="cursor: pointer">
-                                <i
-                                    class="fa fa-arrow-up {{ $sortBy === 'username' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
-                                <i
-                                    class="fa fa-arrow-down {{ $sortBy === 'username' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
-                            </span>
-                        </th>
+                        <th width='6%' scope="col">Username</th>
                         <th width='6%' scope="col">Email</th>
                         <th width='6%' scope="col">Roles</th>
                         <th width='5%' scope="col">Verifikimin</th>
@@ -139,6 +134,28 @@
                                                 title="Roles"></i>
                                         </button>
                                     @endcan
+
+                                    @if (is_null($user->banned_till))
+                                        {{-- Ban User --}}
+                                        @can('user_give_ban')
+                                            <button type="button" class="btn btn-sm  btn-outline-primary"
+                                                data-bs-toggle="modal" data-bs-target="#banUser"
+                                                wire:click.prevent='userBanEdit({{ $user->id }})'>
+                                                <i class="fas fa-ban" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Suspendo"></i>
+                                            </button>
+                                        @endcan
+                                    @else
+                                        {{-- UnBan User --}}
+                                        @can('user_give_unban')
+                                            <button type="button" class="btn btn-sm  btn-outline-primary"
+                                                data-bs-toggle="modal" data-bs-target="#"
+                                                wire:click.prevent='unban({{ $user->id }})'>
+                                                <i class="fas fa-ban" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="unban"></i>
+                                            </button>
+                                        @endcan
+                                    @endif
 
                                     @if ($user->verified == 1)
                                         {{-- Hiq Verifikimin --}}

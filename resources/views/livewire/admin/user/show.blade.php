@@ -28,6 +28,11 @@
             </tr>
 
             <tr>
+                <th scope="row">Ban Status</th>
+                <td>{{ $bannedStatus }}</td>
+            </tr>
+
+            <tr>
                 <th scope="row">Emri</th>
                 <td>{{ $name }}</td>
             </tr>
@@ -66,8 +71,7 @@
                 <th scope="row">Ndjekës</th>
                 <td>{{ $followersCount }}</td>
             </tr>
-
-
+            
             @if ($bio !== null)
                 <p>{{ $bio }}</p>
             @endif
