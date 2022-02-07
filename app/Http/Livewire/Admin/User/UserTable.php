@@ -158,6 +158,20 @@ class UserTable extends Component
         session()->flash('success', 'Përdoruesi u fshie me sukses');
     }
 
+    public function ban()
+    {
+        // ban for days
+        $ban_for_next_7_days = Carbon::now()->addDays(7);
+        $ban_for_next_14_days = Carbon::now()->addDays(14);
+        $ban_permanently = 0;
+
+        // ban user
+        $user_id = 2;
+        $user = User::find($user_id);
+        $user->banned_till = $ban_for_next_7_days;
+        $user->save();
+    }
+
     public function updated()
     {
         $this->setModel(user::class, 'username', 'verified');

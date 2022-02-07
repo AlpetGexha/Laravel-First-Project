@@ -28,6 +28,7 @@ class User extends Authenticatable
         'verified',
         'email',
         'password',
+        'banned_till',
     ];
 
     /**

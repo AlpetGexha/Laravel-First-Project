@@ -10,6 +10,7 @@
         </div>
 
         <div class="card-body">
+            <button wire:click.prevent='ban()'>ban</button>
             <div class="col-md-12 mt-1 mb-3">
                 <div class="row d-flex">
                     <div class="col-md-2 mt-2">
