@@ -1,14 +1,15 @@
 <x-app-layout>
+    <x-slot name="header">
+        {{ __('Kqyquni') }}
+    </x-slot>
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
         </x-slot>
-        <x-slot name="header">
-            {{ __('Kyquni') }}
-        </x-slot>
+
         <div class="card-body">
 
-            <x-jet-validation-errors class="mb-3 rounded-0" />
+            <x-jet-validation-errors class=" rounded-0" />
 
             @if (session('status'))
                 <div class="alert alert-success mb-3 rounded-0" role="alert">
