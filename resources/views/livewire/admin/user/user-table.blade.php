@@ -118,10 +118,10 @@
                                     @if (auth()->user()->id !== $user->id)
                                         @can('user_delete')
                                             <button type="submit" class="btn btn-sm  btn-outline-primary"
+                                                data-bs-toggle="modal" data-bs-target="#DeleteUser"
                                                 onsubmit="return confirm('A jeni i sigurt qe doni ta fshini $user->username pasi ta fshini nuk do te keni mundesi te rivendosni dhe te gjitha postimet mesazhet ndjeksat e tij')"
-                                                @if (auth()->user()->id !== $user->id)  wire:click.prevent='delete({{ $user->id }})' @endif>
-                                                <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Delete"></i>
+                                                @if (auth()->user()->id !== $user->id)  wire:click.prevent='showUser({{ $user->id }})' @endif>
+                                                <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"></i>
                                             </button>
                                         @endcan
                                     @endif

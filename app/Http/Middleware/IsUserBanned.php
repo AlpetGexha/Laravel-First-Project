@@ -26,8 +26,8 @@ class IsUserBanned
             // Limit Ban
             if (now()->lessThan(auth()->user()->banned_till)) {
                 $banned_days = now()->diffInDays(auth()->user()->banned_till) + 1;
-                $message = 'Llogaria juaj është pezulluar për ' . $banned_days . ' ' . Str::plural('day', $banned_days);
-            }
+                $message = 'Llogaria juaj është suspeduar për ' . $banned_days . ' ' . Str::plural('ditë', $banned_days);
+            }   
 
             // Logout if user is banned
             auth()->logout();

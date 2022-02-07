@@ -154,22 +154,29 @@ class UserTable extends Component
      * 
      * @param int $id id e userit
      */
-    public function delete(int $id)
+    public function delete()
     {
         $this->authorize('user_delete');
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($this->ids);
         if (auth()->user()->id === $user->id) {
             session()->flash('error', ' Ju nuk mund ta fshini veten');
-            return redirect()->back();
-        } else {
-            $user->delete();
-            session()->flash('success', 'User u fshie me sukses');
-            return redirect()->back();
+            return false;
         }
-
-        $this->emit('delete');
-        session()->flash('success', 'Përdoruesi u fshie me sukses');
+        if ($user->hasRole('Super Admin')) {
+            session()->flash('error', 'Ju nuk mund ta fshini Super Adminin');
+            return false;
+        }
+        if ($user->delete()) {
+            session()->flash('success', "" . $user->username . " u fshie me sukses");
+            $this->emit('DeleteUser');
+            return true;
+        }
     }
+
+    /**
+     * Suspendo Userin
+     * 
+     */
 
     public function ban()
     {
@@ -190,7 +197,7 @@ class UserTable extends Component
                 session()->flash('success', 'Ju nuk mund ta suspendoni veten');
                 return false;
             }
-
+            //nese eshs super Admin
             if ($user->hasRole('Super Admin')) {
                 session()->flash('success', 'Ju nuk mund ta suspendoni Super Adminin');
                 return false;
@@ -202,7 +209,14 @@ class UserTable extends Component
                 return true;
             }
         }
+        $this->emit('banUser');
     }
+
+    /**
+     * Hiq suspendimin e Userit
+     * 
+     * @param int $id id e userit
+     */
 
     public function unban(int $id)
     {
@@ -213,10 +227,15 @@ class UserTable extends Component
         session()->flash('success', "Përdoruesit " . $user->username . " ju hoq suspendimi");
     }
 
+    /**
+     * Shfaq idn e userit
+     * 
+     * @param int $id id e userit
+     */
     public function userBanEdit(int $id)
     {
+        $this->authorize('user_give_ban');
         $this->ids = $id;
-
         $user = User::findOrFail($this->ids);
         $this->username = $user->username;
     }
