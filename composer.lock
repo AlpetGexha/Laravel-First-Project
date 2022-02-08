@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5d9c60aff94e9b9a08f79bd08222c2a",
+    "content-hash": "e0ad8234fc187dfa1cf8d51cdafc3cab",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -1270,84 +1270,50 @@
             "time": "2021-10-06T17:43:30+00:00"
         },
         {
-            "name": "intervention/gif",
-            "version": "3.0.0-alpha.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Intervention/gif.git",
-                "reference": "0f4565d92ec80c24ad8a00bf8439300e0830ed5e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/gif/zipball/0f4565d92ec80c24ad8a00bf8439300e0830ed5e",
-                "reference": "0f4565d92ec80c24ad8a00bf8439300e0830ed5e",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.12.17",
-                "phpunit/phpunit": "^9.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Intervention\\Gif\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Oliver Vogel",
-                    "email": "oliver@olivervogel.com",
-                    "homepage": "https://intervention.io/"
-                }
-            ],
-            "description": "Native PHP GIF Encoder/Decoder",
-            "homepage": "https://github.com/intervention/gif",
-            "keywords": [
-                "animation",
-                "gd",
-                "gif",
-                "image"
-            ],
-            "support": {
-                "issues": "https://github.com/Intervention/gif/issues",
-                "source": "https://github.com/Intervention/gif/tree/3.0.0-alpha.1"
-            },
-            "time": "2021-10-29T18:05:39+00:00"
-        },
-        {
             "name": "intervention/image",
-            "version": "3.0.0-alpha.3",
+            "version": "2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "87267764b9d3f067419316fc06cf0f2e30bfcb6f"
+                "reference": "744ebba495319501b873a4e48787759c72e3fb8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/87267764b9d3f067419316fc06cf0f2e30bfcb6f",
-                "reference": "87267764b9d3f067419316fc06cf0f2e30bfcb6f",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/744ebba495319501b873a4e48787759c72e3fb8c",
+                "reference": "744ebba495319501b873a4e48787759c72e3fb8c",
                 "shasum": ""
             },
             "require": {
-                "intervention/gif": "^3.0",
-                "intervention/mimesniffer": "^0.4.2",
-                "php": "^8"
+                "ext-fileinfo": "*",
+                "guzzlehttp/psr7": "~1.1 || ^2.0",
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "mockery/mockery": "^1.4",
-                "phpunit/phpunit": "^9"
+                "mockery/mockery": "~0.9.2",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^7.5.15"
+            },
+            "suggest": {
+                "ext-gd": "to use GD library based image processing.",
+                "ext-imagick": "to use Imagick based image processing.",
+                "intervention/imagecache": "Caching extension for the Intervention Image library"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Intervention\\Image\\ImageServiceProvider"
+                    ],
+                    "aliases": {
+                        "Image": "Intervention\\Image\\Facades\\Image"
+                    }
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "Intervention\\Image\\": "src"
+                    "Intervention\\Image\\": "src/Intervention/Image"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1358,10 +1324,10 @@
                 {
                     "name": "Oliver Vogel",
                     "email": "oliver@olivervogel.com",
-                    "homepage": "http://intervention.io/"
+                    "homepage": "http://olivervogel.com/"
                 }
             ],
-            "description": "PHP image manipulation",
+            "description": "Image handling and manipulation library with support for Laravel integration",
             "homepage": "http://image.intervention.io/",
             "keywords": [
                 "gd",
@@ -1373,7 +1339,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Intervention/image/issues",
-                "source": "https://github.com/Intervention/image/tree/3.0.0-alpha.3"
+                "source": "https://github.com/Intervention/image/tree/2.7.1"
             },
             "funding": [
                 {
@@ -1385,59 +1351,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-02T09:25:40+00:00"
-        },
-        {
-            "name": "intervention/mimesniffer",
-            "version": "0.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Intervention/mimesniffer.git",
-                "reference": "50f6086af5fa3302ad362864bc5daef15ed702e8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/mimesniffer/zipball/50f6086af5fa3302ad362864bc5daef15ed702e8",
-                "reference": "50f6086af5fa3302ad362864bc5daef15ed702e8",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.12.11",
-                "phpunit/phpunit": "^9.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Intervention\\MimeSniffer\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Oliver Vogel",
-                    "email": "oliver@olivervogel.com",
-                    "homepage": "https://olivervogel.com/"
-                }
-            ],
-            "description": "PHP MIME Type Sniffer",
-            "homepage": "http://intervention.io/",
-            "keywords": [
-                "detector",
-                "mime",
-                "sniffer",
-                "type"
-            ],
-            "support": {
-                "issues": "https://github.com/Intervention/mimesniffer/issues",
-                "source": "https://github.com/Intervention/mimesniffer/tree/0.4.2"
-            },
-            "time": "2020-12-29T09:20:18+00:00"
+            "time": "2021-12-16T16:49:26+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
@@ -9275,9 +9189,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "intervention/image": 15
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

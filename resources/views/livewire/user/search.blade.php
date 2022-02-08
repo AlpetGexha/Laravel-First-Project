@@ -1,6 +1,6 @@
 <div class="d-flex align-self-center shadow  user_search">
     <div id="myDropdown" class="dropdown-content show">
-        <input class="form-control" wire:model='user_search' type="search" autocomplete="no"
+        <input class="form-control" wire:model='user_search' type="search" autocomplete="off"
             placeholder="Kerkoni përdorues" id="myInput">
         @if ($user_search != null)
             @forelse ($user_results as $user_result)

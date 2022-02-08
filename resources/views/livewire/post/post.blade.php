@@ -49,7 +49,7 @@
             <x-jet-label value="{{ __('Foto') }}" />
 
             <x-jet-input class="{{ $errors->has('Foto') ? 'is-invalid' : '' }}" type="file" accept="Image/*"
-                wire:model='Foto' name="Foto" />
+                wire:model.defer='Foto' name="Foto" />
             <x-jet-input-error for="Foto"></x-jet-input-error>
         </div>
 
